@@ -1,7 +1,8 @@
 import React, { Suspense }  from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import SignIn from '../src/containers/Auth/auth';
+import SignIn from '../src/containers/Auth/SignIn';
+import SignUp from '../src/containers/Auth/SignUp';
 
 import * as routez from './shared/routes';
 
@@ -13,6 +14,7 @@ function App() {
     <Suspense >
       <Switch>
         <Route exact path={routez.SIGNIN} component={SignIn}/>
+        <Route exact path={routez.SIGNUP} component={SignUp}/>
         <Redirect path="/" to={routez.SIGNIN} />
       </Switch>
     </Suspense>
