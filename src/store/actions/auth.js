@@ -1,6 +1,7 @@
 import axios from '../../axios-SE';
 import * as actionTypes from './actionTypes';
-import { loginRoute, authRequestTimeoutSec } from '../../shared/consts';
+import { authRequestTimeoutSec } from '../../shared/consts';
+import { login, register } from "../../api/auth";
 
 let authRequestInterceptor;
 
@@ -49,16 +50,17 @@ const checkAuthTimeout = (expirationTime) => (dispatch) => {
     }, expirationTime * 1000)
 };
 
-export const auth = (email, password) => (dispatch) => {
+export const authReg = (gmail, name, gender, postalcode, address) => (dispatch) => {
     dispatch(authStart());
     let authData = {
-        email: email,
-        password: password,
+        email: gmail,
+        password: name,
+        gender: gender,
+        postalcode: postalcode,
+        address: address,
     }
-    let url = loginRoute;
 
-    axios.post(url,
-        authData)
+    register(authData)
         .then((response) => {
             console.log(response)
             console.log(response.data)
@@ -67,10 +69,42 @@ export const auth = (email, password) => (dispatch) => {
                 console.log(response);
                 const expirationDate = new Date(new Date().getTime() + authRequestTimeoutSec * 1000);
                 console.log(response.data.type);
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('usertype', response.data.type);
-                console.log(response.data.stationID);
-                localStorage.setItem('station', response.data.stationID);
+                // localStorage.setItem('token', response.data.token);
+                // localStorage.setItem('usertype', response.data.type);
+                // console.log(response.data.stationID);
+                // localStorage.setItem('station', response.data.stationID);
+                localStorage.setItem('expirationDate', expirationDate);
+                dispatch(authSuccess(response.data.token, response.data.type,response.data.stationID));
+                dispatch(checkAuthTimeout(authRequestTimeoutSec));
+            } else {
+                dispatch(authFail('Invalid Username or Password'));
+            }
+            if (response.error){
+                dispatch(authFail('Invalid Username or Password'));
+            }
+        });
+}
+
+export const auth = (email, password) => (dispatch) => {
+    dispatch(authStart());
+    let authData = {
+        email: email,
+        password: password,
+    }
+
+    login(authData)
+        .then((response) => {
+            console.log(response)
+            console.log(response.data)
+            console.log(response.data.success)
+            if (response.data.success) {
+                console.log(response);
+                const expirationDate = new Date(new Date().getTime() + authRequestTimeoutSec * 1000);
+                console.log(response.data.type);
+                // localStorage.setItem('token', response.data.token);
+                // localStorage.setItem('usertype', response.data.type);
+                // console.log(response.data.stationID);
+                // localStorage.setItem('station', response.data.stationID);
                 localStorage.setItem('expirationDate', expirationDate);
                 dispatch(authSuccess(response.data.token, response.data.type,response.data.stationID));
                 dispatch(checkAuthTimeout(authRequestTimeoutSec));
