@@ -1,5 +1,5 @@
 // General Const
-export const SEHost = 'http://localhost:9000';
+export const SEHost = 'http://localhost:8000';
 
 // Auth Const
 export const authRedirectPath = '/';

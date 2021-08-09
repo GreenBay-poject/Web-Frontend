@@ -4,6 +4,9 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import SignIn from '../src/containers/Auth/auth';
 import Questions from '../src/containers/Questions/questionAnswer';
 import Landing from './containers/Landing/landing';
+import SignIn from '../src/containers/Auth/SignIn';
+import SignUp from '../src/containers/Auth/SignUp';
+
 import * as routez from './shared/routes';
 import './App.css';
 
@@ -17,6 +20,7 @@ function App() {
         <Route exact path={routez.SIGNIN} component={SignIn}/>
         <Route exact path={routez.LANDING} component={Landing}/>
         <Route exact path={routez.QUESTIONS} component={Questions}/>
+        <Route exact path={routez.SIGNUP} component={SignUp}/>
         <Redirect path="/" to={routez.SIGNIN} />
      </Switch>
     </Suspense>
