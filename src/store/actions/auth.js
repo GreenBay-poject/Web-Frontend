@@ -11,7 +11,7 @@ const authStart = () => {
     };
 };
 
-const authSuccess = (token) => {
+const authSuccess = (token, email) => {
     authRequestInterceptor = axios.interceptors.request.use(request => {
         request.headers.Authorization = `Bearer ${token}`;
         return request;
@@ -19,6 +19,7 @@ const authSuccess = (token) => {
 
     return {
         type: actionTypes.AUTH_SUCCESS,
+        email: email,
         idToken: token,
     };
 };
@@ -66,7 +67,7 @@ export const authReg = (gmail, name, gender,age, postalcode, address) => (dispat
                 localStorage.setItem('email', response.data.UserEmail);
                 localStorage.setItem('token', response.data.Token.value);
                 localStorage.setItem('expirationDate', expirationDate);
-                dispatch(authSuccess(response.data.token));
+                dispatch(authSuccess(response.data.token, response.data.UserEmail));
                 dispatch(checkAuthTimeout(authRequestTimeoutSec));
             } else {
                 dispatch(authFail('Invalid Entry'));
@@ -87,12 +88,12 @@ export const auth = (email, password) => (dispatch) => {
     login(authData)
         .then((response) => {
             if (response.data) {
-                console.log(response);
+                console.log(response.data.UserEmail);
                 const expirationDate = new Date(new Date().getTime() + authRequestTimeoutSec * 1000);
                 localStorage.setItem('email', response.data.UserEmail);
                 localStorage.setItem('token', response.data.Token.value);
                 localStorage.setItem('expirationDate', expirationDate);
-                dispatch(authSuccess(response.data.Token.value));
+                dispatch(authSuccess(response.data.Token.value, response.data.UserEmail));
                 dispatch(checkAuthTimeout(authRequestTimeoutSec));
             } else {
                 dispatch(authFail('Invalid Username or Password'));
@@ -112,8 +113,8 @@ export const authCheckState = () => (dispatch) => {
         if (expirationDate <= new Date()) {
             dispatch(authLogout());
         } else {
-            // const email = localStorage.getItem('email');
-            dispatch(authSuccess(token));
+            const email = localStorage.getItem('email');
+            dispatch(authSuccess(token, email));
             dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
         }
     }
