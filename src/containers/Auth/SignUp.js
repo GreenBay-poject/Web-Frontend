@@ -1,14 +1,16 @@
-import React, { useState, useCallback, useEffect}  from 'react';
+import React, { useState, useCallback }  from 'react';
+import { Redirect } from "react-router";
 import { connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
 
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
+import { Button, FormLabel } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import { checkValidity } from '../../shared/validate';
 import { updateObject } from '../../shared/utility';
@@ -16,6 +18,8 @@ import { buildTextFields } from '../../helpers/uiHelpers';
 import { authReg } from '../../store/actions/index';
 import { addAlert } from '../../store/actions/index';
 import * as routez from '../../shared/routes';
+
+import backgroundimage from '../../shared/images/signuppage.jpg';
 
 
 const inputDefinitions = {
@@ -57,6 +61,16 @@ const inputDefinitions = {
           validationErrStr: 'Use between 6 and 40 characters for your password',
       }
     },
+    age: {
+        label: 'Age',
+        type: 'String',
+        validations: {
+            required: true,
+            minLength: 2,
+            maxLength: 40,
+            validationErrStr: 'Use between 6 and 40 characters for your password',
+        }
+      },
     address: {
       label: 'Address',
       type: 'String',
@@ -72,16 +86,28 @@ const inputDefinitions = {
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
-    },
-    paper: {
-        margin: theme.spacing(8, 4),
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         alignItems: 'center',
+    },
+    image: {
+        backgroundImage: backgroundimage ,
+        backgroundRepeat: 'no-repeat',
+        backgroundColor:
+            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        height: '100%',
+        width: '100%'
     },
     avatar: {
         margin: theme.spacing(1),
         backgroundColor: theme.palette.secondary.main,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: '45%'
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -99,12 +125,16 @@ const useStyles = makeStyles((theme) => ({
 
 function SignIn(props) {
     const classes = useStyles();
+    const { isAuthenticated, error } = props;
     let history = useHistory();
+
+    const redirectUrl = "";
 
     const [inputIsValid, setInputIsValid] = useState({
       gmail: true,
       name: true,
       gender: true,
+      age: true,
       postalcode: true,
       address: true,
     });
@@ -113,6 +143,7 @@ function SignIn(props) {
       gmail: '',
       name: '',
       gender: '',
+      age: '',
       postalcode: '',
       address: '',
     });
@@ -125,6 +156,9 @@ function SignIn(props) {
           styleClass: classes.loginInput
       },
       gender: {
+        styleClass: classes.loginInput
+      },
+      age: {
         styleClass: classes.loginInput
       },
       postalcode: {
@@ -159,6 +193,7 @@ function SignIn(props) {
         localInputIsValid['gmail'] = checkInputValidity('gmail');
         localInputIsValid['name'] = checkInputValidity('name');
         localInputIsValid['gender'] = checkInputValidity('gender');
+        localInputIsValid['age'] = checkInputValidity('age');
         localInputIsValid['postalcode'] = checkInputValidity('postalcode');
         localInputIsValid['address'] = checkInputValidity('address');
         setInputIsValid(localInputIsValid);
@@ -168,68 +203,80 @@ function SignIn(props) {
                 authObj.gmail,
                 authObj.name,
                 authObj.gender,
+                authObj.age,
                 authObj.postalcode,
                 authObj.address,
             );
         }
     }, [authObj, checkInputValidity, inputIsValid, props]);
 
-    const authError = props.error;
-    useEffect(() => {
-        if (authError) {
-            alert(authError)
-        }
-    }, [authError,history]);
+    let formErrorLabel = null;
+    if (error) {
+        formErrorLabel = (
+            <div>
+                <FormLabel error={true}>
+                    {(error)}
+                </FormLabel>
+            </div>
+        );
+    }
 
-    if (props.isAuthenticated){
-        history.push(routez.SIGNUP);
+    if (isAuthenticated) {
+		if (redirectUrl === "") return <Redirect to={routez.FEED} />;
+		return <Redirect to={redirectUrl} />;
     }
 
   return (
-      <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-              Sign Up
-          </Typography>
-          <form noValidate autoComplete="off" className={classes.form} onSubmit={onSubmitHandler}>
-              {inputFields}
-              <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-              >
-                  Sign Up
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
+    <Grid container component="main" className={classes.root}>
+        <CssBaseline />
+        <Grid item xs={false} sm={4} md={7} className={classes.image} />
+        <Grid item xs={12} sm={8} md={5} elevation={6} square>
+            <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+                Sign Up
+            </Typography>
+            <form noValidate autoComplete="off" className={classes.form} onSubmit={onSubmitHandler}>
+                {formErrorLabel}
+                {inputFields}
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                >
+                    Sign Up
+                </Button>
+                <Grid container>
+                    <Grid item xs>
+                    <Link href="#" variant="body2">
+                        Forgot password?
+                    </Link>
+                    </Grid>
+                    <Grid item>
+                    <Link onClick={ ()=> history.push("/signin")} variant="body2">
+                        {"Have an account? Sign In"}
+                    </Link>
+                    </Grid>
                 </Grid>
-                <Grid item>
-                  <Link onClick={ ()=> history.push("/signin")} variant="body2">
-                    {"Have an account? Sign In"}
-                  </Link>
-                </Grid>
-              </Grid>
-          </form>
-      </div>
+            </form>
+        </Grid>
+    </Grid>
   );
 }
 
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.token != null,
+        error: state.auth.error,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAuth: (gmail, name, gender, postalcode, address) => dispatch(authReg(gmail, name, gender, postalcode, address)),
+        onAuth: (gmail, name, gender, age, postalcode, address) => dispatch(authReg(gmail, name, gender, age, postalcode, address)),
         addAlert: (alert) => dispatch(addAlert(alert))
     }
 };

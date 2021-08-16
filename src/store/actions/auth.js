@@ -11,7 +11,7 @@ const authStart = () => {
     };
 };
 
-const authSuccess = (token, type, stationId) => {
+const authSuccess = (token) => {
     authRequestInterceptor = axios.interceptors.request.use(request => {
         request.headers.Authorization = `Bearer ${token}`;
         return request;
@@ -20,13 +20,10 @@ const authSuccess = (token, type, stationId) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         idToken: token,
-        usertype: type,
-        station: stationId,
     };
 };
 
 const authFail = (error) => {
-    console.log("hiii")
     return {
         type: actionTypes.AUTH_FAIL,
         error: error
@@ -35,9 +32,8 @@ const authFail = (error) => {
 
 export const authLogout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('usertype');
-    localStorage.removeItem('station');
     localStorage.removeItem('expirationDate');
+    localStorage.removeItem('email');
     axios.interceptors.request.eject(authRequestInterceptor);
     return {
         type: actionTypes.AUTH_LOGOUT
@@ -50,37 +46,33 @@ const checkAuthTimeout = (expirationTime) => (dispatch) => {
     }, expirationTime * 1000)
 };
 
-export const authReg = (gmail, name, gender, postalcode, address) => (dispatch) => {
+export const authReg = (gmail, name, gender,age, postalcode, address) => (dispatch) => {
     dispatch(authStart());
     let authData = {
         email: gmail,
-        password: name,
+        name: name,
         gender: gender,
+        age: age,
         postalcode: postalcode,
         address: address,
     }
-
+    console.log(authData)
     register(authData)
         .then((response) => {
             console.log(response)
             console.log(response.data)
-            console.log(response.data.success)
-            if (response.data.success) {
-                console.log(response);
+            if (response.data) {
                 const expirationDate = new Date(new Date().getTime() + authRequestTimeoutSec * 1000);
-                console.log(response.data.type);
-                // localStorage.setItem('token', response.data.token);
-                // localStorage.setItem('usertype', response.data.type);
-                // console.log(response.data.stationID);
-                // localStorage.setItem('station', response.data.stationID);
+                localStorage.setItem('email', response.data.UserEmail);
+                localStorage.setItem('token', response.data.Token.value);
                 localStorage.setItem('expirationDate', expirationDate);
-                dispatch(authSuccess(response.data.token, response.data.type,response.data.stationID));
+                dispatch(authSuccess(response.data.token));
                 dispatch(checkAuthTimeout(authRequestTimeoutSec));
             } else {
-                dispatch(authFail('Invalid Username or Password'));
+                dispatch(authFail('Invalid Entry'));
             }
             if (response.error){
-                dispatch(authFail('Invalid Username or Password'));
+                dispatch(authFail('Invalid Entry'));
             }
         });
 }
@@ -94,19 +86,13 @@ export const auth = (email, password) => (dispatch) => {
 
     login(authData)
         .then((response) => {
-            console.log(response)
-            console.log(response.data)
-            console.log(response.data.success)
-            if (response.data.success) {
+            if (response.data) {
                 console.log(response);
                 const expirationDate = new Date(new Date().getTime() + authRequestTimeoutSec * 1000);
-                console.log(response.data.type);
-                // localStorage.setItem('token', response.data.token);
-                // localStorage.setItem('usertype', response.data.type);
-                // console.log(response.data.stationID);
-                // localStorage.setItem('station', response.data.stationID);
+                localStorage.setItem('email', response.data.UserEmail);
+                localStorage.setItem('token', response.data.Token.value);
                 localStorage.setItem('expirationDate', expirationDate);
-                dispatch(authSuccess(response.data.token, response.data.type,response.data.stationID));
+                dispatch(authSuccess(response.data.Token.value));
                 dispatch(checkAuthTimeout(authRequestTimeoutSec));
             } else {
                 dispatch(authFail('Invalid Username or Password'));
@@ -126,10 +112,8 @@ export const authCheckState = () => (dispatch) => {
         if (expirationDate <= new Date()) {
             dispatch(authLogout());
         } else {
-            const usertype = localStorage.getItem('usertype');
-            const stationId = localStorage.getItem('station');
-            console.log(stationId);
-            dispatch(authSuccess(token, usertype, stationId));
+            // const email = localStorage.getItem('email');
+            dispatch(authSuccess(token));
             dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
         }
     }
