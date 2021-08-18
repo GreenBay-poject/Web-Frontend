@@ -77,7 +77,7 @@ const inputDefinitions = {
       validations: {
           required: true,
           minLength: 2,
-          maxLength: 40,
+          maxLength: 200,
           validationErrStr: 'Use between 6 and 40 characters for your password',
       }
   }
