@@ -1,15 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from 'react-redux';
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import {
+    alpha,
+    withStyles,
+  } from '@material-ui/core/styles';
+  import InputBase from '@material-ui/core/InputBase';
 
 import { addAlert } from '../../store/actions/index';
-import { getUserDetails } from "../../api/auth";
+
+const BootstrapInput = withStyles((theme) => ({
+    root: {
+      'label + &': {
+        marginTop: theme.spacing(3),
+      },
+    },
+    input: {
+      borderRadius: 4,
+      position: 'relative',
+      backgroundColor: theme.palette.common.white,
+      border: '1px solid #ced4da',
+      fontSize: 16,
+      width: 'auto',
+      padding: '10px 12px',
+      transition: theme.transitions.create(['border-color', 'box-shadow']),
+      // Use the system font instead of the default Roboto font.
+      fontFamily: [
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(','),
+      '&:focus': {
+        boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+        borderColor: theme.palette.primary.main,
+      },
+    },
+  }))(InputBase);
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,25 +62,11 @@ const useStyles = makeStyles((theme) => ({
 
 const UserProfile = props =>  {
     const classes = useStyles();
-    const { email } = props;
-    const [isLoading, setIsLoading] = useState(true);
-    const [ usrDetails, setUsrDetails] =useState([]);
-
-    useEffect(() => {
-        if (isLoading ) {
-           getUserDetails({email:email})
-            .then((response) => {
-              if (!response.error) {
-                setUsrDetails(response.data.UserDetails)
-              }
-            })
-            .finally(() => setIsLoading(false));
-        }
-    }, [isLoading, email]);
+    const { usrDetails } = props;
 
     return (
         <div className={classes.root}>  
-            <Card className={classes.card}>
+            <Card className={classes.card} elevation={3}>
                 <CardHeader
                     title="My profile"
                     subheader="GreenBay"
@@ -49,73 +75,52 @@ const UserProfile = props =>  {
                     <form noValidate autoComplete="off">
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
-                                <TextField
-                                    id="Username"
-                                    label="User Name"
-                                    value={usrDetails.username}
-                                    fullWidth
-                                    InputProps={{
-                                        readOnly: true,
-                                    }}
-                                />
+                                <FormControl className={classes.margin}>
+                                        <InputLabel shrink htmlFor="bootstrap-input">
+                                            User Name
+                                        </InputLabel>
+                                        <BootstrapInput defaultValue="Username" value={usrDetails.username} id="Username" />
+                                </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <TextField
-                                    type="name"
-                                    id="gender"
-                                    label="Gender"
-                                    fullWidth
-                                    value={usrDetails.gender}
-                                    InputProps={{
-                                        readOnly: true,
-                                    }}
-                                />
+                                <FormControl className={classes.margin}>
+                                        <InputLabel shrink htmlFor="bootstrap-input">
+                                            Gender
+                                        </InputLabel>
+                                        <BootstrapInput defaultValue="Gender" value={usrDetails.gender} id="gender" />
+                                </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <TextField
-                                    id="email"
-                                    label="Email"
-                                    type="name"
-                                    fullWidth
-                                    value={usrDetails.useremail}
-                                    InputProps={{
-                                        readOnly: true,
-                                    }}
-                                />
+                                <FormControl className={classes.margin}>
+                                        <InputLabel shrink htmlFor="bootstrap-input">
+                                            Email
+                                        </InputLabel>
+                                        <BootstrapInput defaultValue="Email" value={usrDetails.useremail} id="email" />
+                                </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <TextField
-                                    id="age"
-                                    label="Age"
-                                    InputProps={{
-                                        readOnly: true,
-                                    }}
-                                    fullWidth
-                                    value={usrDetails.age}
-                                />
+                                <FormControl className={classes.margin}>
+                                        <InputLabel shrink htmlFor="bootstrap-input">
+                                            Age
+                                        </InputLabel>
+                                        <BootstrapInput defaultValue="Age" value={usrDetails.age} id="age" />
+                                </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        margin="address"
-                                        id="Address"
-                                        label="Adress"
-                                        fullWidth
-                                        value={usrDetails.address}
-                                        InputProps={{
-                                            readOnly: true,
-                                        }}
-                                    />
+                                <FormControl className={classes.margin}>
+                                        <InputLabel shrink htmlFor="bootstrap-input">
+                                        Adress
+                                        </InputLabel>
+                                        <BootstrapInput defaultValue="Adress" value={usrDetails.address} id="address" />
+                                </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <TextField
-                                    id="postalcode"
-                                    label="Postal Code"
-                                    fullWidth
-                                    value={usrDetails.postalcode}
-                                    InputProps={{
-                                        readOnly: true,
-                                    }}
-                                />
+                                <FormControl className={classes.margin}>
+                                        <InputLabel shrink htmlFor="bootstrap-input">
+                                        Postal Code
+                                        </InputLabel>
+                                        <BootstrapInput defaultValue="Postal Code" value={usrDetails.postalcode} id="postalcode" />
+                                </FormControl>
                             </Grid>
                         </Grid>
                     </form>

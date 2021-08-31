@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory} from "react-router";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -15,8 +14,9 @@ import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 
 import { addAlert } from '../../store/actions/index';
+import { getUserDetails } from "../../api/auth";
 import UserDetails from "../UserProfile/UserDetails"
-import backgroundimage from '../../shared/images/signuppage.jpg';
+import backgroundimage from '../UserProfile/images/signuppage.jpg';
 import * as routez from '../../shared/routes';
 
 const useStyles = makeStyles((theme) => ({
@@ -44,12 +44,16 @@ const useStyles = makeStyles((theme) => ({
   large: {
     width: theme.spacing(7),
     height: theme.spacing(7),
-    backgroundImage: backgroundimage ,
+    borderRadius: '50%',
+    objectFit: 'cover',
+    backgroundImage: `url(${backgroundimage})` ,
     backgroundRepeat: 'no-repeat',
     backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
+
   },
+
   imagecard:{
     flexDirection: 'column',
     alignItems: 'center',
@@ -60,8 +64,22 @@ const useStyles = makeStyles((theme) => ({
 function UserProfile(props) {
   const classes = useStyles();
   const history = useHistory();
-  const { isAuthenticated } = props;
-  console.log(props.email)
+  const { isAuthenticated, email } = props;
+  const [isLoading, setIsLoading] = useState(true);
+  const [ usrDetails, setUsrDetails] =useState([]);
+
+    useEffect(() => {
+        if (isLoading ) {
+           getUserDetails({email:email})
+            .then((response) => {
+              if (!response.error) {
+                setUsrDetails(response.data.UserDetails)
+              }
+            })
+            .finally(() => setIsLoading(false));
+        }
+    }, [isLoading, email]);
+
   if (!isAuthenticated) {
 		history.push(routez.SIGNIN)
   }
@@ -70,16 +88,16 @@ function UserProfile(props) {
     <div className={classes.root}>
       <Grid container spacing={3} className={classes.layout}>
         <Grid item xs={12} sm={4} className={classes.leftcontainer} >
-          <Paper className={classes.imagecard}>
-              <Avatar alt="Remy Sharp" className={classes.large} />
+          <Paper className={classes.imagecard} elevation={3}>
+              <img alt="pp" className={classes.large}/> 
               <Typography variant="h5" gutterBottom>
-                Isuru Ariyarathne
+                {usrDetails.username}
               </Typography>
               <Typography variant="h6" gutterBottom>
-                isuru.18@cse.mrt.ac.lk
+                {usrDetails.useremail}
               </Typography>
           </Paper>
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper} elevation={3}>
               <List component="nav" aria-label="main mailbox folders">
                 <ListItem button>
                   <ListItemIcon>
@@ -97,7 +115,7 @@ function UserProfile(props) {
           </Paper>
         </Grid>
         <Grid item xs={12} sm={8} className={classes.rightcontainer}>
-            {isAuthenticated ? <UserDetails /> :<UserDetails />}
+              {isAuthenticated ? <UserDetails usrDetails={usrDetails}/> :<UserDetails />}
         </Grid>
       </Grid>
     </div>
