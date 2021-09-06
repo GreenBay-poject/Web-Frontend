@@ -8,6 +8,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import Typography from '@material-ui/core/Typography';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import 'react-quill/dist/quill.snow.css';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 import PostCard from '../../components/UI/PostCard';
 import Modal from "../Feed/Modal";
@@ -44,6 +45,13 @@ const useStyles = makeStyles((theme) => ({
     },
     buttonalign: {
         alignItems: 'right',
+    },
+    skeltonbody: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      width: "100%",
+      paddingBottom:"30px"
     },
 }));
 
@@ -82,7 +90,7 @@ function FeedPage(props) {
 
   return (
       <React.Fragment>
-        <div className={classes.root}>
+          <div className={classes.root}>
             <Grid container spacing={3} className={classes.container}>
                 <Grid container spacing={3} className={classes.buttonalign}>
                     <Grid item xs>
@@ -99,23 +107,39 @@ function FeedPage(props) {
                     </Grid>
                 </Grid>
                 <div>
-				      {postslist ? 
-                  postslist.map((author) => 
-                    author.posts.map((post) => 
-                      <PostCard
-                          key={post.post_id}
-                          title={post.Title}
-                          image={post.Image}
-                          description={post.Description}
-                          dateposted={post.DatePosted}
-                          ministry={author.ministry_name}
-                      />
-                    )
-                  ): null
-              }
-			    </div>
+                    {postslist ? 
+                        postslist.map((author) => 
+                          author.posts.map((post) => 
+                            <PostCard
+                                key={post.post_id}
+                                title={post.Title}
+                                image={post.Image}
+                                description={post.Description}
+                                dateposted={post.DatePosted}
+                                ministry={author.ministry_name}
+                            />
+                          )
+                        )
+                        : null
+                    }
+                </div>
             </Grid>
-        </div>
+          </div>
+          <Grid container className={classes.skeltonbody}>
+            <Grid item xs={12} sm={12}>
+              <Skeleton variant="circle" width={30} height={30} />
+              <Skeleton variant="rect" width={1000} height={50} />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <Skeleton variant="circle" width={30} height={30} />
+              <Skeleton variant="rect" width={1000} height={50} />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <Skeleton variant="circle" width={30} height={30} />
+              <Skeleton variant="rect" width={1000} height={50} />
+            </Grid>
+          </Grid>
+
         <div className={classes.pagination}>
             <Typography>Page: {page}</Typography>
             <Pagination count={10} page={page} onChange={handleChange} />
@@ -124,6 +148,7 @@ function FeedPage(props) {
           open={open}
           handleClose={handleClose}
         />
+
       </React.Fragment>
   );
 }
