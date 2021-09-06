@@ -71,17 +71,17 @@ function UserProfile(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [ usrDetails, setUsrDetails] =useState([]);
 
-    useEffect(() => {
-        if (isLoading ) {
-           getUserDetails({email:email})
-            .then((response) => {
-              if (!response.error) {
-                setUsrDetails(response.data.UserDetails)
-              }
-            })
-            .finally(() => setIsLoading(false));
-        }
-    }, [isLoading, email]);
+  useEffect(() => {
+      if (isLoading ) {
+          getUserDetails({email:email})
+          .then((response) => {
+            if (!response.error) {
+              setUsrDetails(response.data.UserDetails)
+            }
+          })
+          .finally(() => setIsLoading(false));
+      }
+  }, [isLoading, email]);
 
   if (!isAuthenticated) {
 		history.push(routez.SIGNIN)

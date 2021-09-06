@@ -14,52 +14,68 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import ImageIcon from '@material-ui/icons/Image';
+import Grid from '@material-ui/core/Grid';
+
+import defaultimages from '../Images/defaultimage.png';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    width: "100%",
+    margin: "20px"
   },
   media: {
-    height: 140,
+    height: 150,
   },
   description: {
-      height: "400px"
+      display: "flex",
+      textAlign: "left"
   }
 });
 
 export default function PostCard(props) {
     const classes = useStyles();
-    const {data} = props;
-    console.log(data)
+    const { key, title, image, description, dateposted, ministry} = props;
+
+    const handleDelete = () => {
+        console.log(key)
+    };
+
+      
     return (
         <Card className={classes.root}>
         <CardActionArea>
-            <CardMedia
-                className={classes.media}
-                image= {data[0].image_url}
-                title="Contemplative Reptile"
-            />
-             <List className={classes.root}>
-                <ListItem>
-                    <ListItemAvatar>
-                    <Avatar>
-                        <ImageIcon />
-                    </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-                </ListItem>
-             </List>
-            <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-                {data[0].title}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p"  className={classes.description}>
-                {data[0].description}
-            </Typography>
-            </CardContent>
+            <Grid container spacing={3} className={classes.layout}>
+                <Grid item xs={12} sm={4}>
+                    <CardMedia
+                        className={classes.media}
+                        image= {image ? image : defaultimages}
+                        title="Contemplative Reptile"
+                    />
+                    <List className={classes.root}>
+                        <ListItem>
+                            <ListItemAvatar>
+                            <Avatar>
+                                <ImageIcon />
+                            </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText primary={ministry} secondary={dateposted} />
+                        </ListItem>
+                    </List>
+                </Grid>
+                <Grid item xs={12} sm={8}>
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            {title}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p"  className={classes.description}>
+                            {description}
+                        </Typography>
+                    </CardContent>
+                </Grid>
+            </Grid>
         </CardActionArea>
         <CardActions>
-            <Button size="small" color="secondary">
+            <Button size="small" color="secondary" onclick={handleDelete}>
                 Delete
             </Button>
         </CardActions>
