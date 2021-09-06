@@ -27,37 +27,40 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+    marginTop: "10px"
   },
   layout:{
     height: "100%",
     margin: "10px"
   },
-  leftcontainer:{
-    // display: 'flex',
-    // flexDirection: 'column',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+  leftcontainerbox:{
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   rightcontainer:{
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
     height: "100%"
   },
   large: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
+    width: "140px",
+    height: "130px",
     borderRadius: '50%',
     objectFit: 'cover',
-    backgroundImage: `url(${backgroundimage})` ,
     backgroundRepeat: 'no-repeat',
     backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
-
   },
 
   imagecard:{
+    display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: theme.spacing(2),
   }
 }));
 
@@ -88,34 +91,36 @@ function UserProfile(props) {
     <div className={classes.root}>
       <Grid container spacing={3} className={classes.layout}>
         <Grid item xs={12} sm={4} className={classes.leftcontainer} >
-          <Paper className={classes.imagecard} elevation={3}>
-              <img alt="pp" className={classes.large}/> 
-              <Typography variant="h5" gutterBottom>
-                {usrDetails.username}
-              </Typography>
-              <Typography variant="h6" gutterBottom>
-                {usrDetails.useremail}
-              </Typography>
-          </Paper>
-          <Paper className={classes.paper} elevation={3}>
-              <List component="nav" aria-label="main mailbox folders">
-                <ListItem button>
-                  <ListItemIcon>
-                    <InboxIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="My Profile" />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon>
-                    <DraftsIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Change Passowrd" />
-                </ListItem>
-              </List>
-          </Paper>
+          <div className={classes.leftcontainerbox}>
+            <Paper className={classes.imagecard} elevation={3}>
+                <img alt="pp" className={classes.large} src={backgroundimage}/> 
+                <Typography variant="h5" gutterBottom>
+                  {usrDetails.username}
+                </Typography>
+                <Typography variant="h7" gutterBottom>
+                  {usrDetails.useremail}
+                </Typography>
+            </Paper>
+            <Paper className={classes.paper} elevation={3}>
+                <List component="nav" aria-label="main mailbox folders">
+                  <ListItem button>
+                    <ListItemIcon>
+                      <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="My Profile" />
+                  </ListItem>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <DraftsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Change Passowrd" />
+                  </ListItem>
+                </List>
+            </Paper>
+          </div>
         </Grid>
         <Grid item xs={12} sm={8} className={classes.rightcontainer}>
-              {isAuthenticated ? <UserDetails usrDetails={usrDetails}/> :<UserDetails />}
+              {isAuthenticated ? <UserDetails usrDetails={usrDetails}/> :<UserDetails usrDetails={usrDetails}/>}
         </Grid>
       </Grid>
     </div>

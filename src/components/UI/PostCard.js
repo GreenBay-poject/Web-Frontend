@@ -22,6 +22,9 @@ const useStyles = makeStyles({
   media: {
     height: 140,
   },
+  description: {
+      height: "400px"
+  }
 });
 
 export default function PostCard(props) {
@@ -50,7 +53,7 @@ export default function PostCard(props) {
             <Typography gutterBottom variant="h5" component="h2">
                 {data[0].title}
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
+            <Typography variant="body2" color="textSecondary" component="p"  className={classes.description}>
                 {data[0].description}
             </Typography>
             </CardContent>

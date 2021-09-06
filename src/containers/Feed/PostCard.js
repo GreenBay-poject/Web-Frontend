@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState, useCallback} from 'react';
+import Axios from 'axios';
+import { connect } from 'react-redux';
+import Image from 'cloudinary-react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { LinearProgress, Grid } from '@material-ui/core';
@@ -14,7 +17,29 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 import PostCard from '../../components/UI/PostCard';
+import { addPost, deletePost, getPosts } from "../../api/feed";
+import { checkValidity } from '../../shared/validate';
+import { updateObject } from '../../shared/utility';
+import { addAlert } from '../../store/actions/index';
 
+const inputDefinitions = {
+    title: {
+        validations: {
+            required: true,
+            minLength: 2,
+            maxLength: 40,
+            validationErrStr: 'Use between 6 and 40 characters for your password',
+        }
+    },
+    description: {
+        validations: {
+            // required: false,
+            // minLength: 2,
+            // maxLength: 40,
+            validationErrStr: 'Use between 6 and 40 characters for your password',
+        }
+    },
+};
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -51,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        overflowY: 'scroll',
     },
     modelpaper: {
         backgroundColor: theme.palette.background.paper,
@@ -62,52 +88,81 @@ const useStyles = makeStyles((theme) => ({
     progressBar: {
         width: '100%',
     },
+    inputitems: {
+        padding: theme.spacing(0, 0, 2),
+    },
+    postbutton: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: "5px"
+    }
 }));
-const postData=[{"title":"Deforestation pattern 1", "user":"IsuruAriyarathne1", "description":"description1", "posted_date":"July 2nd 2021", "image_url":"http://wallup.net/wp-content/uploads/2016/01/20264-nature-forest-trees-green.jpg", "user_profile":"https://pixabay.com/illustrations/icon-user-male-avatar-business-5359553/"}]
+const postData=[{"title":"Left Hand Batsman", "user":"Kumar Saqngakkara", "description":"Kioni is just one of several new additions to the OKC Zoo family, which has recently welcomed a rare clouded leopard kitten, three Eastern massasauga snakelets and four black tree monitor hatchlings, as well as two adult bat-eared foxes. Another giraffe calf is expected soon, as well as an Asian elephant calf due in February.Our animal family is always growing, said Candice Rennels, zoo director of public relations. It is very exciting that there are so many right now and that they're all so diverse in species. ... These new births are ambassadors for their species as a whole and are really contributing to the longevity of their populations", "posted_date":"July 2nd 2021", "image_url":"http://wallup.net/wp-content/uploads/2016/01/20264-nature-forest-trees-green.jpg", "user_profile":"https://tse4.mm.bing.net/th?id=OIF.80AzBCd4Wr3ljsbO%2bjqFVQ&pid=Api&P=0&w=300&h=300"}]
+const postData2=[{"title":"Right Hand Batsman", "user":"Mahela Jayawardhane", "description":"st one of several new additions to the OKC Zoo family, which has recently welcomed a rare clouded leopard kitten, three Eastern massasauga snakelets and four black tree monitor hatchlings, as well as two adult bat-eared foxes.ected soon, as well as an Asian elephant calf due in February.Our animal family is always growing, said Candice Rennels, zoo director of public relations. It is very exciting that there are so many right now and that they're all so diverse in species. ... These new births are ambassadors for their species as a whole and are really contributing to the longevity of their populations", "posted_date":"July 2nd 2021", "image_url":"https://cdn.pixabay.com/photo/2012/03/01/00/21/bridge-19513__480.jpg", "user_profile":"https://pixabay.com/illustrations/icon-user-male-avatar-business-5359553/"}]
+const postData3=[{"title":"Good Captain", "user":"Angelo Mathews", "description":"Kioni is judditions to the OKC Zoo family, which has recently welcomed a rare cloudedtern massaslack tree monitor hatchlings, as well as two adult bat-eared foxes. Another giraffe calf is expected soon, as well as an Asian elephant calf due in February.Our animal family is always growing, said Candice Rennels, zoo director of public relations. It is very exciting that there are so many right now and that they're all so diverse in species. ... These new births are ambassadors for their species as a whole and are really contributing to the longevity of their populations", "posted_date":"July 2nd 2021", "image_url":"https://cdn.pixabay.com/photo/2018/01/12/14/24/night-3078326__340.jpg", "user_profile":"https://tse4.mm.bing.net/th?id=OIF.80AzBCd4Wr3ljsbO%2bjqFVQ&pid=Api&P=0&w=300&h=300"}]
+const postData4=[{"title":"Best yorker Bowler", "user":"Lasith Malinga", "description":"eral new additions to the OKC Zoo family, which has recently welcomed a rare clouded leopard kitten, three Eastern massasauga snakelets and four black tree monitor hatchlings, as well as two adult bat-eared foxes. Another giraffe calf is expected soon, as well as an Asian elephant calf due in February.Our animal family is always growing, said Candice Rennels, zoo director of public relations. It is very exciting that there are so many right now and that theyin species. ... These new births are ambassadors for their species as a whole and are really contributing to the longevity of their populations", "posted_date":"July 2nd 2021", "image_url":"https://cdn.pixabay.com/photo/2013/06/09/09/07/explosion-123690__340.jpg", "user_profile":"https://tse1.mm.bing.net/th?id=OIF.Zi9U%2fN3XTHKRoIlXYa6TyA&pid=Api&P=0&w=300&h=300"}]
+const postData5=[{"title":"Born Skill", "user":"Aravindada de silva", "description":"Kioni is just one of several new additions to the OKC Zoo family, which has recently welcomed a rare clouded leopard kitten, three Eastern massasauga snakelets and four black tree monitor hatchlings, as well as two adult bat-eared foxes. d soon, as well as an Asian elephant calf due in February.Our animal family is always growing, said Candice Rennels, zoo director of public relations. It is very exciting that there are so many right now and that they're all so diverse in species. ... These new births are ambassadors for their species as a whole and are really contributing to the longevity of their populations", "posted_date":"July 2nd 2021", "image_url":"https://cdn.pixabay.com/photo/2019/09/08/20/54/elephant-4461911__340.jpg", "user_profile":"https://tse3.mm.bing.net/th?id=OIP.aiZsNd4oIfLRAd56W_OpuAHaGL&pid=Api&P=0&w=188&h=158"}]
+const postData6=[{"title":"Best all-rounder", "user":"Tilakarathne Dilshan", "description":"family, which has recently welcomed a rare clouded leopard kitten, three Eastern massasauga snakelets and four black tree monitor hatchlings, as well as two adult bat-eared foxes. Another giraffe calf is expected soon, as well as an Asian elephant calf due in February.Our animal family is always growing, said Candice Rennels, zoo director of public relations. It is very exciting that there are so many right now and that they're all so diverse in species. ... These new births are ambassadors for their species as a whole and are really contributing to the longevity of their populations", "posted_date":"July 2nd 2021", "image_url":"https://cdn.pixabay.com/photo/2016/09/27/19/07/forest-1699078__340.jpg", "user_profile":"https://tse4.mm.bing.net/th?id=OIF.80AzBCd4Wr3ljsbO%2bjqFVQ&pid=Api&P=0&w=300&h=300"}]
+const postData7=[{"title":"Wownidu!", "user":"Wanidu Hasaranga", "description":"Kioni  is just one of several new additions to the OKC Zoo family, which has recently welcomed a rare clouded leopard kitten, three Eastern massasauga snakelets and four black tree monitor hatchlings, as well as two adult bat-eared foxes. d soon, as well as an Asian elephant calf due in February.Our animal family is always growing, said Candice Rennels, zoo director of public relations. It is very exciting that there are so many right now and that they're all so diverse in species. ... These new birthsand are really contributing to the longevity of their populations", "posted_date":"July 2nd 2021", "image_url":"http://wallup.net/wp-content/uploads/2016/01/20264-nature-forest-trees-green.jpg", "user_profile":"https://pixabay.com/illustrations/icon-user-male-avatar-business-5359553/"}]
 
-export default function MediaCard() {
+function FeedPage(props) {
   const classes = useStyles();
+  const { isAuthenticated, email } = props;
   const [page, setPage] = React.useState(1);
   const [open, setOpen] = React.useState(false);
-//   const [quillVal, setQuillVal] = React.useState(false); //for later usage
-  const [setQuillVal] = React.useState(false);
-  const [progress, setProgress] = React.useState(0);
-  const [buffer, setBuffer] = React.useState(10);
-//   const [file, setFile] = React.useState('');   //for later usage
-  const [setFile] = React.useState('');
+  const [quillVal, setQuillVal] = React.useState(false); 
+//   const [progress, setProgress] = React.useState(0);
+  const [imageUrl,setimageUrl] =useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [file, setFile] = React.useState('');
   const onSelectFileChanged = (event) => {
   const file = event.target.files[0];
     setFile(file);
   };
+  const [value, setValue] = useState('');
 
-  const progressRef = React.useRef(() => {});
-  React.useEffect(() => {
-    progressRef.current = () => {
-      if (progress > 100) {
-        setProgress(0);
-        setBuffer(10);
-      } else {
-        const diff = Math.random() * 10;
-        const diff2 = Math.random() * 10;
-        setProgress(progress + diff);
-        setBuffer(progress + diff + diff2);
-      }
-    };
+  const [inputIsValid, setInputIsValid] = useState({
+    title: true,
+    description: true,
   });
 
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      progressRef.current();
-    }, 500);
+  const [stateObj, setStateObj] = useState({
+    title: '',
+    description: '',
+  });
 
-    return () => {
-      clearInterval(timer);
-    };
+  const inputChangeHandler = useCallback((event, inputId) => {
+    let validationConst = inputDefinitions[inputId].validations;
+    let isValid = checkValidity(validationConst, event.target.value);
+    setInputIsValid(updateObject(inputIsValid, { [inputId]: isValid }));
+    setStateObj(updateObject(stateObj, { [inputId]: event.target.value }))
+  }, [stateObj, inputIsValid]);
+
+  const onSubmitHandler = useCallback((event) => {
+      console.log("postttttttttttttttttttt")
+    const data ={
+        "email": email,
+        "title": stateObj.title,
+        "description": quillVal,
+        "image_url": imageUrl,
+    }
+    console.log(data)
+    addPost(data)
+        .then((response) => {
+        if (!response.error) {
+            console.log("successfull")
+        } else {
+            console.log(response)  
+        }
+        })
+     console.log("hiiii")
   }, []);
 
 
-  const onChange = (event) => {
-    setQuillVal(event.target.value)
+  const onChange = (value) => {
+    console.log(typeof(value))
+    setQuillVal(value)
   }
 
   const handleOpen = () => {
@@ -122,6 +177,41 @@ export default function MediaCard() {
     setPage(value);
   };
 
+//   const handleOnPause = (prgs) => {
+//     setProgress(prgs);
+//   };
+//   const handleOnRunning = (prgs) => {
+//     setProgress(prgs);
+//   };
+
+  const handleOnComplete = () => {
+    var FormData = require('form-data');
+    return new Promise((resolve, reject) => {
+        console.log("hiiiii")
+        var formdata =new FormData();
+        formdata.append('file', file);
+        formdata.append('upload_preset','x66yntbe');
+        // const cloudinaryURL ="https://api.cloudinary.com/v1_1/isuruieee/image/upload";
+        Axios.post(
+        "https://api.cloudinary.com/v1_1/isuruieee/image/upload",
+        formdata
+        ).then((response) => {
+        setimageUrl(response.data.url)
+        console.log(response.data.url)
+        console.log(imageUrl)
+        })
+        .catch((error) => {
+        console.log(error)
+        })
+    })
+  };
+
+//   const onUploadButtonClicked = () => {
+//         handleOnPause
+//         handleOnRunning
+//         handleOnComplete
+//   }
+
   return (
       <React.Fragment>
         <div className={classes.root}>
@@ -134,6 +224,7 @@ export default function MediaCard() {
                             className={classes.button}
                             startIcon={<CloudUploadIcon />}
                             onClick={handleOpen}
+                            hidden={!isAuthenticated}
                         >
                             Upload New Post
                         </Button>
@@ -144,24 +235,24 @@ export default function MediaCard() {
                         <PostCard data={postData}/>
                     </Grid>
                     <Grid item xs>
-                        <PostCard data={postData}/>
+                        <PostCard data={postData2}/>
                     </Grid>
                     <Grid item xs>
-                        <PostCard data={postData}/>
+                        <PostCard data={postData3}/>
                     </Grid>
                     <Grid item xs>
-                        <PostCard data={postData}/>
+                        <PostCard data={postData4}/>
                     </Grid>
                 </Grid>
                 <Grid container spacing={3} className={classes.container}>
                     <Grid item xs>
-                        <PostCard data={postData}/>
+                        <PostCard data={postData5}/>
                     </Grid>
                     <Grid item xs>
-                        <PostCard data={postData}/>
+                        <PostCard data={postData6}/>
                     </Grid>
                     <Grid item xs>
-                        <PostCard data={postData}/>
+                        <PostCard data={postData7}/>
                     </Grid>
                 </Grid>
                 <Grid container spacing={3} className={classes.container}>
@@ -198,7 +289,8 @@ export default function MediaCard() {
         >
             <Fade in={open}>
             <div className={classes.modelpaper}>
-                <h2 id="transition-modal-title">Add new post</h2>
+                <h2 id="transition-modal-title" className={classes.inputitems}>Add new post</h2>
+                <h4 id="transition-modal-title">Title</h4>
                 <TextField
                     id="outlined-textarea"
                     label="Title"
@@ -206,10 +298,13 @@ export default function MediaCard() {
                     multiline
                     fullWidth
                     variant="outlined"
+                    className={classes.inputitems}
+                    onChange={(event) => inputChangeHandler(event, "title")}
                 />
-                <div className={classes.progressBar}>
-                    <LinearProgress vvariant="buffer" value={progress} valueBuffer={buffer}/>
-                </div>
+                <h4 id="transition-modal-title">Upload Image</h4>
+                {/* <div className={classes.progressBar}>
+                    <LinearProgress variant="determinate" value={progress} valueBuffer={buffer}/>
+                </div> */}
                 <input
                     style={{
                         margin: '0px 10px 10px 0px',
@@ -221,15 +316,42 @@ export default function MediaCard() {
                 <Button
                     variant="contained"
                     color="primary"
-                    // onClick={}
-                    // disabled={file === ''}
+                    onClick={handleOnComplete}
+                    disabled={file === ''}
                 >
                     Upload
                 </Button>
-                <ReactQuill onChange={onChange} />
+                <h4 id="transition-modal-title">Add Description</h4>
+                <ReactQuill value={quillVal} onChange={onChange}/>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={onSubmitHandler()}
+                    disabled={!inputIsValid}
+                    className={classes.postbutton}
+                >
+                    Post
+                </Button>
             </div>
             </Fade>
         </Modal>
       </React.Fragment>
   );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.auth.token != null,
+        error: state.auth.error,
+        email: state.auth.email
+    }
+  }
+  
+  const mapDispatchToProps = (dispatch) => {
+    return {
+        addAlert: (alert) => dispatch(addAlert(alert))
+    }
+  };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(FeedPage);
