@@ -1,13 +1,10 @@
 import {
     Box,
-    Button,
-    Container,
     Grid,
     makeStyles,
-    Typography,
   } from "@material-ui/core";
   import DeleteIcon from "@material-ui/icons/Delete";
-  import ReplyIcon from "@material-ui/icons/Reply";
+  
   const useStyles = makeStyles((theme) => ({
     Box1: {
       fontWeight: 100,
@@ -82,6 +79,7 @@ import {
     delete: {
       "&:hover": {
         color: "#ED1515",
+
       },
     },
     reply: {
@@ -96,24 +94,20 @@ import {
   
     return (
       <Box>
-                <Box>
+            <Box pl="30px" pt="10px">
               <Grid container direction="row">
-                <Box
-                  item
-                  xs
-                  width="4%"
-                  className={classes.paper}
-                  pl="30px"
-                  pt="5px"
-                >
-                  <img src="/question.png" width="30px" />
-                </Box>
-                <Box item xs width="85%" className={classes.paper} pt="10px">
-                  Rahal Athukorala
-                </Box>
-                <Box item xs className={classes.paper} align="right" pt="5px">
-                  <DeleteIcon className={classes.delete} />
-                </Box>
+                <Grid item xs={9} sm={11} className={classes.paper} >
+                  
+                  <Grid container className={classes.paper} direction="row">
+                    <Box item xs> <img src="/question.png" width="30px" /></Box>
+                    <Box item xs pl="10px" pt="5px"> Rahal Athukorala</Box>
+                  </Grid>
+
+                </Grid>
+               
+                <Grid item xs={3} sm={1} className={classes.paper} >
+                  <DeleteIcon  className={classes.delete} />
+                </Grid>
               </Grid>
             </Box>
             <text className={classes.font2}>

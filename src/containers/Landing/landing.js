@@ -42,8 +42,6 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
     width: "20px",
   },
- 
-
 }));
 
 function Landing() {
@@ -77,7 +75,7 @@ function Landing() {
   ];
 
   return (
-    <Box width="100%">
+    <Box>
       <LandingHeader />
 
       <MapExplore />
@@ -85,10 +83,9 @@ function Landing() {
       <ColoredBar />
 
       <Box mb="15px">
+        <hr color={colors[1]} />
 
-      <hr color={colors[1]} />
-
-      <Box pt="20px" pl="60px" pr="5px" mb="50px">
+        <Box pt="20px" pl="60px" pr="5px" mb="50px">
           <Typography
             variant="h2"
             gutterBottom
@@ -115,16 +112,16 @@ function Landing() {
       <hr color={colors[1]} />
 
       <Box mt="30px" pl="60px">
-        <Grid container direction="row" align="center">
+        <Grid container direction="row" align="center" >
           {Data.map((D) => (
-            <Box item xs width="33%" align="left">
+            <Grid item xs={12} sm={4}  align="left">
               <ImgMediaCard Details={D} />
-            </Box>
+            </Grid>
           ))}
         </Grid>
       </Box>
 
-      <Footer/>
+      <Footer />
     </Box>
   );
 }

@@ -102,9 +102,10 @@ function QuestionAnswer() {
   return (
     <Box width="100%">
       <Grid container direction="row">
-        <Sidebar />
+      
+      <Grid item xs={12} sm={3} > <Sidebar/></Grid>
 
-        <Box Grid xs align="left" width="75%">
+        <Grid item xs={12} sm={9} align="left" >
           <Button variant="contained" className={classes.button}>
             <b>Ask Question</b>
           </Button>
@@ -117,7 +118,7 @@ function QuestionAnswer() {
 
             <Answer />
           </Box>
-        </Box>
+        </Grid>
       </Grid>
     </Box>
   );

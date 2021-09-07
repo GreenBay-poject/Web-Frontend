@@ -1,9 +1,9 @@
 import React, { Suspense }  from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import SignIn from '../src/containers/Auth/auth';
+
 import Questions from '../src/containers/Questions/questionAnswer';
-import Landing from './containers/Landing/landing';
+import Landing from '../src/containers/Landing/landing';
 import SignIn from '../src/containers/Auth/SignIn';
 import SignUp from '../src/containers/Auth/SignUp';
 
@@ -29,6 +29,7 @@ function App() {
 
   return (
     <div className="App">
+      
       {routes}
     </div>
   );

@@ -1,12 +1,9 @@
 import {
   Box,
-  Button,
-  Container,
   Grid,
   makeStyles,
-  Typography,
 } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+
 import ReplyIcon from "@material-ui/icons/Reply";
 const useStyles = makeStyles((theme) => ({
   Box1: {
@@ -84,10 +81,7 @@ const useStyles = makeStyles((theme) => ({
       color: "#ED1515",
     },
   },
-  reply: {
-    paddingLeft: "30px",
-    paddingTop: "5px",
-  },
+ 
 }));
 
 function Answer() {
@@ -95,23 +89,18 @@ function Answer() {
   const classes = useStyles();
 
   return (
-    <Box>
-      <Box pl="20px">
-        <Grid container direction="row">
-          <ReplyIcon className={classes.reply} />
-          <Box item xs width="4%" className={classes.paper} pl="10px" pt="5px">
-            <img src="/reply.png" width="25px" />
-          </Box>
-          <Box item xs width="85%" className={classes.paper} pt="8px">
-            Roshen Silva
-          </Box>
-        </Grid>
-      </Box>
+    <Box pl="30px"> 
+    <Grid container className={classes.paper} direction="row">
+      <Box item xs><ReplyIcon /></Box>
+      <Box item xs pl="2px" pt="5px"> <img src="/reply.png" width="25px" /></Box>
+      <Box item xs pl="5px" pt="5px"> Roshen Silva</Box>
+    </Grid>
+
       <Box
         bgcolor="white"
         className={classes.font4}
         borderRadius="15px"
-        ml="80px"
+        ml="30px"
         mr="15px"
         mb="20px"
       >

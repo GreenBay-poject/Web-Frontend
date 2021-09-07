@@ -95,7 +95,7 @@ function Sidebar() {
   const classes = useStyles();
 
   return (
-    <Box Grid xs align="left" width="25%" mt="30px">
+    <Box align="left"  mt="30px">
       <Typography
         variant="h4"
         gutterBottom

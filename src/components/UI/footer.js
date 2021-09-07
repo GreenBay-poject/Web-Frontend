@@ -60,9 +60,10 @@ function ColoredBar() {
   const classes = useStyles();
 
   return (
-    <Box mt="40px" bgcolor="#40863E" color="white">
+    <Box mt="40px" bgcolor="#40863E"   color="white">
       <Grid container direction="row">
-        <Box item xs width="50%" height="300px" align="center" pt="50px">
+        <Grid item xs={12} sm={6}   align="center" >
+          <Box pb="10px">  
           <Box className={classes.font1} pb="30px">
             <b>Contact Us</b>
           </Box>
@@ -77,17 +78,11 @@ function ColoredBar() {
             <br />
             Masangaswediya, Colombo,
             <br /> Sri Lanka.
-          </Box>
-        </Box>
-        <Box
-          item
-          xs
-          width="50%"
-          height="300px"
-          align="center"
-          pt="50px"
-          bgcolor="#459542"
-        >
+          </Box></Box>
+        
+        </Grid>
+        <Grid item xs={12} sm={6}  align="center" pt="50px" >
+          <Box pt="10px" bgcolor="#42923f">
           <Box className={classes.font10} >
             <b>Socialize with Social</b>
           </Box>
@@ -104,12 +99,13 @@ function ColoredBar() {
               </Grid>
             </Grid>
           </Box>
-          <Box align="left" pl="50px" pb="20px"><a style={{color:"white"}} href="">About Us</a></Box>
+          <Box align="Center" pl="50px" pb="20px"><a style={{color:"white"}} href="">About Us</a></Box>
 
-          <Box align="left" pl="50px">
+          <Box align="Center" pl="50px">
             Copyright <CopyrightIcon /> GreenBay 2021 All rights reserved.
-          </Box>
-        </Box>
+          </Box></Box>
+         
+        </Grid>
       </Grid>
     </Box>
   );
