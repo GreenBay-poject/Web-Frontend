@@ -98,16 +98,16 @@ function FeedPage(props) {
         "description": quillVal,
         "image_url": imageUrl,
     }
-    if (isAuthenticated){
-        addPost(data)
-        .then((response) => {
-            if (!response.error) {
-                console.log("successfull")
-            } else {
-                console.log(response)  
-            }
-        })
-    }
+    // if (isAuthenticated){
+    //     addPost(data)
+    //     .then((response) => {
+    //         if (!response.error) {
+    //             console.log("successfull")
+    //         } else {
+    //             console.log(response)  
+    //         }
+    //     })
+    // }
   }, [email, imageUrl, quillVal, stateObj.title, isAuthenticated]);
 
   const onChange = (value) => {
