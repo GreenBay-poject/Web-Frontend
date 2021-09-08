@@ -129,13 +129,15 @@ function Layout(props) {
     history.push(routez.SIGNUP);
   };
 
-  const handleroute = (route) => { 
-    if (route ==="feed"){
-        history.push(routez.FEED) 
-    } else if (route === "myprofile"){
-        history.push(routez.USER_PROFILE) 
-    }
+  const handleFeedroute = () => { 
+      history.push(routez.FEED) 
   };
+
+
+  const handleProfileroute = () => { 
+    history.push(routez.USER_PROFILE) 
+  };
+
 
   console.log(open)
   console.log(anchorEl)
@@ -222,7 +224,7 @@ function Layout(props) {
             </ListItem>
             <ListItem button key={'My Profile'} disabled={!isAuthenticated} >
                 <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
-                <ListItemText primary={'My Profile'} onClick={handleroute("myprofile")}/>
+                <ListItemText primary={'My Profile'} onClick={handleProfileroute}/>
             </ListItem>
             <ListItem button key={'Change Password'} disabled={!isAuthenticated}>
                 <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
@@ -249,7 +251,7 @@ function Layout(props) {
             </ListItem>
             <ListItem button key={'Feed'}>
                 <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
-                <ListItemText primary={'Feed'} onClick={handleroute("feed")}/>
+                <ListItemText primary={'Feed'} onClick={handleFeedroute}/>
             </ListItem>
         </List>
       </Drawer>
