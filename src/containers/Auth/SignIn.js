@@ -144,7 +144,7 @@ function SignIn(props) {
     }
 
     if (isAuthenticated) {
-		if (redirectUrl === "") return <Redirect to={routez.USER_PROFILE} />;
+		if (redirectUrl === "") return <Redirect to={routez.LANDING} />;
 		return <Redirect to={redirectUrl} />;
     }
 

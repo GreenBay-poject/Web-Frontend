@@ -18,8 +18,7 @@ import Layout from "../src/Layout/Layout"
 import './App.css';
 
 const noAppBarPaths = [
-	routez.SIGNIN,
-	routez.SIGNUP,
+	routez.LANDING,
 ];
 
 function App(props) {

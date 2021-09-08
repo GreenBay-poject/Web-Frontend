@@ -133,14 +133,19 @@ function Layout(props) {
       history.push(routez.FEED) 
   };
 
-
   const handleProfileroute = () => { 
     history.push(routez.USER_PROFILE) 
   };
 
+  const handleQAroute = () => { 
+      history.push(routez.QUESTIONS) 
+  };
 
-  console.log(open)
-  console.log(anchorEl)
+
+  const handleLandingroute = () => { 
+    history.push(routez.LANDING) 
+  };
+
 
   return (
     <div className={classes.root}>
@@ -220,7 +225,7 @@ function Layout(props) {
         <List>
             <ListItem button key={'Home'}>
               <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
-              <ListItemText primary={'Home'} />
+              <ListItemText primary={'Home'} onClick={handleLandingroute}/>
             </ListItem>
             <ListItem button key={'My Profile'} disabled={!isAuthenticated} >
                 <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
@@ -243,7 +248,7 @@ function Layout(props) {
             </ListItem>
             <ListItem button key={'Q&A'} disabled={!isAuthenticated}>
                 <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
-                <ListItemText primary={'Q & A'} />
+                <ListItemText primary={'Q & A'} onClick={handleQAroute}/>
             </ListItem>
             <ListItem button key={'Notes'}>
                 <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
