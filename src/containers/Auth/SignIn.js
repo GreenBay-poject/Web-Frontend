@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import Paper from '@material-ui/core/Paper';
 
 import { checkValidity } from '../../shared/validate';
 import { updateObject } from '../../shared/utility';
@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'center',
     },
     avatar: {
         margin: theme.spacing(1),
@@ -63,11 +64,12 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
+        width: '60%',
     },
-        loginInput: {
-        width: '100%',
+    loginInput: {
+        width: '80%',
         marginTop: '20px',
-        color: 'white'
+        color: 'white',
   },
 }));
 
@@ -147,43 +149,40 @@ function SignIn(props) {
     }
 
   return (
-    <Grid container component="main" className={classes.root}>
-        <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image} />
-        <Grid item xs={12} sm={8} md={5} elevation={6} square>
-        <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-            Sign In
-        </Typography>
-        <form noValidate autoComplete="off" className={classes.form} onSubmit={onSubmitHandler}>
-            {formErrorLabel}
-            {inputFields}
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-            >
+    <div className={classes.root}>
+        <Paper elevation={3}>
+            <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
                 Sign In
-            </Button>
-            <Grid container>
-            <Grid item xs>
-                <Link href="#" variant="body2">
-                Forgot password?
-                </Link>
-            </Grid>
-            <Grid item>
-                <Link onClick={ ()=> history.push("/signup")} variant="body2">
-                {"Don't have an account? Sign Up"}
-                </Link>
-            </Grid>
-            </Grid>
-        </form>
-        </Grid>
-    </Grid>
+            </Typography>
+            <form noValidate autoComplete="off" className={classes.form} onSubmit={onSubmitHandler}>
+                {formErrorLabel}
+                {inputFields}
+                <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                >
+                    Sign In
+                </Button>
+                <Grid container>
+                <Grid item xs={12}>
+                    <Link href="#" variant="body2">
+                    Forgot password?
+                    </Link>
+                </Grid>
+                <Grid item xs={12}>
+                    <Link onClick={ ()=> history.push("/signup")} variant="body2">
+                    {"Don't have an account? Sign Up"}
+                    </Link>
+                </Grid>
+                </Grid>
+            </form>
+        </Paper>
+    </div>
   );
 }
 

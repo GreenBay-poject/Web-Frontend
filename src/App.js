@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect }  from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 
 import Questions from '../src/containers/Questions/questionAnswer';
@@ -12,16 +13,25 @@ import FeedPage from '../src/containers/Feed/PostCard';
 
 import * as routez from './shared/routes';
 import * as actions from "./store/actions/index";
+import Layout from "../src/Layout/Layout"
 
 import './App.css';
+
+const noAppBarPaths = [
+	routez.SIGNIN,
+	routez.SIGNUP,
+];
 
 function App(props) {
 
   const onTryAutoSignIn = props.onTryAutoSignIn;
+  const location = useLocation();
 
   useEffect(() => {
     onTryAutoSignIn();
   }, [onTryAutoSignIn]);
+
+  const hideAppBar = noAppBarPaths.includes(location.pathname);
 
   let routes = (
     <Suspense >
@@ -39,8 +49,8 @@ function App(props) {
 
 
   return (
-    <div className="App">
-      
+    <div className="App">     
+      {hideAppBar ? '' : <Layout/>}
       {routes}
     </div>
   );
