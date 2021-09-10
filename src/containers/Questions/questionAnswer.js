@@ -1,6 +1,7 @@
 import Question from "../../components/UI/Questions/question";
 import Answer from "../../components/UI/Questions/answer";
 import Sidebar from "../../components/UI/Questions/sideBar";
+import Qmodal from "../../components/UI/Questions/qmodal";
 import {
   Box,
   Button,
@@ -97,20 +98,32 @@ function QuestionAnswer() {
   const colors = ["#BCBF50", "#F2EDD0", "#D9B64E", "#D9C589", "#F2F2F2"];
   const classes = useStyles();
 
-  
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Box width="100%">
       <Grid container direction="row">
-      
-      <Grid item xs={12} sm={3} > <Sidebar/></Grid>
+        <Grid item xs={12} sm={3}>
+          {" "}
+          <Sidebar />
+        </Grid>
 
-        <Grid item xs={12} sm={9} align="left" >
-          <Button variant="contained" className={classes.button}>
+        <Grid item xs={12} sm={9} align="left">
+          <Button
+            variant="contained"
+            className={classes.button}
+            onClick={handleOpen}
+            hidden={!isAuthenticated}
+          >
             <b>Ask Question</b>
           </Button>
           <Box m="15px" bgcolor="#F2F39F" borderRadius="20px" pb="1px">
-
             <Question/>
             <Button variant="contained" className={classes.buttonreply}>
               <b>Add Reply</b>
@@ -119,6 +132,7 @@ function QuestionAnswer() {
             <Answer />
           </Box>
         </Grid>
+        <Qmodal open={open} handleClose={handleClose} />
       </Grid>
     </Box>
   );
