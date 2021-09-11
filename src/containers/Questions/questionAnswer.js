@@ -1,6 +1,12 @@
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+
 import Question from "../../components/UI/Questions/question";
 import Answer from "../../components/UI/Questions/answer";
 import Sidebar from "../../components/UI/Questions/sideBar";
+import Qmodal from "../../components/UI/Questions/qmodal";
+import Rmodal from "../../components/UI/Questions/replyModal";
+
 import {
   Box,
   Button,
@@ -9,8 +15,9 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
-import ReplyIcon from "@material-ui/icons/Reply";
+import { addAlert } from "../../../src/store/actions/index";
+import { auth } from "../../../src/store/actions/index";
+
 const useStyles = makeStyles((theme) => ({
   Box1: {
     fontWeight: 100,
@@ -93,35 +100,70 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function QuestionAnswer() {
+function QuestionAnswer(props) {
   const colors = ["#BCBF50", "#F2EDD0", "#D9B64E", "#D9C589", "#F2F2F2"];
   const classes = useStyles();
+  const { isAuthenticated } = props;
+  const [open, setOpen] = React.useState(false);
 
-  
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Box width="100%">
       <Grid container direction="row">
-      
-      <Grid item xs={12} sm={3} > <Sidebar/></Grid>
+        <Grid item xs={12} sm={3}>
+          {" "}
+          <Sidebar />
+        </Grid>
 
-        <Grid item xs={12} sm={9} align="left" >
-          <Button variant="contained" className={classes.button}>
+        <Grid item xs={12} sm={9} align="left">
+          <Button
+            variant="contained"
+            className={classes.button}
+            onClick={handleOpen}
+            hidden={!isAuthenticated}
+          >
             <b>Ask Question</b>
           </Button>
           <Box m="15px" bgcolor="#F2F39F" borderRadius="20px" pb="1px">
-
-            <Question/>
-            <Button variant="contained" className={classes.buttonreply}>
+            <Question />
+            <Button
+              variant="contained"
+              className={classes.buttonreply}
+              onClick={handleOpen}
+              hidden={!isAuthenticated}
+            >
               <b>Add Reply</b>
             </Button>
 
             <Answer />
           </Box>
         </Grid>
+        <Qmodal open={open} handleClose={handleClose} />
+        <Rmodal open={open} handleClose={handleClose} />
       </Grid>
     </Box>
   );
 }
 
-export default QuestionAnswer;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.token != null,
+    error: state.auth.error,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuth: (gmail, password) => dispatch(auth(gmail, password)),
+    addAlert: (alert) => dispatch(addAlert(alert)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionAnswer);
