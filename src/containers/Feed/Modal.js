@@ -96,7 +96,7 @@ function FeedPage(props) {
         "email": email,
         "title": stateObj.title,
         "description": quillVal,
-        "image_url": imageUrl,
+        "image_url": imageUrl
     }
     // if (isAuthenticated){
     //     addPost(data)

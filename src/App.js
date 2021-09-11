@@ -10,6 +10,8 @@ import SignIn from '../src/containers/Auth/SignIn';
 import SignUp from '../src/containers/Auth/SignUp';
 import UserProfile from '../src/containers/UserProfile/UserProfile';
 import FeedPage from '../src/containers/Feed/PostCard';
+import Notespage from '../src/containers/Notes/notes';
+import LandReport from "../src/containers/LandReport/landreport"
 
 import * as routez from './shared/routes';
 import * as actions from "./store/actions/index";
@@ -41,6 +43,8 @@ function App(props) {
         <Route exact path={routez.SIGNUP} component={SignUp}/>
         <Route exact path={routez.USER_PROFILE} component={UserProfile}/>
         <Route exact path={routez.FEED} component={FeedPage}/>
+        <Route exact path={routez.NOTES} component={Notespage}/>
+        <Route exact path={routez.LANDREPORT} component={LandReport}/>
         <Redirect path="/" to={routez.SIGNIN} />
      </Switch>
     </Suspense>
