@@ -1,10 +1,18 @@
+import React, { useState, useCallback }  from 'react';
+import { connect } from 'react-redux';
+
 import ImageSlider from "../../components/UI/LandingPage/slider/imageSlider";
-import { SliderData } from "../../components/UI/LandingPage/slider/sliderData";
+import {SliderData} from "../../components/UI/LandingPage/slider/sliderData";
 import ImgMediaCard from "../../components/UI/LandingPage/landingcard";
 import ColoredBar from "../../components/UI/LandingPage/coloredbar";
 import MapExplore from "../../components/UI/LandingPage/mapexplore";
 import LandingHeader from "../../components/UI/LandingPage/landingheader";
 import Footer from "../../components/UI/footer";
+
+import { addAlert } from '../../../src/store/actions/index';
+import { auth } from '../../../src/store/actions/index';
+
+
 import {
   Box,
   Button,
@@ -44,8 +52,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Landing() {
+function Landing(props) {
   const colors = ["#BCBF50", "#F2EDD0", "#D9B64E", "#D9C589", "#F2F2F2"];
+  const {isAuthenticated}=props;
   const classes = useStyles();
   const Data = [
     {
@@ -78,7 +87,7 @@ function Landing() {
     <Box>
       <LandingHeader />
 
-      <MapExplore />
+      <MapExplore  isAuthenticated={isAuthenticated}/>
 
       <ColoredBar />
 
@@ -126,4 +135,18 @@ function Landing() {
   );
 }
 
-export default Landing;
+const mapStateToProps = (state) => {
+  return {
+      isAuthenticated: state.auth.token != null,
+      error: state.auth.error,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      onAuth: (gmail, password) => dispatch(auth(gmail, password)),
+      addAlert: (alert) => dispatch(addAlert(alert))
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Landing);

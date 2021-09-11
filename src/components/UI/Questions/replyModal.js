@@ -1,13 +1,12 @@
 import React, { useState, useCallback} from 'react';
-//import Axios from 'axios';
-//import { connect } from 'react-redux';
+import Axios from 'axios';
+import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import {  Button, TextField } from '@material-ui/core';
-
+import { Box, Button, TextField } from '@material-ui/core';
 
 import { checkValidity } from '../../../shared/validate';
 import { updateObject } from '../../../shared/utility';
@@ -52,16 +51,17 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(0, 0, 2),
   },
   postbutton: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginTop: "5px",
-      backgroundColor:"#80bf50",
-      "&:hover": {
-        backgroundColor: "#439922",
-        transform: "scale(1.01)",
-  }
-}}));
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: "5px",
+    backgroundColor:"#80bf50",
+    "&:hover": {
+      backgroundColor: "#439922",
+      transform: "scale(1.01)",
+}
+}
+}));
 
 export default function TransitionsModal(props) {
   const classes = useStyles();
@@ -115,34 +115,19 @@ return (
       >
       <Fade in={open}>
             <div className={classes.modelpaper}>
-                <h2 id="transition-modal-title" className={classes.inputitems}>Add new question</h2>
-                <h4 id="transition-modal-title">Question Title</h4>
+                <h2 id="transition-modal-title" className={classes.inputitems}>Add Reply</h2>
+              
                 <TextField
                     id="outlined-textarea"
-                    label="Title"
-                    placeholder="Enter the question title"
-                    multiline
-                    fullWidth
-                    variant="outlined"
-                    className={classes.inputitems}
-                    onChange={(event) => inputChangeHandler(event, "title")}
-                />
-                
-               
-               
-                <h4 id="transition-modal-title">Add Description</h4>
-                <TextField
-                    id="outlined-textarea"
-                    label="Description"
+                    label="Reply"
                     rows="10"
-                    placeholder="Enter the question description"
+                    placeholder="Enter the Reply description"
                     multiline
                     fullWidth
                     variant="outlined"
                     className={classes.inputitems}
                     onChange={(event) => inputChangeHandler(event, "title")}
                 />
-                
                 <Button
                     variant="contained"
                     color="primary"

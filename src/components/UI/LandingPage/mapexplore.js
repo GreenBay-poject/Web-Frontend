@@ -1,4 +1,5 @@
 import { Box, Button, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -53,14 +54,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function MapExplore() {
+function MapExplore(props) {
   const colors = ["#BCBF50", "#F2EDD0", "#D9B64E", "#D9C589", "#F2F2F2"];
+  const { isAuthenticated } = props;
   const classes = useStyles();
 
   return (
     <Box pt="20px" pl="60px" pr="5px">
       <Grid container direction="row" spacing={1}>
-        <Grid item xs align="right" >
+        <Grid item xs align="right">
           <Box>
             <Typography
               variant="h2"
@@ -92,19 +94,23 @@ function MapExplore() {
           </Box>
           <Grid container direction="row" spacing={3} align="left">
             <Grid item xs={12} sm={6}>
-              <Button variant="contained" className={classes.button}>
-                <b>Explore Map</b>
-              </Button>
+              <Link to="/landreport">
+                <Button variant="contained" className={classes.button}>
+                  <b>Explore Map</b>
+                </Button>
+              </Link>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Button variant="contained" className={classes.button}>
-                <b>Sign In</b>
-              </Button>
+              <Link to="/signin">
+                <Button variant="contained" className={classes.button}>
+                  <b>{isAuthenticated ? "Logout" : "Sign In"}</b>
+                </Button>
+              </Link>
             </Grid>
           </Grid>
         </Grid>
 
-        <Grid item xs={12} sm={6}  fontWeight="semibold" fontWeight="bold">
+        <Grid item xs={12} sm={6} fontWeight="semibold" fontWeight="bold">
           <img src="/Slideimg/2.jpg" width="100%" className={classes.image1} />
         </Grid>
       </Grid>
