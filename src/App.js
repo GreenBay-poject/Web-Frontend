@@ -8,8 +8,8 @@ import Questions from '../src/containers/Questions/questionAnswer';
 import Landing from '../src/containers/Landing/landing';
 import SignIn from '../src/containers/Auth/SignIn';
 import SignUp from '../src/containers/Auth/SignUp';
-import UserProfile from '../src/containers/UserProfile/UserProfile';
-import FeedPage from '../src/containers/Feed/PostCard';
+//import UserProfile from '../src/containers/UserProfile/UserProfile';
+//import FeedPage from '../src/containers/Feed/PostCard';
 
 import * as routez from './shared/routes';
 import * as actions from "./store/actions/index";
