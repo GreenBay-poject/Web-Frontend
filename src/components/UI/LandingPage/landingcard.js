@@ -39,7 +39,7 @@ export default function ImgMediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Link to={props.Details.Name==="Notes"? "/notes": props.Details.Name==="Q&A"? "/questions":"/feedpage" }>
+        <Link to={props.Details.Name==="Notes"? "/notespage": props.Details.Name==="Q&A"? "/questions":"/feedpage" }>
           <Button size="small" color="primary">
             Explore {props.Details.Name}
           </Button>

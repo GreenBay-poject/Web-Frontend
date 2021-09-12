@@ -25,7 +25,7 @@ function NotesPage(props) {
     if (isLoading ) {
         getPublicNotes({email:email})
         .then((response) => {
-            console.log(response.data.ALL_NOTES)
+            //console.log(response.data.ALL_NOTES)
           if (!response.error) {
             setPublicNotes(response.data.ALL_NOTES)
           } else {
