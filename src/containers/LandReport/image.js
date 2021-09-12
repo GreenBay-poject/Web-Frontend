@@ -46,7 +46,7 @@ export default function SimplePaper(props) {
       "date": selectedDate,
     }
     if (isLoading ) {
-      getImage()
+      getImage(data)
         .then((response) => {
           if (!response.error) {
             console.log(response.data)
@@ -62,7 +62,7 @@ export default function SimplePaper(props) {
     const data ={
       "url": image,
     }
-    addNote()
+    addNote(data)
         .then((response) => {
           if (!response.error) {
             console.log(response.data)

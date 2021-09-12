@@ -36,7 +36,7 @@ export default function VerticalLinearStepper() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
-  const [dates, setDates] = useState([]);
+  const [dates, setDates] = useState(["2021.05.23","2016.05.24"]);
   const [selectedDate, setSelectedDate] = useState([]);
   const [latitude, setLatitude] = useState(7.2842);
   const [longitude, setLongitude] = useState(80.6372);

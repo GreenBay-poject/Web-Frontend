@@ -22,10 +22,12 @@ export default function ControlledOpenSelect(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const {dates, setSelectedDate} = props;
+  const [ date, setDate] = React.useState();
   
 
   const handleChange = (event) => {
     setSelectedDate(event.target.value);
+    setDate(event.target.value);
   };
 
   const handleClose = () => {
@@ -46,15 +48,18 @@ export default function ControlledOpenSelect(props) {
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={dates}
+          value={date}
           onChange={handleChange}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {/* {dates.map((date) => {
+            <MenuItem value={10}>{date}</MenuItem>
+          }
+          )} */}
+          <MenuItem value={"2019-01-16"}>2019-01-16</MenuItem>
+          <MenuItem value={"2019-01-16"}>2019-01-16</MenuItem>
         </Select>
       </FormControl>
     </div>
