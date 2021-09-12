@@ -8,8 +8,8 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField';
-import ReactQuill from 'react-quill'; 
-import 'react-quill/dist/quill.snow.css';
+// import ReactQuill from 'react-quill'; 
+// import 'react-quill/dist/quill.snow.css';
 
 import { addPost } from "../../api/feed";
 import { checkValidity } from '../../shared/validate';
@@ -186,7 +186,7 @@ function FeedPage(props) {
                     Upload
                 </Button>
                 <h4 id="transition-modal-title">Add Description</h4>
-                <ReactQuill value={quillVal} onChange={onChange}/>
+                {/* <ReactQuill value={quillVal} onChange={onChange}/> */}
                 <Button
                     variant="contained"
                     color="primary"

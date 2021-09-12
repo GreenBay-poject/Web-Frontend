@@ -7,7 +7,6 @@ import Grid from '@material-ui/core/Grid';
 import Pagination from '@material-ui/lab/Pagination';
 import Typography from '@material-ui/core/Typography';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import 'react-quill/dist/quill.snow.css';
 import Skeleton from '@material-ui/lab/Skeleton';
 
 import PostCard from '../../components/UI/PostCard';
@@ -79,7 +78,6 @@ function FeedPage(props) {
     if (isLoading ) {
         getPosts()
         .then((response) => {
-            console.log(response.data.ALL_POSTS)
           if (!response.error) {
             setPosts(response.data.ALL_POSTS)
           }
