@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 function InputFile(props) {
   const classes = useStyles();
-  const { isAuthenticated, email, latitude, longitude, setLatitude, setLongitude } = props;
+  const { email, latitude, longitude, setLatitude, setLongitude, setDates } = props;
 
   const inputLatitudeChangeHandler = useCallback((event) => {
     setLatitude(event.target.value)
@@ -56,7 +56,7 @@ function InputFile(props) {
     getDates(data)
         .then((response) => {
           if (!response.error) {
-            console.log(response)
+            setDates(response.data)
           } else {
               addAlert("Error on loading Private Notes")
           }
@@ -105,10 +105,10 @@ const mapStateToProps = (state) => {
     }
   }
   
-  const mapDispatchToProps = (dispatch) => {
-    return {
-        addAlert: (alert) => dispatch(addAlert(alert))
-    }
-  };
+const mapDispatchToProps = (dispatch) => {
+  return {
+      addAlert: (alert) => dispatch(addAlert(alert))
+  }
+};
   
   export default connect(mapStateToProps, mapDispatchToProps)(InputFile);

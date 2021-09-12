@@ -15,8 +15,7 @@ const center = {
 };
 
 export default function MyComponent(props) {
-  const [latitude, setLatitude] = useState(7.2842);
-  const [longitude, setLongitude] = useState(80.6372);
+  const { setDates, latitude, setLatitude, longitude, setLongitude } =props
 
   const FillPosition = (event) => {
     setLatitude(event.latLng.lat())
@@ -25,7 +24,7 @@ export default function MyComponent(props) {
 
   return (
     <React.Fragment>
-        <InputFile latitude={latitude} longitude={longitude} setLatitude={setLatitude} setLongitude={setLongitude}/>
+        <InputFile latitude={latitude} longitude={longitude} setLatitude={setLatitude} setLongitude={setLongitude} setDates={setDates}/>
         <LoadScript
           googleMapsApiKey="AIzaSyCwavv_YteGgPYgmxVoRnOOrsm8g8t7WjU"
         >

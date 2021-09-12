@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -36,6 +36,11 @@ export default function VerticalLinearStepper() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
+  const [dates, setDates] = useState([]);
+  const [selectedDate, setSelectedDate] = useState([]);
+  const [latitude, setLatitude] = useState(7.2842);
+  const [longitude, setLongitude] = useState(80.6372);
+  const [reportData, setReportData] = useState([]);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -49,6 +54,8 @@ export default function VerticalLinearStepper() {
     setActiveStep(0);
   };
 
+  console.log(reportData)
+
   return (
     <div className={classes.root}>
       <Stepper activeStep={activeStep} orientation="vertical">
@@ -56,9 +63,9 @@ export default function VerticalLinearStepper() {
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
             <StepContent>
-              {index===0 ? <Map/>: null}
-              {index===1 ? <Dateselection/>: null}
-              {index===2 ? <ImageSlections/>: null}
+              {index===0 ? <Map setDates={setDates} setLatitude={setLatitude} setLongitude={setLongitude} latitude={latitude} longitude={longitude}/>: null}
+              {index===1 ? <Dateselection dates={dates} setSelectedDate={setSelectedDate}/>: null}
+              {index===2 ? <ImageSlections selectedDate={selectedDate} latitude={latitude} longitude={longitude} setReportData={setReportData}/>: null}
               <div className={classes.actionsContainer}>
                 <div>
                   <Button
