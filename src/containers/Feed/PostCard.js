@@ -79,7 +79,7 @@ function FeedPage(props) {
     if (isLoading ) {
         getPosts()
         .then((response) => {
-            console.log(response.data.ALL_POSTS)
+            //console.log(response.data.ALL_POSTS)
           if (!response.error) {
             setPosts(response.data.ALL_POSTS)
           }
