@@ -67,7 +67,7 @@ function InputFile(props) {
     <div className={classes.root}>
         <Paper elevation={3} >
             <Typography variant="h4">
-                Add or Remove note
+                Add Location
             </Typography>
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>

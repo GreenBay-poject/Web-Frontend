@@ -36,7 +36,7 @@ export default function ControlledOpenSelect() {
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">Age</InputLabel>
+        <InputLabel id="demo-controlled-open-select-label">Date</InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
