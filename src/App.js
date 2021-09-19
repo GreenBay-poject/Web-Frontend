@@ -39,8 +39,7 @@ function App(props) {
         <Route exact path={routez.LANDING} component={Landing}/>
         <Route exact path={routez.QUESTIONS} component={Questions}/>
         <Route exact path={routez.SIGNUP} component={SignUp}/>
-        <Route exact path={routez.USER_PROFILE} component={UserProfile}/>
-        <Route exact path={routez.FEED} component={FeedPage}/>
+
         <Redirect path="/" to={routez.SIGNIN} />
      </Switch>
     </Suspense>

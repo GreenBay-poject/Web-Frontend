@@ -20,12 +20,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 400,
     textAlign: "center",
   },
-  font2: {
-    color: "grey",
-    fontSize: "20px",
-    fontWeight: 700,
-    fontFamily: "Candara",
-  },
+
   Header1: {
     fontWeight: 500,
     fontSize: "37px",
@@ -35,12 +30,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Sans-serif",
     color: "black",
   },
-  font2: {
-    color: "grey",
-    fontSize: "20px",
-    fontWeight: 400,
-    fontFamily: "Candara",
-  },
+
   image1: {
     borderRadius: "10px",
   },

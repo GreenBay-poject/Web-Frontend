@@ -1,11 +1,8 @@
 import {
   Box,
-  Button,
-  Container,
   Grid,
   makeStyles,
-  Typography,
-  Paper,
+
 } from "@material-ui/core";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import YouTubeIcon from "@material-ui/icons/YouTube";
@@ -27,11 +24,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "25px",
     fontFamily: "Sans-serif",
   },
-  font3: {
-    fontSize: "18px",
-    fontFamily: "Sans-serif",
-    fontWeight: 50,
-  },
+
   font3: {
     fontSize: "20px",
     fontFamily: "Candara",
@@ -56,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ColoredBar() {
-  const colors = ["#BCBF50", "#F2EDD0", "#D9B64E", "#D9C589", "#F2F2F2"];
   const classes = useStyles();
 
   return (

@@ -6,19 +6,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import {  Button, TextField } from '@material-ui/core';
+import {  Box, Button, TextField } from '@material-ui/core';
 
 
-import { checkValidity } from '../../../shared/validate';
-import { updateObject } from '../../../shared/utility';
+import { checkValidity } from '../../shared/validate';
+import { updateObject } from '../../shared/utility';
 
 const inputDefinitions = {
   title: {
       validations: {
           required: true,
-          minLength: 2,
-          maxLength: 40,
-          validationErrStr: 'Use between 6 and 40 characters for your password',
+          minLength: 10,
+          maxLength: 50,
+          validationErrStr: 'Use  10 - 50 characters for your title',
       }
   },
   description: {
@@ -26,7 +26,7 @@ const inputDefinitions = {
           // required: false,
           // minLength: 2,
           // maxLength: 40,
-          validationErrStr: 'Use between 6 and 40 characters for your password',
+          validationErrStr: 'Use between 6 and 40 characters for your  description',
       }
   },
 };
@@ -51,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
   inputitems: {
       padding: theme.spacing(0, 0, 2),
   },
+  lableInput: {
+    color: "red",
+  },
   postbutton: {
       display: 'flex',
       alignItems: 'center',
@@ -65,8 +68,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TransitionsModal(props) {
   const classes = useStyles();
-  const { isAuthenticated, email, open, handleClose } = props;
-  const [quillVal, setQuillVal] = React.useState(false); 
+  const { email, open, handleClose } = props;
+
+  //const [quillVal, setQuillVal] = React.useState(false); 
 
 
   const [inputIsValid, setInputIsValid] = useState({
@@ -90,15 +94,16 @@ export default function TransitionsModal(props) {
     const data ={
         "email": email,
         "title": stateObj.title,
-        "description": quillVal,
+        "description":stateObj.description ,
     }
-  }, [email, quillVal, stateObj.title, isAuthenticated]);
+    console.log("submit")
+  }, [email, stateObj.title,stateObj.description]);
 
-  const onChange = (value) => {
+ /* const onChange = (value) => {
     console.log(typeof(value))
     setQuillVal(value)
   }
-
+*/
 return (
   <React.Fragment>       
       <Modal
@@ -120,6 +125,7 @@ return (
                 <TextField
                     id="outlined-textarea"
                     label="Title"
+                    
                     placeholder="Enter the question title"
                     multiline
                     fullWidth
@@ -128,7 +134,7 @@ return (
                     onChange={(event) => inputChangeHandler(event, "title")}
                 />
                 
-               
+               <Box color="red">{!inputIsValid.title? inputDefinitions.title.validations.validationErrStr:null}</Box>
                
                 <h4 id="transition-modal-title">Add Description</h4>
                 <TextField
@@ -140,15 +146,15 @@ return (
                     fullWidth
                     variant="outlined"
                     className={classes.inputitems}
-                    onChange={(event) => inputChangeHandler(event, "title")}
+                    onChange={(event) => inputChangeHandler(event, "description")}
                 />
                 
                 <Button
                     variant="contained"
                     color="primary"
                     fullWidth
-                    onClick={onSubmitHandler()}
-                    disabled={!inputIsValid}
+                    onClick={onSubmitHandler}
+                    disabled={!(inputIsValid.title )}
                     className={classes.postbutton}
                 >
                     Submit
