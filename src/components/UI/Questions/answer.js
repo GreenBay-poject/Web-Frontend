@@ -84,16 +84,16 @@ const useStyles = makeStyles((theme) => ({
  
 }));
 
-function Answer() {
-  const colors = ["#BCBF50", "#F2EDD0", "#D9B64E", "#D9C589", "#F2F2F2"];
+function Answer(props) {
   const classes = useStyles();
+  const{ replyPerson,replyDescription}=props.details
 
   return (
     <Box pl="30px"> 
     <Grid container className={classes.paper} direction="row">
       <Box item xs><ReplyIcon /></Box>
-      <Box item xs pl="2px" pt="5px"> <img src="/reply.png" width="25px" /></Box>
-      <Box item xs pl="5px" pt="5px"> Roshen Silva</Box>
+      <Box item xs pl="2px" pt="5px"> <img src="/reply.png" width="25px" alt="user logo"/></Box>
+      <Box item xs pl="5px" pt="5px"> {replyPerson}</Box>
     </Grid>
 
       <Box
@@ -105,10 +105,7 @@ function Answer() {
         mb="20px"
       >
         <text>
-          It is not belong to Sinharaja rain forest .It is a private property.
-          Goeverment started a project In that area after discussing with owner.
-          It is not belong to Sinharaja rain forest .It is a private property.
-          Goeverment started a project In that area after discussing with owner.
+         {replyDescription}
         </text>
       </Box>
     </Box>

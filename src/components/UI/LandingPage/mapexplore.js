@@ -55,7 +55,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MapExplore(props) {
-  const colors = ["#BCBF50", "#F2EDD0", "#D9B64E", "#D9C589", "#F2F2F2"];
   const { isAuthenticated } = props;
   const classes = useStyles();
 
@@ -111,7 +110,7 @@ function MapExplore(props) {
         </Grid>
 
         <Grid item xs={12} sm={6} fontWeight="semibold" fontWeight="bold">
-          <img src="/Slideimg/2.jpg" width="100%" className={classes.image1} />
+          <img src="/Slideimg/2.jpg" width="100%" className={classes.image1} alt="header" />
         </Grid>
       </Grid>
     </Box>

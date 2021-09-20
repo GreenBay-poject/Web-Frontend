@@ -88,8 +88,9 @@ import {
     },
   }));
   
-  function Answer() {
-    const colors = ["#BCBF50", "#F2EDD0", "#D9B64E", "#D9C589", "#F2F2F2"];
+  function Question(props) {
+    const {handleDelete}=props;
+    const{ questionPerson,questionTitle,questionDescription}=props.details;
     const classes = useStyles();
   
     return (
@@ -99,32 +100,29 @@ import {
                 <Grid item xs={9} sm={11} className={classes.paper} >
                   
                   <Grid container className={classes.paper} direction="row">
-                    <Box item xs> <img src="/question.png" width="30px" /></Box>
-                    <Box item xs pl="10px" pt="5px"> Rahal Athukorala</Box>
+                    <Box item xs> <img src="/question.png" width="30px" alt="userlogo" /></Box>
+                    <Box item xs pl="10px" pt="5px"> {questionPerson}</Box>
                   </Grid>
 
                 </Grid>
                
                 <Grid item xs={3} sm={1} className={classes.paper} >
-                  <DeleteIcon  className={classes.delete} />
+                  <DeleteIcon  className={classes.delete} onClick={handleDelete}/>
                 </Grid>
               </Grid>
             </Box>
             <text className={classes.font2}>
-              <u>Deforestation near Sinharaja</u>
+              <u>{questionTitle}</u>
             </text>
             <br />
             <Box className={classes.font3}>
               <text>
-                In 2017 Forest side near Sinharaja Prantha Aranya Senasanaya is
-                a primary rain forest land, But now the forest percentage of
-                that land became 20% . What is the reason for these
-                transformation?{" "}
+              {questionDescription}
               </text>
             </Box>
     </Box>
     );
   }
   
-  export default Answer;
+  export default Question;
   

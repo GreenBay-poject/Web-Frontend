@@ -1,6 +1,6 @@
 import React, { useState, useCallback} from 'react';
-import Axios from 'axios';
-import { connect } from 'react-redux';
+//import Axios from 'axios';
+//import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -8,24 +8,17 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { Box, Button, TextField } from '@material-ui/core';
 
-import { checkValidity } from '../../../shared/validate';
-import { updateObject } from '../../../shared/utility';
+import { checkValidity } from '../../shared/validate';
+import { updateObject } from '../../shared/utility';
 
 const inputDefinitions = {
-  title: {
-      validations: {
-          required: true,
-          minLength: 2,
-          maxLength: 40,
-          validationErrStr: 'Use between 6 and 40 characters for your password',
-      }
-  },
+
   description: {
       validations: {
           // required: false,
-          // minLength: 2,
-          // maxLength: 40,
-          validationErrStr: 'Use between 6 and 40 characters for your password',
+          minLength: 20,
+          //maxLength: 40,
+          validationErrStr: 'Use more than 20 characters for your reply',
       }
   },
 };
@@ -65,17 +58,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TransitionsModal(props) {
   const classes = useStyles();
-  const { isAuthenticated, email, open, handleClose } = props;
-  const [quillVal, setQuillVal] = React.useState(false); 
+  const { email, open, handleClose } = props;
+  //const [quillVal, setQuillVal] = React.useState(false); 
 
 
   const [inputIsValid, setInputIsValid] = useState({
-    title: true,
     description: true,
   });
 
   const [stateObj, setStateObj] = useState({
-    title: '',
     description: '',
   });
 
@@ -89,15 +80,14 @@ export default function TransitionsModal(props) {
   const onSubmitHandler = useCallback((event) => {
     const data ={
         "email": email,
-        "title": stateObj.title,
-        "description": quillVal,
+        "description": stateObj.description
     }
-  }, [email, quillVal, stateObj.title, isAuthenticated]);
+  }, [email, stateObj.description]);
 
-  const onChange = (value) => {
+ /* const onChange = (value) => {
     console.log(typeof(value))
     setQuillVal(value)
-  }
+  }*/
 
 return (
   <React.Fragment>       
@@ -126,14 +116,16 @@ return (
                     fullWidth
                     variant="outlined"
                     className={classes.inputitems}
-                    onChange={(event) => inputChangeHandler(event, "title")}
+                    onChange={(event) => inputChangeHandler(event, "description")}
                 />
+                <Box color="red">{!inputIsValid.description? inputDefinitions.description.validations.validationErrStr:null}</Box>
+
                 <Button
                     variant="contained"
                     color="primary"
                     fullWidth
-                    onClick={onSubmitHandler()}
-                    disabled={!inputIsValid}
+                    onClick={onSubmitHandler}
+                    disabled={!inputIsValid.description}
                     className={classes.postbutton}
                 >
                     Submit
