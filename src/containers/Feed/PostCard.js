@@ -1,20 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { LinearProgress, Grid } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import Pagination from '@material-ui/lab/Pagination';
 import Typography from '@material-ui/core/Typography';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import TextField from '@material-ui/core/TextField';
-import ReactQuill from 'react-quill'; 
 import 'react-quill/dist/quill.snow.css';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 import PostCard from '../../components/UI/PostCard';
-
+import Modal from "../Feed/Modal";
+import { getPosts } from "../../api/feed";
+import { addAlert } from '../../store/actions/index';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,68 +46,22 @@ const useStyles = makeStyles((theme) => ({
     buttonalign: {
         alignItems: 'right',
     },
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    modelpaper: {
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-        width: 400,
-    },
-    progressBar: {
-        width: '100%',
+    skeltonbody: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      width: "100%",
+      paddingBottom:"30px"
     },
 }));
-const postData=[{"title":"Deforestation pattern 1", "user":"IsuruAriyarathne1", "description":"description1", "posted_date":"July 2nd 2021", "image_url":"http://wallup.net/wp-content/uploads/2016/01/20264-nature-forest-trees-green.jpg", "user_profile":"https://pixabay.com/illustrations/icon-user-male-avatar-business-5359553/"}]
 
-export default function MediaCard() {
+function FeedPage(props) {
   const classes = useStyles();
+  const { isAuthenticated } = props;
   const [page, setPage] = React.useState(1);
   const [open, setOpen] = React.useState(false);
-//   const [quillVal, setQuillVal] = React.useState(false); //for later usage
-  const [setQuillVal] = React.useState(false);
-  const [progress, setProgress] = React.useState(0);
-  const [buffer, setBuffer] = React.useState(10);
-//   const [file, setFile] = React.useState('');   //for later usage
-  const [setFile] = React.useState('');
-  const onSelectFileChanged = (event) => {
-  const file = event.target.files[0];
-    setFile(file);
-  };
-
-  const progressRef = React.useRef(() => {});
-  React.useEffect(() => {
-    progressRef.current = () => {
-      if (progress > 100) {
-        setProgress(0);
-        setBuffer(10);
-      } else {
-        const diff = Math.random() * 10;
-        const diff2 = Math.random() * 10;
-        setProgress(progress + diff);
-        setBuffer(progress + diff + diff2);
-      }
-    };
-  });
-
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      progressRef.current();
-    }, 500);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
-
-  const onChange = (event) => {
-    setQuillVal(event.target.value)
-  }
+  const [isLoading, setIsLoading] = useState(true);
+  const [postslist, setPosts] =useState([]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -122,9 +75,21 @@ export default function MediaCard() {
     setPage(value);
   };
 
+  useEffect(() => {
+    if (isLoading ) {
+        getPosts()
+        .then((response) => {
+          if (!response.error) {
+            setPosts(response.data.ALL_POSTS)
+          }
+        })
+        .finally(() => setIsLoading(false));
+    }
+}, [isLoading]);
+
   return (
       <React.Fragment>
-        <div className={classes.root}>
+          <div className={classes.root}>
             <Grid container spacing={3} className={classes.container}>
                 <Grid container spacing={3} className={classes.buttonalign}>
                     <Grid item xs>
@@ -134,102 +99,71 @@ export default function MediaCard() {
                             className={classes.button}
                             startIcon={<CloudUploadIcon />}
                             onClick={handleOpen}
+                            hidden={!isAuthenticated}
                         >
                             Upload New Post
                         </Button>
                     </Grid>
                 </Grid>
-                <Grid container spacing={3}>
-                    <Grid item xs>
-                        <PostCard data={postData}/>
-                    </Grid>
-                    <Grid item xs>
-                        <PostCard data={postData}/>
-                    </Grid>
-                    <Grid item xs>
-                        <PostCard data={postData}/>
-                    </Grid>
-                    <Grid item xs>
-                        <PostCard data={postData}/>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={3} className={classes.container}>
-                    <Grid item xs>
-                        <PostCard data={postData}/>
-                    </Grid>
-                    <Grid item xs>
-                        <PostCard data={postData}/>
-                    </Grid>
-                    <Grid item xs>
-                        <PostCard data={postData}/>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={3} className={classes.container}>
-                    <Grid item xs>
-                        <PostCard data={postData}/>
-                    </Grid>
-                    <Grid item xs>
-                        <PostCard data={postData}/>
-                    </Grid>
-                    <Grid item xs>
-                        <PostCard data={postData}/>
-                    </Grid>
-                    <Grid item xs>
-                        <PostCard data={postData}/>
-                    </Grid>
-                </Grid>
+                <div>
+                    {postslist ? 
+                        postslist.map((author) => 
+                          author.posts.map((post) => 
+                            <PostCard
+                                key={post.post_id}
+                                title={post.Title}
+                                image={post.Image}
+                                description={post.Description}
+                                dateposted={post.DatePosted}
+                                ministry={author.ministry_name}
+                            />
+                          )
+                        )
+                        : null
+                    }
+                </div>
             </Grid>
-        </div>
+          </div>
+          <Grid container className={classes.skeltonbody}>
+            <Grid item xs={12} sm={12}>
+              <Skeleton variant="circle" width={30} height={30} />
+              <Skeleton variant="rect" width={1000} height={50} />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <Skeleton variant="circle" width={30} height={30} />
+              <Skeleton variant="rect" width={1000} height={50} />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <Skeleton variant="circle" width={30} height={30} />
+              <Skeleton variant="rect" width={1000} height={50} />
+            </Grid>
+          </Grid>
+
         <div className={classes.pagination}>
             <Typography>Page: {page}</Typography>
             <Pagination count={10} page={page} onChange={handleChange} />
         </div>
         <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-            timeout: 500,
-            }}
-        >
-            <Fade in={open}>
-            <div className={classes.modelpaper}>
-                <h2 id="transition-modal-title">Add new post</h2>
-                <TextField
-                    id="outlined-textarea"
-                    label="Title"
-                    placeholder="Enter the post title"
-                    multiline
-                    fullWidth
-                    variant="outlined"
-                />
-                <div className={classes.progressBar}>
-                    <LinearProgress vvariant="buffer" value={progress} valueBuffer={buffer}/>
-                </div>
-                <input
-                    style={{
-                        margin: '0px 10px 10px 0px',
-                        backgroundColor: '#c7ece3',
-                    }}
-                    type="file"
-                    onChange={onSelectFileChanged}
-                />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    // onClick={}
-                    // disabled={file === ''}
-                >
-                    Upload
-                </Button>
-                <ReactQuill onChange={onChange} />
-            </div>
-            </Fade>
-        </Modal>
+          open={open}
+          handleClose={handleClose}
+        />
+
       </React.Fragment>
   );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.auth.token != null,
+        error: state.auth.error,
+        email: state.auth.email
+    }
+  }
+  
+  const mapDispatchToProps = (dispatch) => {
+    return {
+        addAlert: (alert) => dispatch(addAlert(alert))
+    }
+  };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(FeedPage);
