@@ -1,22 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from "react-router-dom";
 
-import { makeStyles } from '@material-ui/core/styles';
-
-import { deletePost, getPublicNotes, getPrivateNotes } from "../../api/notes";
+import { getPublicNotes, getPrivateNotes } from "../../api/notes";
 import { addAlert } from '../../store/actions/index';
-import * as routez from '../../shared/routes';
 import Map from "../Notes/map";
 
-const useStyles = makeStyles((theme) => ({
-    
-}));
-
 function NotesPage(props) {
-  const classes = useStyles();
-  const { isAuthenticated, email } = props;
-  let history = useHistory();
+  const { email } = props;
   const [publicNotes, setPublicNotes] = useState([]);
   const [privateNotes, setPrivateNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +15,6 @@ function NotesPage(props) {
     if (isLoading ) {
         getPublicNotes({email:email})
         .then((response) => {
-            console.log(response.data.ALL_NOTES)
           if (!response.error) {
             setPublicNotes(response.data.ALL_NOTES)
           } else {
@@ -44,7 +33,7 @@ function NotesPage(props) {
         })
         .finally(() => setIsLoading(false));
     }
-}, [isLoading]);
+}, [isLoading, email]);
 
 return (
     <React.Fragment>

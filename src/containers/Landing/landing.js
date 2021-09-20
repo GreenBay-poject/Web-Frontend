@@ -18,7 +18,6 @@ import {
   Grid,
   makeStyles,
   Typography,
-  Paper,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({

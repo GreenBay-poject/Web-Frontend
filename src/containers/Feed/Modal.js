@@ -11,7 +11,6 @@ import TextField from '@material-ui/core/TextField';
 import ReactQuill from 'react-quill'; 
 import 'react-quill/dist/quill.snow.css';
 
-import { addPost } from "../../api/feed";
 import { checkValidity } from '../../shared/validate';
 import { updateObject } from '../../shared/utility';
 import { addAlert } from '../../store/actions/index';
@@ -65,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
 function FeedPage(props) {
   const classes = useStyles();
-  const { isAuthenticated, email, open, handleClose } = props;
+  const { open, handleClose } = props;
   const [quillVal, setQuillVal] = React.useState(false); 
   const [imageUrl,setimageUrl] =useState("");
   const [file, setFile] = React.useState('');
@@ -92,12 +91,13 @@ function FeedPage(props) {
   }, [stateObj, inputIsValid]);
 
   const onSubmitHandler = useCallback((event) => {
-    const data ={
-        "email": email,
-        "title": stateObj.title,
-        "description": quillVal,
-        "image_url": imageUrl
-    }
+      console.log("hiii")
+    // const data ={
+    //     "email": email,
+    //     "title": stateObj.title,
+    //     "description": quillVal,
+    //     "image_url": imageUrl
+    // }
     // if (isAuthenticated){
     //     addPost(data)
     //     .then((response) => {
@@ -108,7 +108,8 @@ function FeedPage(props) {
     //         }
     //     })
     // }
-  }, [email, imageUrl, quillVal, stateObj.title, isAuthenticated]);
+//   }, [email, imageUrl, quillVal, stateObj.title, isAuthenticated]);
+    }, []);
 
   const onChange = (value) => {
     console.log(typeof(value))

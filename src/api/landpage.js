@@ -1,4 +1,4 @@
-import { postRequest, getRequest, deleteRequest } from "./utils";
+import { postRequest, getRequest } from "./utils";
 
 const BASE_URL = "report";
 

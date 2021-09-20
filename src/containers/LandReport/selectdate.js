@@ -38,6 +38,8 @@ export default function ControlledOpenSelect(props) {
     setOpen(true);
   };
 
+  console.log(dates.All_Dates_Available)
+
   return (
     <div>
       <FormControl className={classes.formControl}>
@@ -54,12 +56,12 @@ export default function ControlledOpenSelect(props) {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          {/* {dates.map((date) => {
-            <MenuItem value={10}>{date}</MenuItem>
+          {dates.All_Dates_Available && (dates.All_Dates_Available).map((date) => {
+              <MenuItem value={date}>{date}</MenuItem>
           }
-          )} */}
-          <MenuItem value={"2019-01-16"}>2019-01-16</MenuItem>
-          <MenuItem value={"2019-01-16"}>2019-01-16</MenuItem>
+          )}
+          {/* <MenuItem value={"2019-01-16"}>2019-01-16</MenuItem>
+          <MenuItem value={"2019-01-16"}>2019-01-16</MenuItem> */}
         </Select>
       </FormControl>
     </div>

@@ -18,7 +18,7 @@ export default function MyComponent(props) {
   const { publicNotes, privateNotes } = props;
   const [latitude, setLatitude] = useState(7.2842);
   const [longitude, setLongitude] = useState(80.6372);
-
+  console.log(privateNotes)
   const FillPosition = (event) => {
     setLatitude(event.latLng.lat())
     setLongitude(event.latLng.lng())

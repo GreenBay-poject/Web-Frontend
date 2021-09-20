@@ -1,7 +1,6 @@
 import React, { useCallback, useState , useEffect} from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import backgroundimage from '../UserProfile/images/signuppage.jpg';
 import Grid from '@material-ui/core/Grid';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
@@ -54,7 +53,7 @@ export default function SimplePaper(props) {
           } else {
               addAlert("Error on loading Private Notes")
           }
-        })
+        }).finally(() => setIsLoading(false));
     }
 }, [isLoading]);
 

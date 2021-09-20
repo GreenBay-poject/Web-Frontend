@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 function InputFile(props) {
   const classes = useStyles();
-  const { isAuthenticated, email, latitude, longitude, setLatitude, setLongitude } = props;
+  const { email, latitude, longitude, setLatitude, setLongitude } = props;
   const [textval, setTextVal] = useState();
 
   const inputTextChangeHandler = useCallback((event) => {

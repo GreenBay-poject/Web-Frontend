@@ -96,7 +96,7 @@ export default function TransitionsModal(props) {
         "title": stateObj.title,
         "description":stateObj.description ,
     }
-    console.log("submit")
+    console.log(data)
   }, [email, stateObj.title,stateObj.description]);
 
  /* const onChange = (value) => {

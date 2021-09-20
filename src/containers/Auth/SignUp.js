@@ -189,7 +189,7 @@ function SignIn(props) {
         localInputIsValid['postalcode'] = checkInputValidity('postalcode');
         localInputIsValid['address'] = checkInputValidity('address');
         setInputIsValid(localInputIsValid);
-
+        console.log(authObj)
         if (localInputIsValid['gmail'] && localInputIsValid['name']) {
             props.onAuth(
                 authObj.gmail,

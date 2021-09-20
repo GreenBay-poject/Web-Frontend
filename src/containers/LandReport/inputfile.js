@@ -1,4 +1,4 @@
-import React, { useState, useCallback }from 'react';
+import React, { useCallback }from 'react';
 import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -53,6 +53,7 @@ function InputFile(props) {
         "lat": latitude,
         "lon": longitude,
     }
+    console.log(data)
     getDates(data)
         .then((response) => {
           if (!response.error) {
@@ -61,7 +62,7 @@ function InputFile(props) {
               addAlert("Error on loading Private Notes")
           }
         })
-  }, [email, latitude, longitude]);
+  }, [email, latitude, longitude, setDates]);
 
   return (
     <div className={classes.root}>

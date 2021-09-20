@@ -146,6 +146,13 @@ function Layout(props) {
     history.push(routez.LANDING) 
   };
 
+  const handleNotesroute = () => { 
+    history.push(routez.NOTES) 
+  };
+
+  const handleLandReportroute = () => { 
+    history.push(routez.LANDREPORT) 
+  };
 
   return (
     <div className={classes.root}>
@@ -238,7 +245,7 @@ function Layout(props) {
         </List>
         <Divider />
         <List>
-            <ListItem button key={'Land Report'}>
+            <ListItem button key={'Land Report'} onClick={handleLandReportroute}>
               <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
               <ListItemText primary={'Land Report'} />
             </ListItem>
@@ -252,7 +259,7 @@ function Layout(props) {
             </ListItem>
             <ListItem button key={'Notes'}>
                 <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
-                <ListItemText primary={'Notes'} />
+                <ListItemText primary={'Notes'} onClick={handleNotesroute}/>
             </ListItem>
             <ListItem button key={'Feed'}>
                 <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
