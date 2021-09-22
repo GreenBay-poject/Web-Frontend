@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { getDates } from "../../api/landpage";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -38,40 +39,36 @@ export default function ControlledOpenSelect(props) {
     setOpen(true);
   };
 
-  useEffect(()=>{
-    console.log(dates)
-  },[dates])
-
-  if (dates){
+  if(dates){
     return(
       <div>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">Date</InputLabel>
-        <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select"
-          open={open}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          value={date}
-          onChange={handleChange}
-        >
-          {/* <MenuItem value="">
-            <em>None</em>
-          </MenuItem> */}
-          {(dates.All_Dates_Available).map((date) => {
-              return(
-                <MenuItem value={date}>{date}</MenuItem>
-              )
-          }
-          )}
-          {/* <MenuItem value={"2019-01-16"}>{dates.All_Dates_Available[0]}</MenuItem> */}
-          {/* <MenuItem value={"2019-01-16"}>2019-01-16</MenuItem> */}
-        </Select>
-      </FormControl>
-    </div>
+        <FormControl className={classes.formControl}>
+          <InputLabel id="demo-controlled-open-select-label">Date</InputLabel>
+          <Select
+            labelId="demo-controlled-open-select-label"
+            id="demo-controlled-open-select"
+            open={open}
+            onClose={handleClose}
+            onOpen={handleOpen}
+            value={date}
+            onChange={handleChange}
+          >
+            {/* <MenuItem value="">
+              <em>None</em>
+            </MenuItem> */}
+            {(dates.All_Dates_Available).map((date) => {
+                return(
+                  <MenuItem value={date}>{date}</MenuItem>
+                )
+            }
+            )}
+            {/* <MenuItem value={"2019-01-16"}>{dates.All_Dates_Available[0]}</MenuItem> */}
+            {/* <MenuItem value={"2019-01-16"}>2019-01-16</MenuItem> */}
+          </Select>
+        </FormControl>
+      </div>
     )
   } else{
-    return <div></div>;
+    <CircularProgress/>
   }
 }

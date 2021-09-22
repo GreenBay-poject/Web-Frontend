@@ -234,7 +234,6 @@ function SignIn(props) {
                 <Button
                     type="submit"
                     variant="contained"
-                    color="primary"
                     className={classes.submit}
                 >
                     Sign Up

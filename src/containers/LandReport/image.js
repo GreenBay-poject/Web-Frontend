@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { getImage, addNote } from "../../api/landpage";
 import { addAlert } from '../../store/actions/index';
@@ -72,16 +73,22 @@ export default function SimplePaper(props) {
         })
   }, []);
   console.log(image)
-  return (
-    <div className={classes.root}>
-        <img alt="pp" className={classes.large} src={image}/>
-        <Grid container spacing={3}>
-                <Grid item xs={12} sm={12} className={classes.button}>
-                    <ButtonGroup color="primary" aria-label="outlined primary button group" onClick={onSubmitHandler}>
-                        <Button>Get the Report</Button>
-                    </ButtonGroup>
-                </Grid>
-            </Grid>
-    </div>
-  );
+  if (isLoading){
+    return(
+      <CircularProgress/>
+    )
+  } else{
+    return (
+      <div className={classes.root}>
+          <img alt="pp" className={classes.large} src={image}/>
+          <Grid container spacing={3}>
+                  <Grid item xs={12} sm={12} className={classes.button}>
+                      <ButtonGroup color="primary" aria-label="outlined primary button group" onClick={onSubmitHandler}>
+                          <Button>Get the Report</Button>
+                      </ButtonGroup>
+                  </Grid>
+              </Grid>
+      </div>
+    );
+  }
 }

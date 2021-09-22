@@ -1700,21 +1700,21 @@
   dependencies:
     "serve-static" "^1.13.1"
 
-"@react-native-community/cli-hermes@^6.0.0":
-  "integrity" "sha512-YUX8MEmDsEYdFuo/juCZUUDPPRQ/su3K/SPcSVmv7AIAwO/7ItuQ7+58PRI914XNvnRmY1GNVHKfWhUoNXMxvA=="
-  "resolved" "https://registry.npmjs.org/@react-native-community/cli-hermes/-/cli-hermes-6.0.0.tgz"
-  "version" "6.0.0"
+"@react-native-community/cli-hermes@^6.0.1":
+  "integrity" "sha512-SyBdFpTXlHtm5t/JE+GAY+TyHP97MFMtlIqHiITIEkhuH7ibFCRuyvbEB5Wrh6LKRIfSTykf3tm5TLG3imRhWg=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/cli-hermes/-/cli-hermes-6.0.1.tgz"
+  "version" "6.0.1"
   dependencies:
-    "@react-native-community/cli-platform-android" "^6.0.0"
+    "@react-native-community/cli-platform-android" "^6.0.1"
     "@react-native-community/cli-tools" "^6.0.0-rc.0"
     "chalk" "^3.0.0"
     "hermes-profile-transformer" "^0.0.6"
     "ip" "^1.1.5"
 
-"@react-native-community/cli-platform-android@^6.0.0":
-  "integrity" "sha512-yXyrM2elKM8/thf1d8EMMm0l0KdeWmIMhWZzCoRpCIQoUuVtiCEMyrZF+aufvNvy74soKiCFeAmGNI8LPk2hzg=="
-  "resolved" "https://registry.npmjs.org/@react-native-community/cli-platform-android/-/cli-platform-android-6.0.0.tgz"
-  "version" "6.0.0"
+"@react-native-community/cli-platform-android@^6.0.0", "@react-native-community/cli-platform-android@^6.0.1":
+  "integrity" "sha512-0dPEE94H4Ug8jfP+sTHgXDlofghB4YsB1WoPa6ciqpP3d4h6DbiczdNhtds6jFFR5W+Q/DfwIwOFtKfWEwg2iQ=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/cli-platform-android/-/cli-platform-android-6.0.1.tgz"
+  "version" "6.0.1"
   dependencies:
     "@react-native-community/cli-tools" "^6.0.0-rc.0"
     "chalk" "^3.0.0"
@@ -1775,12 +1775,12 @@
     "ora" "^3.4.0"
 
 "@react-native-community/cli@^6.0.0":
-  "integrity" "sha512-wTbdpai58WzUBrw8lNbF/cSzX3pOWz+y+d46ip3M3Abd5yHNRvhuejRMVQC1o9luOM+ESJa4imYSbVdh7y5g+w=="
-  "resolved" "https://registry.npmjs.org/@react-native-community/cli/-/cli-6.0.0.tgz"
-  "version" "6.0.0"
+  "integrity" "sha512-yi7GzXlXl6wV3O8yNPS5Pa7fQ7Qd/yS4v481FwdT6tJrU185ahhyz7aypALx1AGKXIjPHZ6Zu5ZETotZvF03MA=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/cli/-/cli-6.0.1.tgz"
+  "version" "6.0.1"
   dependencies:
     "@react-native-community/cli-debugger-ui" "^6.0.0-rc.0"
-    "@react-native-community/cli-hermes" "^6.0.0"
+    "@react-native-community/cli-hermes" "^6.0.1"
     "@react-native-community/cli-server-api" "^6.0.0-rc.0"
     "@react-native-community/cli-tools" "^6.0.0-rc.0"
     "@react-native-community/cli-types" "^6.0.0"
@@ -2667,11 +2667,6 @@
     "@webassemblyjs/ast" "1.9.0"
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
-
-"@wojtekmaj/date-utils@^1.0.2":
-  "integrity" "sha512-1VPkkTBk07gMR1fjpBtse4G+oJqpmE+0gUFB0dg3VIL7qJmUVaBoD/vlzMm/jNeOPfvlmerl1lpnsZyBUFIRuw=="
-  "resolved" "https://registry.npmjs.org/@wojtekmaj/date-utils/-/date-utils-1.0.3.tgz"
-  "version" "1.0.3"
 
 "@xtuc/ieee754@^1.2.0":
   "integrity" "sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA=="
@@ -6390,13 +6385,6 @@
   dependencies:
     "pump" "^3.0.0"
 
-"get-user-locale@^1.2.0":
-  "integrity" "sha512-gQo03lP1OArHLKlnoglqrGGl7b04u2EP9Xutmp72cMdtrrSD7ZgIsCsUKZynYWLDkVJW33Cj3pliP7uP0UonHQ=="
-  "resolved" "https://registry.npmjs.org/get-user-locale/-/get-user-locale-1.4.0.tgz"
-  "version" "1.4.0"
-  dependencies:
-    "lodash.once" "^4.1.1"
-
 "get-value@^2.0.3", "get-value@^2.0.6":
   "integrity" "sha1-3BXKHGcjh8p2vTesCjlbogQqLCg="
   "resolved" "https://registry.npmjs.org/get-value/-/get-value-2.0.6.tgz"
@@ -8380,11 +8368,6 @@
   "resolved" "https://registry.npmjs.org/lodash.omit/-/lodash.omit-4.5.0.tgz"
   "version" "4.5.0"
 
-"lodash.once@^4.1.1":
-  "integrity" "sha1-DdOXEhPHxW34gJd9UEyI+0cal6w="
-  "resolved" "https://registry.npmjs.org/lodash.once/-/lodash.once-4.1.1.tgz"
-  "version" "4.1.1"
-
 "lodash.pick@^4.4.0":
   "integrity" "sha1-UvBWEP/53tQiYRRB7R/BI6AwAbM="
   "resolved" "https://registry.npmjs.org/lodash.pick/-/lodash.pick-4.4.0.tgz"
@@ -8571,11 +8554,6 @@
   dependencies:
     "errno" "^0.1.3"
     "readable-stream" "^2.0.1"
-
-"merge-class-names@^1.1.1":
-  "integrity" "sha512-bOl98VzwCGi25Gcn3xKxnR5p/WrhWFQB59MS/aGENcmUc6iSm96yrFDF0XSNurX9qN4LbJm0R9kfvsQ17i8zCw=="
-  "resolved" "https://registry.npmjs.org/merge-class-names/-/merge-class-names-1.4.2.tgz"
-  "version" "1.4.2"
 
 "merge-descriptors@1.0.1":
   "integrity" "sha1-sAqqVW3YtEVoFQ7J0blT8/kMu2E="
@@ -9202,9 +9180,9 @@
     "semver" "^5.4.1"
 
 "node-fetch@^2.2.0", "node-fetch@^2.6.0":
-  "integrity" "sha512-aD1fO+xtLiSCc9vuD+sYMxpIuQyhHscGSkBEo2o5LTV/3bTEAYvdUii29n8LlO5uLCmWdGP7uVUVXFo5SRdkLA=="
-  "resolved" "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.4.tgz"
-  "version" "2.6.4"
+  "integrity" "sha512-mmlIVHJEu5rnIxgEgez6b9GgWXbkZj5YZ7fx+2r94a2E+Uirsp6HsPTPlomfdHtpt/B0cdKviwkoaM6pyvUOpQ=="
+  "resolved" "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.5.tgz"
+  "version" "2.6.5"
   dependencies:
     "whatwg-url" "^5.0.0"
 
@@ -10753,7 +10731,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.0.0", "prop-types@^15.5.10", "prop-types@^15.6.0", "prop-types@^15.6.1", "prop-types@^15.6.2", "prop-types@^15.7.2":
+"prop-types@^15.0.0", "prop-types@^15.5.10", "prop-types@^15.6.1", "prop-types@^15.6.2", "prop-types@^15.7.2":
   "integrity" "sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
   "version" "15.7.2"
@@ -10955,16 +10933,6 @@
     "regenerator-runtime" "^0.13.7"
     "whatwg-fetch" "^3.4.1"
 
-"react-calendar@^3.4.0":
-  "integrity" "sha512-ykbvXASArQQ8KZlCEXEdE+w+KFGSj7kDpdTRzbLVJeN26oUIu+EFavFDAqg4G//zTO0tSq5SMfqAa6fjrdGQjQ=="
-  "resolved" "https://registry.npmjs.org/react-calendar/-/react-calendar-3.4.0.tgz"
-  "version" "3.4.0"
-  dependencies:
-    "@wojtekmaj/date-utils" "^1.0.2"
-    "get-user-locale" "^1.2.0"
-    "merge-class-names" "^1.1.1"
-    "prop-types" "^15.6.0"
-
 "react-datepicker@^2.0.0":
   "integrity" "sha512-TvcmSY27rn0JKvuJuIXNNS+niGQNdgtuG/CsBttVYhPOA9KmSw7c2PvQBPVEvzkyV+QPNJ8jN/KVJNj9uvopqA=="
   "resolved" "https://registry.npmjs.org/react-datepicker/-/react-datepicker-2.16.0.tgz"
@@ -11019,7 +10987,7 @@
   "resolved" "https://registry.npmjs.org/react-dom-factories/-/react-dom-factories-1.0.2.tgz"
   "version" "1.0.2"
 
-"react-dom@*", "react-dom@^15.5.x || ^16.x || ^17.x", "react-dom@^16.3.0 || ^17.0.0-0", "react-dom@^16.6.3", "react-dom@^16.6.3 || ^17.0.0", "react-dom@^16.8.0  || ^17.0.0", "react-dom@^16.8.0 || ^17.0.0", "react-dom@^16.9.0", "react-dom@^17.0.1", "react-dom@>=15.0.0", "react-dom@>=16.6.0", "react-dom@>=16.8":
+"react-dom@*", "react-dom@^15.5.x || ^16.x || ^17.x", "react-dom@^16.6.3", "react-dom@^16.6.3 || ^17.0.0", "react-dom@^16.8.0  || ^17.0.0", "react-dom@^16.8.0 || ^17.0.0", "react-dom@^16.9.0", "react-dom@^17.0.1", "react-dom@>=15.0.0", "react-dom@>=16.6.0", "react-dom@>=16.8":
   "integrity" "sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-17.0.2.tgz"
   "version" "17.0.2"
@@ -11091,7 +11059,7 @@
   "resolved" "https://registry.npmjs.org/react-merge-refs/-/react-merge-refs-1.1.0.tgz"
   "version" "1.1.0"
 
-"react-native@>=0.58", "react-native@>=0.65.0-rc.0 || 0.0.0-*":
+"react-native@*", "react-native@>=0.58":
   "integrity" "sha512-0UOVSnlssweQZjuaUtzViCifE/4tXm8oRbxwakopc8GavPu9vLulde145GOw6QVYiOy4iL50f+2XXRdX9NmMeQ=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.65.1.tgz"
   "version" "0.65.1"
@@ -11349,7 +11317,7 @@
     "resize-observer-polyfill" "^1.5.1"
     "scheduler" "0.13.3"
 
-"react@*", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^0.14.9 || ^15.3.0 || ^16.0.0", "react@^15.5.x || ^16.x || ^17.x", "react@^16.0.0", "react@^16.3.0 || ^17.0.0-0", "react@^16.3.3 || ^17.0.0", "react@^16.6.3", "react@^16.6.3 || ^17.0.0", "react@^16.8.0  || ^17.0.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@^16.9.0", "react@^17.0.1", "react@>=0.14.0", "react@>=15", "react@>=15.0.0", "react@>=16.6.0", "react@>=16.8", "react@0.14.x || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@17.0.2":
+"react@*", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^0.14.9 || ^15.3.0 || ^16.0.0", "react@^15.5.x || ^16.x || ^17.x", "react@^16.0.0", "react@^16.3.3 || ^17.0.0", "react@^16.6.3", "react@^16.6.3 || ^17.0.0", "react@^16.8.0  || ^17.0.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@^16.9.0", "react@^17.0.1", "react@>=0.14.0", "react@>=15", "react@>=15.0.0", "react@>=16.6.0", "react@>=16.8", "react@0.14.x || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"
