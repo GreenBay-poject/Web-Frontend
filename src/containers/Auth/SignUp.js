@@ -82,7 +82,7 @@ const inputDefinitions = {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        height: '100vh',
+        height: '100%',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
@@ -107,12 +107,16 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
         width: '60%',
+        backgroundColor: "rgb(0, 121, 107)"
     },
     loginInput: {
         width: '80%',
         marginTop: '10px',
         color: 'white',
     },
+    links: {
+        color: 'rgb(0, 121, 107)',
+    }
 }));
 
 function SignIn(props) {
@@ -220,10 +224,7 @@ function SignIn(props) {
 
   return (
     <div className={classes.root}>
-        <Paper className={classes.paper} elevation={3}>
-            <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
-            </Avatar>
+        <div className={classes.paper}>
             <Typography component="h1" variant="h5">
                 Sign Up
             </Typography>
@@ -240,18 +241,13 @@ function SignIn(props) {
                 </Button>
                 <Grid container>
                     <Grid item xs={12}>
-                    <Link href="#" variant="body2">
-                        Forgot password?
-                    </Link>
-                    </Grid>
-                    <Grid item xs={12}>
-                    <Link onClick={ ()=> history.push("/signin")} variant="body2">
+                    <Link onClick={ ()=> history.push("/signin")} variant="body2" className={classes.links}>
                         {"Have an account? Sign In"}
                     </Link>
                     </Grid>
                 </Grid>
             </form>
-        </Paper>
+        </div>
     </div>
   );
 }

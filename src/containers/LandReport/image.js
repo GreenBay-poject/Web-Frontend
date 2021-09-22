@@ -48,8 +48,8 @@ export default function SimplePaper(props) {
       getImage(data)
         .then((response) => {
           if (!response.error) {
-            console.log(response.data)
-            Setimage(response.data)
+            console.log(response.data.Image.Url)
+            Setimage(response.data.Image.Url)
           } else {
               addAlert("Error on loading Private Notes")
           }
@@ -71,7 +71,7 @@ export default function SimplePaper(props) {
           }
         })
   }, []);
-
+  console.log(image)
   return (
     <div className={classes.root}>
         <img alt="pp" className={classes.large} src={image}/>

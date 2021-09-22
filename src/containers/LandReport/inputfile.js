@@ -66,7 +66,6 @@ function InputFile(props) {
 
   return (
     <div className={classes.root}>
-        <Paper elevation={3} >
             <Typography variant="h4">
                 Add or Remove note
             </Typography>
@@ -93,7 +92,6 @@ function InputFile(props) {
                     </ButtonGroup>
                 </Grid>
             </Grid>
-        </Paper>
     </div>
   );
 }

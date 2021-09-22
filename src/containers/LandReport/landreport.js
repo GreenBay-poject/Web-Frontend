@@ -37,7 +37,7 @@ export default function VerticalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
   const [dates, setDates] = useState([]);
-  const [selectedDate, setSelectedDate] = useState([]);
+  const [selectedDate, setSelectedDate] = useState();
   const [latitude, setLatitude] = useState(7.2842);
   const [longitude, setLongitude] = useState(80.6372);
   const [reportData, setReportData] = useState([]);
@@ -54,6 +54,8 @@ export default function VerticalLinearStepper() {
     setActiveStep(0);
   };
 
+  console.log(reportData)
+  console.log(selectedDate)
   console.log(reportData)
 
   return (
