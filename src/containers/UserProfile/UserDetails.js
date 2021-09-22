@@ -55,6 +55,8 @@ const BootstrapInput = withStyles((theme) => ({
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        backgroundColor: "rgb(174, 213, 129)",
+        color: "white"
     },
     card:{
         width: '100%'

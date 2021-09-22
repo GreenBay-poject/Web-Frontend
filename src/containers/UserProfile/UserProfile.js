@@ -28,7 +28,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    marginTop: "10px"
+    marginTop: "10px",
+    backgroundColor: "rgb(0, 121, 107)",
+    color: "white"
   },
   layout:{
     height: "100%",
@@ -43,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    height: "100%"
+    height: "100%",
   },
   large: {
     width: "140px",
@@ -62,6 +64,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     padding: theme.spacing(2),
+    backgroundColor: "rgb(0, 121, 107)",
+    color: "white"
   }
 }));
 
