@@ -5,9 +5,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
+import {
+  ThemeProvider,
+  createTheme,
+} from '@material-ui/core/styles';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
+import { green } from '@material-ui/core/colors';
 
 import { addNote } from "../../api/notes";
 import { addAlert } from '../../store/actions/index';
@@ -28,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+  margin: {
+    margin: theme.spacing(1),
+  },
   button: {
     display: 'flex',
     flexDirection: 'row',
@@ -35,6 +42,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   }
 }));
+
+const theme = createTheme({
+  palette: {
+    primary: green,
+  },
+});
 
 function InputFile(props) {
   const classes = useStyles();
@@ -74,34 +87,21 @@ function InputFile(props) {
 
   return (
     <div className={classes.root}>
-        <Paper elevation={3} >
-            <Typography variant="h4">
-                Add or Remove note
-            </Typography>
             <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                    <Typography variant="h6">
-                        Latitude
-                    </Typography>
+                <Grid item xs={12} sm={12}>
+                  <ThemeProvider theme={theme}>
+                      <TextField variant="outlined" id="mui-theme-provider-outlined-input" value={latitude} onChange={(event) => inputLatitudeChangeHandler(event)}/>
+                  </ThemeProvider>
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField id="standard-basic" label="Latitude" value={latitude} onChange={(event) => inputLatitudeChangeHandler(event)}/>
+                <Grid item xs={12} sm={12}>
+                  <ThemeProvider theme={theme}>
+                      <TextField variant="outlined" id="mui-theme-provider-outlined-input" value={longitude} onChange={(event) => inputLongitudeChangeHandler(event)}/>
+                  </ThemeProvider>
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                    <Typography variant="h6">
-                        Longtitude
-                    </Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField id="standard-basic" label="Longtitude" value={longitude} onChange={(event) => inputLongitudeChangeHandler(event)}/>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <Typography variant="h6">
-                        Note
-                    </Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField id="standard-basic" label="Note" onChange={(event) => inputTextChangeHandler(event)}/>
+                <Grid item xs={12} sm={12}>
+                   <ThemeProvider theme={theme}>
+                        <TextField variant="outlined" id="mui-theme-provider-outlined-input" label="Note" onChange={(event) => inputTextChangeHandler(event)}/>
+                    </ThemeProvider>
                 </Grid>
                 <Grid item xs={12} sm={12} className={classes.button}>
                     <ButtonGroup color="primary" aria-label="outlined primary button group" onClick={onSubmitHandler}>
@@ -109,7 +109,6 @@ function InputFile(props) {
                     </ButtonGroup>
                 </Grid>
             </Grid>
-        </Paper>
     </div>
   );
 }
