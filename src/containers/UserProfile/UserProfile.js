@@ -18,6 +18,7 @@ import { getUserDetails } from "../../api/auth";
 import UserDetails from "../UserProfile/UserDetails"
 import backgroundimage from '../UserProfile/images/signuppage.jpg';
 import * as routez from '../../shared/routes';
+import Loader from "../UserProfile/hello"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,8 +27,9 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
-    color: theme.palette.text.secondary,
-    marginTop: "10px"
+    marginTop: "10px",
+    backgroundColor: "rgb(0, 121, 107)",
+    color: "white"
   },
   layout:{
     height: "100%",
@@ -42,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    height: "100%"
+    height: "100%",
   },
   large: {
     width: "140px",
@@ -61,6 +63,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     padding: theme.spacing(2),
+    backgroundColor: "rgb(0, 121, 107)",
+    color: "white"
   }
 }));
 
@@ -87,44 +91,47 @@ function UserProfile(props) {
 		history.push(routez.SIGNIN)
   }
 
-  return (
-    <div className={classes.root}>
-      <Grid container spacing={3} className={classes.layout}>
-        <Grid item xs={12} sm={4} className={classes.leftcontainer} >
-          <div className={classes.leftcontainerbox}>
-            <Paper className={classes.imagecard} elevation={3}>
-                <img alt="pp" className={classes.large} src={backgroundimage}/> 
-                <Typography variant="h5" gutterBottom>
-                  {usrDetails.username}
-                </Typography>
-                <Typography variant="h7" gutterBottom>
-                  {usrDetails.useremail}
-                </Typography>
-            </Paper>
-            <Paper className={classes.paper} elevation={3}>
-                <List component="nav" aria-label="main mailbox folders">
-                  <ListItem button>
-                    <ListItemIcon>
-                      <InboxIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="My Profile" />
-                  </ListItem>
-                  <ListItem button>
-                    <ListItemIcon>
-                      <DraftsIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Change Passowrd" />
-                  </ListItem>
-                </List>
-            </Paper>
-          </div>
+  if (!isLoading){
+    return (
+      <div className={classes.root}>
+        <Grid container spacing={3} className={classes.layout}>
+          <Grid item xs={12} sm={4} className={classes.leftcontainer} >
+            <div className={classes.leftcontainerbox}>
+              <Paper className={classes.imagecard} elevation={3}>
+                  <img alt="pp" className={classes.large} src={backgroundimage}/> 
+                  <Typography variant="h5" gutterBottom>
+                    {usrDetails.username}
+                  </Typography>
+                  <Typography variant="h7" gutterBottom>
+                    {usrDetails.useremail}
+                  </Typography>
+              </Paper>
+              <Paper className={classes.paper} elevation={3}>
+                  <List component="nav" aria-label="main mailbox folders">
+                    <ListItem button>
+                      <ListItemIcon>
+                        <InboxIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="My Profile" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <DraftsIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Change Passowrd" />
+                    </ListItem>
+                  </List>
+              </Paper>
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={8} className={classes.rightcontainer}>
+                {isAuthenticated ? <UserDetails usrDetails={usrDetails}/> :<UserDetails usrDetails={usrDetails}/>}
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={8} className={classes.rightcontainer}>
-              {isAuthenticated ? <UserDetails usrDetails={usrDetails}/> :<UserDetails usrDetails={usrDetails}/>}
-        </Grid>
-      </Grid>
-    </div>
-  );
+      </div>
+    );
+  }
+  return(<Loader/>)
 }
 
 const mapStateToProps = (state) => {

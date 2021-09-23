@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useSpring, animated } from 'react-spring'
+
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -26,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
   resetContainer: {
     padding: theme.spacing(3),
   },
+  animatedHeader: {
+    fontSize: "50px",
+  }
 }));
 
 function getSteps() {
@@ -37,7 +42,7 @@ export default function VerticalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
   const [dates, setDates] = useState([]);
-  const [selectedDate, setSelectedDate] = useState([]);
+  const [selectedDate, setSelectedDate] = useState();
   const [latitude, setLatitude] = useState(7.2842);
   const [longitude, setLongitude] = useState(80.6372);
   const [reportData, setReportData] = useState([]);
@@ -55,9 +60,19 @@ export default function VerticalLinearStepper() {
   };
 
   console.log(reportData)
+  console.log(selectedDate)
+  console.log(reportData)
 
   return (
     <div className={classes.root}>
+      <animated.div style={useSpring({
+          loop: true,
+          to: [
+            { opacity: 1, color: '#7CB342' },
+            { opacity: 0, color: 'rgb(197, 225, 165)' },
+          ],
+          from: { opacity: 0, color: 'red' },
+        })} className={classes.animatedHeader}>You Are Ready to Get the Report</animated.div>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((label, index) => (
           <Step key={label}>
@@ -80,6 +95,7 @@ export default function VerticalLinearStepper() {
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
+                    disabled={dates.length===0}
                   >
                     {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                   </Button>

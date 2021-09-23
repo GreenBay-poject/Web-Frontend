@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    borderBottomLeftRadius: "25%",
+    borderBottomRightRadius: "25%",
+    backgroundColor: "rgb(0, 121, 107)"
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -60,6 +63,8 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: "rgb(0, 121, 107)",
+    color: "rgb(250, 250, 250)"
   },
   drawerHeader: {
     display: 'flex',

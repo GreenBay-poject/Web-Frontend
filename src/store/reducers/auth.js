@@ -5,6 +5,7 @@ import { authRedirectPath } from '../../shared/consts';
 const initialState = {
     token: null,
     email: null,
+    IsAuthorized: null,
     error: null,
     loading: false,
     authRedirectPath: authRedirectPath
@@ -26,8 +27,9 @@ const authSuccess = (state, action) => {
         {
             token: action.idToken,
             email: action.email,
+            IsAuthorized: action.IsAuthorized,
             error: null,
-            loading: false
+            loading: false,
         }
     );
 };
@@ -38,6 +40,7 @@ const authFail = (state, action) => {
         {
             token: null,
             email: null,
+            IsAuthorized: null,
             error: action.error,
             loading: false
         }
@@ -50,6 +53,7 @@ const authLogout = (state) => {
         {
             token: null,
             email: null,
+            IsAuthorized: null,
         }
     );
 };

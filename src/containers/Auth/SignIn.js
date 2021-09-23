@@ -3,14 +3,11 @@ import { Redirect } from "react-router";
 import { connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
 
-import Avatar from '@material-ui/core/Avatar';
 import { Button, FormLabel } from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
 
 import { checkValidity } from '../../shared/validate';
 import { updateObject } from '../../shared/utility';
@@ -43,7 +40,7 @@ const inputDefinitions = {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        height: '100vh',
+        height: '100%',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
@@ -65,12 +62,17 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
         width: '60%',
+        backgroundColor: "rgb(0, 121, 107)",
+        color: "white"
     },
     loginInput: {
         width: '80%',
         marginTop: '20px',
         color: 'white',
-  },
+    },
+    links: {
+        color: 'rgb(0, 121, 107)',
+    }
 }));
 
 function SignIn(props) {
@@ -150,10 +152,8 @@ function SignIn(props) {
 
   return (
     <div className={classes.root}>
-        <Paper elevation={3}>
-            <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
-            </Avatar>
+        <div>
+            <img src="/Logo96.png" alt="logo"/>
             <Typography component="h1" variant="h5">
                 Sign In
             </Typography>
@@ -163,25 +163,24 @@ function SignIn(props) {
                 <Button
                     type="submit"
                     variant="contained"
-                    color="primary"
                     className={classes.submit}
                 >
                     Sign In
                 </Button>
                 <Grid container>
                 <Grid item xs={12}>
-                    <Link href="#" variant="body2">
+                    <Link href="#" variant="body2" className={classes.links}>
                     Forgot password?
                     </Link>
                 </Grid>
                 <Grid item xs={12}>
-                    <Link onClick={ ()=> history.push("/signup")} variant="body2">
+                    <Link onClick={ ()=> history.push("/signup")} variant="body2" className={classes.links}>
                     {"Don't have an account? Sign Up"}
                     </Link>
                 </Grid>
                 </Grid>
             </form>
-        </Paper>
+        </div>
     </div>
   );
 }

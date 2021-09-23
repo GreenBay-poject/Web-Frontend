@@ -46,7 +46,7 @@ const BootstrapInput = withStyles((theme) => ({
       ].join(','),
       '&:focus': {
         boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-        borderColor: theme.palette.primary.main,
+        borderColor: theme.palette.green,
       },
     },
   }))(InputBase);
@@ -54,6 +54,8 @@ const BootstrapInput = withStyles((theme) => ({
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        backgroundColor: "rgb(174, 213, 129)",
+        color: "white"
     },
     card:{
         width: '100%'
