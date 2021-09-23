@@ -8,8 +8,8 @@ import Questions from '../src/containers/Questions/questionAnswer';
 import Landing from '../src/containers/Landing/landing';
 import SignIn from '../src/containers/Auth/SignIn';
 import SignUp from '../src/containers/Auth/SignUp';
-//import UserProfile from '../src/containers/UserProfile/UserProfile';
-//import FeedPage from '../src/containers/Feed/PostCard';
+import UserProfile from '../src/containers/UserProfile/UserProfile';
+import FeedPage from '../src/containers/Feed/PostCard';
 
 import * as routez from './shared/routes';
 import * as actions from "./store/actions/index";
@@ -39,10 +39,12 @@ function App(props) {
         <Route exact path={routez.LANDING} component={Landing}/>
         <Route exact path={routez.QUESTIONS} component={Questions}/>
         <Route exact path={routez.SIGNUP} component={SignUp}/>
+        <Route exact path={routez.USER_PROFILE} component={UserProfile}/> 
+        <Route exact path={routez.FEED} component={FeedPage}/>
 
         <Redirect path="/" to={routez.SIGNIN} />
      </Switch>
-    </Suspense>
+    </Suspense>   
   );
 
 
