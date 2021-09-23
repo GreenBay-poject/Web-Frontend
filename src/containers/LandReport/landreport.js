@@ -95,7 +95,7 @@ export default function VerticalLinearStepper() {
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
-                    disabled={dates.length==0}
+                    disabled={dates.length===0}
                   >
                     {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                   </Button>

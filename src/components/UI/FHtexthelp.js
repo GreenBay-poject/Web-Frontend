@@ -2,16 +2,10 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import {
     ThemeProvider,
-    makeStyles,
     createTheme,
   } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 
-const useStyles = makeStyles((theme) => ({
-    margin: {
-      margin: theme.spacing(1),
-    },
-  }));
 const theme = createTheme({
     palette: {
       primary: green,
@@ -19,7 +13,6 @@ const theme = createTheme({
 });
 
 const FHTextField = (props) => {
-    const classes = useStyles();
     return (
         <ThemeProvider theme={theme}>
             <TextField

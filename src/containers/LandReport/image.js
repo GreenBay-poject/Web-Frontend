@@ -56,7 +56,7 @@ export default function SimplePaper(props) {
           }
         }).finally(() => setIsLoading(false));
     }
-}, [isLoading]);
+  }, [isLoading, latitude, longitude, selectedDate]);
 
   const onSubmitHandler = useCallback(() => {
     const data ={
@@ -71,7 +71,7 @@ export default function SimplePaper(props) {
               addAlert("Error on loading Private Notes")
           }
         })
-  }, []);
+  }, [image, setReportData]);
   console.log(image)
   if (isLoading){
     return(

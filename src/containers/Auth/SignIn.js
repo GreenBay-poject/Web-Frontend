@@ -3,14 +3,11 @@ import { Redirect } from "react-router";
 import { connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
 
-import Avatar from '@material-ui/core/Avatar';
 import { Button, FormLabel } from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
 
 import { checkValidity } from '../../shared/validate';
 import { updateObject } from '../../shared/utility';
@@ -65,7 +62,8 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
         width: '60%',
-        backgroundColor: "rgb(0, 121, 107)"
+        backgroundColor: "rgb(0, 121, 107)",
+        color: "white"
     },
     loginInput: {
         width: '80%',
@@ -155,6 +153,7 @@ function SignIn(props) {
   return (
     <div className={classes.root}>
         <div>
+            <img src="/Logo96.png" alt="logo"/>
             <Typography component="h1" variant="h5">
                 Sign In
             </Typography>

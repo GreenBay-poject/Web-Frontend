@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 
 function InputFile(props) {
   const classes = useStyles();
-  const { email, latitude, longitude, setLatitude, setLongitude, setDates } = props;
+  const {latitude, longitude, setLatitude, setLongitude, setDates } = props;
 
   const inputLatitudeChangeHandler = useCallback((event) => {
     setLatitude(event.target.value)
@@ -77,7 +77,7 @@ function InputFile(props) {
               addAlert("Error on loading Private Notes")
           }
         })
-  }, [email, latitude, longitude, setDates]);
+  }, [latitude, longitude, setDates]);
 
   return (
     <div className={classes.root}>
