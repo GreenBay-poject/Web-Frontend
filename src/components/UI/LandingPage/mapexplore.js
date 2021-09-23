@@ -109,7 +109,7 @@ function MapExplore(props) {
           </Grid>
         </Grid>
 
-        <Grid item xs={12} sm={6} fontWeight="semibold" fontWeight="bold">
+        <Grid item xs={12} sm={6} fontWeight="semibold">
           <img src="/Slideimg/2.jpg" width="100%" className={classes.image1} alt="header" />
         </Grid>
       </Grid>

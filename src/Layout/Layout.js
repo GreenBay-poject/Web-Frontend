@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    borderBottomLeftRadius: "25%",
+    borderBottomRightRadius: "25%",
+    backgroundColor: "rgb(0, 121, 107)"
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -60,6 +63,8 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: "rgb(0, 121, 107)",
+    color: "rgb(250, 250, 250)"
   },
   drawerHeader: {
     display: 'flex',
@@ -146,6 +151,13 @@ function Layout(props) {
     history.push(routez.LANDING) 
   };
 
+  const handleNotesroute = () => { 
+    history.push(routez.NOTES) 
+  };
+
+  const handleLandReportroute = () => { 
+    history.push(routez.LANDREPORT) 
+  };
 
   return (
     <div className={classes.root}>
@@ -238,7 +250,7 @@ function Layout(props) {
         </List>
         <Divider />
         <List>
-            <ListItem button key={'Land Report'}>
+            <ListItem button key={'Land Report'} onClick={handleLandReportroute}>
               <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
               <ListItemText primary={'Land Report'} />
             </ListItem>
@@ -252,7 +264,7 @@ function Layout(props) {
             </ListItem>
             <ListItem button key={'Notes'}>
                 <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
-                <ListItemText primary={'Notes'} />
+                <ListItemText primary={'Notes'} onClick={handleNotesroute}/>
             </ListItem>
             <ListItem button key={'Feed'}>
                 <ListItemIcon>{<InboxIcon/>}</ListItemIcon>

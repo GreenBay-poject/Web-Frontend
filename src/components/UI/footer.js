@@ -91,7 +91,7 @@ function ColoredBar() {
               </Grid>
             </Grid>
           </Box>
-          <Box align="Center" pl="50px" pb="20px"><a style={{color:"white"}} href="">About Us</a></Box>
+          <Box align="Center" pl="50px" pb="20px"><a style={{color:"white"}} href="https://www.google.com/">About Us</a></Box>
 
           <Box align="Center" pl="50px">
             Copyright <CopyrightIcon /> GreenBay 2021 All rights reserved.
