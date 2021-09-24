@@ -52,7 +52,7 @@ const theme = createTheme({
 
 function InputFile(props) {
   const classes = useStyles();
-  const { email, latitude, longitude, setLatitude, setLongitude } = props;
+  const { email, latitude, longitude, setLatitude, setLongitude, isAuthorized, setPrivateNotes, setPublicNotes } = props;
   const [textval, setTextVal] = useState();
   // let history = useHistory();
 
@@ -80,14 +80,16 @@ function InputFile(props) {
     addNote(data)
         .then((response) => {
           if (!response.error) {
-            console.log(response.data)
-              addAlert("Note Added successfully")
-              // history.push(routez.NOTES)
+            if (isAuthorized){
+              setPublicNotes(response.data.ALL_NOTES)
+            }else{
+              setPrivateNotes(response.data.All_Notes_user)
+            }
           } else {
               addAlert("Error on loading Private Notes")
           }
         })
-  }, [email, latitude, longitude, textval]);
+  }, [email, latitude, longitude, textval, setPublicNotes, setPrivateNotes, isAuthorized]);
 
   return (
     <div className={classes.root}>
@@ -120,6 +122,7 @@ function InputFile(props) {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.token != null,
+        isAuthorized: state.auth.IsAuthorized != null,
         error: state.auth.error,
         email: state.auth.email
     }
