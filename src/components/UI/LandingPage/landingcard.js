@@ -17,6 +17,7 @@ const useStyles = makeStyles({
 });
 
 export default function ImgMediaCard(props) {
+  const { isAuthenticated } = props;
   const classes = useStyles();
 
   return (
@@ -39,7 +40,17 @@ export default function ImgMediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Link to={props.Details.Name==="Notes"? "/notespage": props.Details.Name==="Q&A"? "/questions":"/feedpage" }>
+        <Link
+          to={
+            props.Details.Name === "Notes"
+              ? "/notespage"
+              : props.Details.Name === "Q&A" && isAuthenticated
+              ? "/questions"
+              : props.Details.Name === "Q&A"
+              ? "/signin"
+              : "/feedpage"
+          }
+        >
           <Button size="small" color="primary">
             Explore {props.Details.Name}
           </Button>

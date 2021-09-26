@@ -11,6 +11,7 @@ import {  Box, Button, TextField } from '@material-ui/core';
 
 import { checkValidity } from '../../shared/validate';
 import { updateObject } from '../../shared/utility';
+import { addQuestion } from "../../api/question";
 
 const inputDefinitions = {
   title: {
@@ -68,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TransitionsModal(props) {
   const classes = useStyles();
-  const { email, open, handleClose } = props;
+  const { email, open, handleClose,Authority,isAuthenticated } = props;
 
   //const [quillVal, setQuillVal] = React.useState(false); 
 
@@ -91,12 +92,22 @@ export default function TransitionsModal(props) {
   }, [stateObj, inputIsValid]);
 
   const onSubmitHandler = useCallback((event) => {
+    stateObj.title+=Authority+"@"
     const data ={
         "email": email,
         "title": stateObj.title,
         "description":stateObj.description ,
+            }
+    if (isAuthenticated){
+        addQuestion(data)
+        .then((response) => {
+            if (!response.error) {
+                console.log("successfull")
+            } else {
+                console.log(response)  
+            }
+        })
     }
-    console.log(data)
   }, [email, stateObj.title,stateObj.description]);
 
  /* const onChange = (value) => {

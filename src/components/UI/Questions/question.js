@@ -18,6 +18,11 @@ import {
       textAlign: "left",
       fontWeight: 600,
     },
+    paper2: {
+      textAlign: "left",
+      fontWeight: 400,
+      color:"grey"
+    },
     font1: {
       color: "grey",
       fontSize: "40px",
@@ -89,8 +94,8 @@ import {
   }));
   
   function Question(props) {
-    const {handleDelete}=props;
-    const{ questionPerson,questionTitle,questionDescription}=props.details;
+    const {handleDelete,isAuthorized}=props;
+    const{ q_id,questionPerson,questionTitle,questionDescription,questionDate}=props.details;
     const classes = useStyles();
   
     return (
@@ -102,12 +107,13 @@ import {
                   <Grid container className={classes.paper} direction="row">
                     <Box item xs> <img src="/question.png" width="30px" alt="userlogo" /></Box>
                     <Box item xs pl="10px" pt="5px"> {questionPerson}</Box>
+                    <Box item xs pl="5px" pt="5px" className={classes.paper2}> {questionDate}</Box>
                   </Grid>
 
                 </Grid>
                
                 <Grid item xs={3} sm={1} className={classes.paper} >
-                  <DeleteIcon  className={classes.delete} onClick={handleDelete}/>
+                  {isAuthorized?<DeleteIcon  className={classes.delete} onClick={()=>handleDelete(q_id)}/>:null}
                 </Grid>
               </Grid>
             </Box>

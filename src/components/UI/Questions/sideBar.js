@@ -40,16 +40,16 @@ function Sidebar(props) {
       <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>setAuthority(D.Pollute_managing_Unit)}>
         Pollute managing Unit{" "}
       </Box>
-      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>setAuthority(D.Endemic_Tree_Unit)}>
+      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>setAuthority(D.Emergency_Wildfire_Unit)}>
         Endemic Tree Unit
       </Box>
-      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>setAuthority(D.Emergency_Wildfire_Unit)}>
+      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>setAuthority(D.Land_Soil_Ministry)}>
         Emergency Wildfire Unit
       </Box>
-      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>setAuthority(D.Land_Soil_Ministry)}>
+      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>setAuthority(D.Endemic_Tree_Unit)}>
         Land & Soil Ministry
       </Box>
-      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>setAuthority(D.Pollute_managing_Unit)}>
+      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>setAuthority(D.Geographical_Unit)}>
         Geographical Unit
       </Box>
 

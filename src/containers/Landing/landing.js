@@ -121,7 +121,7 @@ function Landing(props) {
         <Grid container direction="row" align="center" >
           {Data.map((D) => (
             <Grid item xs={12} sm={4}  align="left">
-              <ImgMediaCard Details={D} />
+              <ImgMediaCard isAuthenticated={isAuthenticated} Details={D} />
             </Grid>
           ))}
         </Grid>
