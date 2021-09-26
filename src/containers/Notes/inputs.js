@@ -1,8 +1,8 @@
 import React, { useState, useCallback }from 'react';
 import { connect } from 'react-redux';
+// import { useHistory } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import {
@@ -15,6 +15,7 @@ import { green } from '@material-ui/core/colors';
 
 import { addNote } from "../../api/notes";
 import { addAlert } from '../../store/actions/index';
+// import * as routez from '../../shared/routes';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,6 +54,7 @@ function InputFile(props) {
   const classes = useStyles();
   const { email, latitude, longitude, setLatitude, setLongitude } = props;
   const [textval, setTextVal] = useState();
+  // let history = useHistory();
 
   const inputTextChangeHandler = useCallback((event) => {
     console.log(event.target.value)
@@ -78,7 +80,9 @@ function InputFile(props) {
     addNote(data)
         .then((response) => {
           if (!response.error) {
-            console.log(response)
+            console.log(response.data)
+              addAlert("Note Added successfully")
+              // history.push(routez.NOTES)
           } else {
               addAlert("Error on loading Private Notes")
           }
