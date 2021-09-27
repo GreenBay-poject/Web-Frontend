@@ -39,6 +39,8 @@ export default function ControlledOpenSelect(props) {
     setOpen(true);
   };
 
+  console.log(dates)
+
   if(dates){
     return(
       <div>

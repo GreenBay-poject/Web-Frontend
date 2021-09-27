@@ -146,6 +146,9 @@ function Layout(props) {
       history.push(routez.QUESTIONS) 
   };
 
+  const handleChangePasswordroute = () => { 
+    history.push(routez.CHANGE_PASSWORD) 
+  };
 
   const handleLandingroute = () => { 
     history.push(routez.LANDING) 
@@ -243,7 +246,7 @@ function Layout(props) {
                 <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
                 <ListItemText primary={'My Profile'} onClick={handleProfileroute}/>
             </ListItem>
-            <ListItem button key={'Change Password'} disabled={!isAuthenticated}>
+            <ListItem button key={'Change Password'} disabled={!isAuthenticated} onClick={handleChangePasswordroute}>
                 <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
                 <ListItemText primary={'Change Password'} />
             </ListItem>

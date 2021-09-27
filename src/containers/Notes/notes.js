@@ -37,7 +37,7 @@ function NotesPage(props) {
 
 return (
     <React.Fragment>
-        <Map publicNotes={publicNotes} privateNotes={privateNotes}/>
+        <Map publicNotes={publicNotes} privateNotes={privateNotes} setPrivateNotes={setPrivateNotes} setPublicNotes={setPublicNotes}  />
     </React.Fragment>
   );
 }

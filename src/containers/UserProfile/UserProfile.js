@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useHistory} from "react-router";
+import { useHistory, useLocation} from "react-router";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -15,7 +15,8 @@ import DraftsIcon from '@material-ui/icons/Drafts';
 
 import { addAlert } from '../../store/actions/index';
 import { getUserDetails } from "../../api/auth";
-import UserDetails from "../UserProfile/UserDetails"
+import UserDetails from "../UserProfile/UserDetails";
+import Changepassword from "../UserProfile/ChangePassword"
 import backgroundimage from '../UserProfile/images/signuppage.jpg';
 import * as routez from '../../shared/routes';
 import Loader from "../UserProfile/hello"
@@ -74,6 +75,7 @@ function UserProfile(props) {
   const { isAuthenticated, email } = props;
   const [isLoading, setIsLoading] = useState(true);
   const [ usrDetails, setUsrDetails] =useState([]);
+  const { pathname } = useLocation();
 
   useEffect(() => {
       if (isLoading ) {
@@ -108,13 +110,13 @@ function UserProfile(props) {
               </Paper>
               <Paper className={classes.paper} elevation={3}>
                   <List component="nav" aria-label="main mailbox folders">
-                    <ListItem button>
+                    <ListItem button onClick={() => history.push(routez.USER_PROFILE)}>
                       <ListItemIcon>
                         <InboxIcon />
                       </ListItemIcon>
                       <ListItemText primary="My Profile" />
                     </ListItem>
-                    <ListItem button>
+                    <ListItem button onClick={() => history.push(routez.CHANGE_PASSWORD)}>
                       <ListItemIcon>
                         <DraftsIcon />
                       </ListItemIcon>
@@ -124,9 +126,15 @@ function UserProfile(props) {
               </Paper>
             </div>
           </Grid>
+        {pathname===routez.USER_PROFILE ? (
           <Grid item xs={12} sm={8} className={classes.rightcontainer}>
                 {isAuthenticated ? <UserDetails usrDetails={usrDetails}/> :<UserDetails usrDetails={usrDetails}/>}
           </Grid>
+         ) : (
+          <Grid item xs={12} sm={8} className={classes.rightcontainer}>
+              {isAuthenticated ? <Changepassword/> :<Changepassword/>}
+          </Grid>
+         )}
         </Grid>
       </div>
     );

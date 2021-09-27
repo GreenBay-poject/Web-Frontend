@@ -44,6 +44,7 @@ function PostCard(props) {
             "email": email,
             "post_id": keyid
         } 
+        console.log(data)
         deletePost(data)
         .then((response) => {
             if (!response.error) {
