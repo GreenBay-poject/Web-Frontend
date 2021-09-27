@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MapExplore(props) {
-  const { isAuthenticated, onAuthLogout } = props;
+  const { isAuthenticated } = props;
   const classes = useStyles();
   let history = useHistory();
 
@@ -106,8 +106,8 @@ function MapExplore(props) {
                 </Button>
             </Grid>
             <Grid item xs={12} sm={6}>
-                <Button variant="contained" className={classes.button} onClick={() => {isAuthenticated ? onAuthLogout() : history.push(routez.SIGNIN)}}>
-                  <b>{isAuthenticated ? "Logout" : "Sign In"}</b>
+                <Button variant="contained" className={classes.button} onClick={() => {isAuthenticated ? history.push(routez.USER_PROFILE) : history.push(routez.SIGNIN)}}>
+                  <b>{isAuthenticated ? "My Profile" : "Sign In"}</b>
                 </Button>
             </Grid>
           </Grid>
