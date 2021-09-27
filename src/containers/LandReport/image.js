@@ -6,8 +6,9 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { getImage, addNote } from "../../api/landpage";
+import { getImage, getReport } from "../../api/landpage";
 import { addAlert } from '../../store/actions/index';
+import ReportModal from "../LandReport/reportModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +39,8 @@ export default function SimplePaper(props) {
   const { selectedDate, latitude, longitude, setReportData } =props
   const [image, Setimage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [open, setOpen] = React.useState(false);
+  const [reportdetails, SetReportDetails] = useState();
 
   useEffect(() => {
     const data ={
@@ -58,19 +61,24 @@ export default function SimplePaper(props) {
     }
   }, [isLoading, latitude, longitude, selectedDate]);
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const onSubmitHandler = useCallback(() => {
     const data ={
       "url": image,
     }
-    addNote(data)
+    getReport(data)
         .then((response) => {
           if (!response.error) {
-            console.log(response.data)
+            SetReportDetails(response.data)
             setReportData(response.data)
           } else {
               addAlert("Error on loading Private Notes")
           }
         })
+    setOpen(true);
   }, [image, setReportData]);
   console.log(image)
   if (isLoading){
@@ -87,7 +95,16 @@ export default function SimplePaper(props) {
                           <Button>Get the Report</Button>
                       </ButtonGroup>
                   </Grid>
-              </Grid>
+          </Grid>
+          <ReportModal
+              open={open}
+              handleClose={handleClose}
+              latitude={latitude}
+              longitude={longitude}
+              selectedDate={selectedDate}
+              image={image}
+              reportdetails={reportdetails}
+          />
       </div>
     );
   }

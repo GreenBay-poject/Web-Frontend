@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 
 import InputFile from '../Notes/inputs';
 import { addAlert } from '../../store/actions/index';
-import { deletePost } from "../../api/notes";
+import { deleteNote } from "../../api/notes";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +36,7 @@ const center = {
 
 function MyComponent(props) {
   const classes = useStyles();
-  const { publicNotes, privateNotes, email } = props;
+  const { publicNotes, privateNotes, email, setPrivateNotes, setPublicNotes } = props;
   const [latitude, setLatitude] = useState(7.2842);
   const [longitude, setLongitude] = useState(80.6372);
   console.log(privateNotes)
@@ -46,8 +46,8 @@ function MyComponent(props) {
   };
 
   const DeleteNote = (note) => {
-    alert("Delete")
-    deletePost({email:email,note_id:note})
+    alert("Do you want to delete "+ String(note) +" note")
+    deleteNote({email:email,note_id:note})
         .then((response) => {
           console.log(response)
           if (!response.error) {
@@ -83,16 +83,17 @@ function MyComponent(props) {
                   )
                   : null
               }
-              {/* {privateNotes ? 
+              {privateNotes ? 
                   privateNotes.map((note) => 
                       <Marker
                           fillColor= {"yellow"}
                           position={{"lat": note.lat, "lng": note.lon}}
                           title={note.text}
+                          onDblClick={(e) => DeleteNote(note.note_id)}
                       />
                     )
                   : null
-              } */}
+              }
               <Marker
                   title={"move to select the position you wanted"}
                   draggable={true}
@@ -103,7 +104,7 @@ function MyComponent(props) {
           </LoadScript>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <InputFile latitude={latitude} longitude={longitude} setLatitude={setLatitude} setLongitude={setLongitude}/>
+          <InputFile latitude={latitude} longitude={longitude} setLatitude={setLatitude} setLongitude={setLongitude} setPrivateNotes={setPrivateNotes} setPublicNotes={setPublicNotes}/>
         </Grid>
       </Grid>
     </div>

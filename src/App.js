@@ -42,6 +42,7 @@ function App(props) {
         <Route exact path={routez.QUESTIONS} component={Questions}/>
         <Route exact path={routez.SIGNUP} component={SignUp}/>
         <Route exact path={routez.USER_PROFILE} component={UserProfile}/>
+        <Route exact path={routez.CHANGE_PASSWORD} component={UserProfile}/>
         <Route exact path={routez.FEED} component={FeedPage}/>
         <Route exact path={routez.NOTES} component={Notespage}/>
         <Route exact path={routez.LANDREPORT} component={LandReport}/>

@@ -11,7 +11,7 @@ import Footer from "../../components/UI/footer";
 
 import { addAlert } from '../../../src/store/actions/index';
 import { auth } from '../../../src/store/actions/index';
-
+import SingleLineImageList from '../Landing/postlist'
 
 import {
   Box,
@@ -86,8 +86,18 @@ function Landing(props) {
 
       <MapExplore  isAuthenticated={isAuthenticated}/>
 
-      <ColoredBar />
+      <Box mt="30px" pl="60px">
+        <Grid container direction="row" align="center" >
+          {Data.map((D) => (
+            <Grid item xs={12} sm={4}  align="left">
+              <ImgMediaCard Details={D} />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
 
+      <ColoredBar />
+      
       <Box mb="15px">
         <hr color={colors[1]} />
 
@@ -111,21 +121,14 @@ function Landing(props) {
           </Box>
         </Box>
         <Box>
+          <SingleLineImageList/>
+        </Box>
+        <Box>
           <ImageSlider slides={SliderData} />
         </Box>
       </Box>
 
       <hr color={colors[1]} />
-
-      <Box mt="30px" pl="60px">
-        <Grid container direction="row" align="center" >
-          {Data.map((D) => (
-            <Grid item xs={12} sm={4}  align="left">
-              <ImgMediaCard isAuthenticated={isAuthenticated} Details={D} />
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
 
       <Footer />
     </Box>
