@@ -14,6 +14,9 @@ const useStyles = makeStyles({
     maxWidth: 375,
     marginTop: "10px",
   },
+  linkstyle: {
+    textDecoration : "none"
+  }
 });
 
 export default function ImgMediaCard(props) {
@@ -39,7 +42,7 @@ export default function ImgMediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Link to={props.Details.Name==="Notes"? "/notes": props.Details.Name==="Q&A"? "/questions":"/feedpage" }>
+        <Link className={classes.linkstyle} to={props.Details.Name==="Notes"? "/notespage": props.Details.Name==="Q&A"? "/questions":"/feedpage" }>
           <Button size="small" color="primary">
             Explore {props.Details.Name}
           </Button>

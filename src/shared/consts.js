@@ -1,5 +1,5 @@
 // General Const
-export const SEHost = 'http://0.0.0.0:8087';
+export const SEHost = 'https://greenbayrestapi.herokuapp.com';
 // http://0.0.0.0:8087/auth/register
 // Auth Const
 export const authRedirectPath = '/';

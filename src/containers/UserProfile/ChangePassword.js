@@ -1,33 +1,32 @@
 import React, { useState, useCallback }  from 'react';
-import { Redirect } from "react-router";
 import { connect } from 'react-redux';
-import { useHistory } from "react-router-dom";
 
 import { Button, FormLabel } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import Link from '@material-ui/core/Link';
+
 
 import { checkValidity } from '../../shared/validate';
 import { updateObject } from '../../shared/utility';
 import { buildTextFields } from '../../helpers/uiHelpers';
 import { auth } from '../../store/actions/index';
 import { addAlert } from '../../store/actions/index';
-import * as routez from '../../shared/routes';
+import {changepassword} from "../../api/auth"
 
 
 const inputDefinitions = {
-    gmail: {
-        label: 'Email*',
+    newpassword: {
+        label: 'New Password*',
+        type: 'password',
         validations: {
             required: true,
-            isEmail: true,
-            validationErrStr: 'Enter a valid email',
+            minLength: 2,
+            maxLength: 40,
+            validationErrStr: 'Use between 6 and 40 characters for your password',
         }
     },
-    password: {
-        label: 'Password*',
+    confirmpassword: {
+        label: 'Confirm Password*',
         type: 'password',
         validations: {
             required: true,
@@ -75,28 +74,25 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function SignIn(props) {
+function Changepassword(props) {
     const classes = useStyles();
-    const { isAuthenticated, error} = props;
-    let history = useHistory();
-
-    const redirectUrl = "";
+    const { error, email} = props;
 
     const [inputIsValid, setInputIsValid] = useState({
-        gmail: true,
-        password: true
+        newpassword: true,
+        confirmpassword: true
     });
 
     const [authObj, setAuthObj] = useState({
-        gmail: '',
-        password: ''
+        newpassword: '',
+        confirmpassword: ''
     });
 
     const inputProperties = {
-        gmail: {
+        newpassword: {
             styleClass: classes.loginInput
         },
-        password: {
+        confirmpassword: {
             styleClass: classes.loginInput
         }
     };
@@ -122,17 +118,25 @@ function SignIn(props) {
         event.preventDefault()
 
         let localInputIsValid = { ...inputIsValid };
-        localInputIsValid['gmail'] = checkInputValidity('gmail');
-        localInputIsValid['password'] = checkInputValidity('password');
+        localInputIsValid['newpassword'] = checkInputValidity('newpassword');
+        localInputIsValid['confirmpassword'] = checkInputValidity('confirmpassword');
         setInputIsValid(localInputIsValid);
 
-        if (localInputIsValid['gmail'] && localInputIsValid['password']) {
-            props.onAuth(
-                authObj.gmail,
-                authObj.password
-            );
+        if (authObj.newpassword === authObj.confirmpassword) {
+            changepassword({email:email, password:authObj.newpassword})
+                .then((response) => {
+                    if (!response.error) {
+                        console.log("password changed")
+                        addAlert("Passwords Changed!")
+                    } else{
+                        addAlert("Error Occured!")
+                    }
+                })
+        } else {
+            console.log("eroor hh")
+            addAlert("Passwords Mismatch!")
         }
-    }, [authObj, checkInputValidity, inputIsValid, props]);
+    }, [authObj, checkInputValidity, inputIsValid, email]);
 
     let formErrorLabel = null;
     if (error) {
@@ -145,17 +149,11 @@ function SignIn(props) {
         );
     }
 
-    if (isAuthenticated) {
-		if (redirectUrl === "") return <Redirect to={routez.LANDING} />;
-		return <Redirect to={redirectUrl} />;
-    }
-
   return (
     <div className={classes.root}>
         <div>
-            <img src="/Logo96.png" alt="logo"/>
             <Typography component="h1" variant="h5">
-                Sign In
+                Change Password
             </Typography>
             <form noValidate autoComplete="off" className={classes.form} onSubmit={onSubmitHandler}>
                 {formErrorLabel}
@@ -165,20 +163,8 @@ function SignIn(props) {
                     variant="contained"
                     className={classes.submit}
                 >
-                    Sign In
+                    Change Password
                 </Button>
-                <Grid container>
-                <Grid item xs={12}>
-                    <Link href="#" variant="body2" className={classes.links}>
-                    Forgot password?
-                    </Link>
-                </Grid>
-                <Grid item xs={12}>
-                    <Link onClick={ ()=> history.push("/signup")} variant="body2" className={classes.links}>
-                    {"Don't have an account? Sign Up"}
-                    </Link>
-                </Grid>
-                </Grid>
             </form>
         </div>
     </div>
@@ -189,6 +175,7 @@ const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.token != null,
         error: state.auth.error,
+        email: state.auth.email
     }
 }
 
@@ -199,4 +186,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(Changepassword);

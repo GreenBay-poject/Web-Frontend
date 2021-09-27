@@ -40,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: 'column',
     },
     button: {
-        margin: theme.spacing(8),
+        backgroundColor: "rgb(0, 121, 107)",
+        color: "white"
     },
     buttonalign: {
         alignItems: 'right',
@@ -56,11 +57,14 @@ const useStyles = makeStyles((theme) => ({
 
 function FeedPage(props) {
   const classes = useStyles();
-  const { isAuthenticated } = props;
+  const { isAuthorized } = props;
   const [page, setPage] = React.useState(1);
   const [open, setOpen] = React.useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [postslist, setPosts] =useState([]);
+  const moment = require('moment')
+
+  console.log(isAuthorized)
 
   const handleOpen = () => {
     setOpen(true);
@@ -91,14 +95,12 @@ function FeedPage(props) {
           <div className={classes.root}>
             <Grid container spacing={3} className={classes.container}>
                 <Grid container spacing={3} className={classes.buttonalign}>
-                    <Grid item xs>
+                    <Grid item xs hidden={!isAuthorized}>
                         <Button
                             variant="contained"
-                            color="primary"
                             className={classes.button}
                             startIcon={<CloudUploadIcon />}
                             onClick={handleOpen}
-                            hidden={!isAuthenticated}
                         >
                             Upload New Post
                         </Button>
@@ -109,11 +111,11 @@ function FeedPage(props) {
                         postslist.map((author) => 
                           author.posts.map((post) => 
                             <PostCard
-                                key={post.post_id}
+                                keyid={post.post_id}
                                 title={post.Title}
                                 image={post.Image}
                                 description={post.Description}
-                                dateposted={post.DatePosted}
+                                dateposted={moment(post.DatePosted).format('MMMM Do YYYY, h:mm:ss a')}
                                 ministry={author.ministry_name}
                             />
                           )
@@ -154,6 +156,7 @@ function FeedPage(props) {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.token != null,
+        isAuthorized: state.auth.IsAuthorized,
         error: state.auth.error,
         email: state.auth.email
     }

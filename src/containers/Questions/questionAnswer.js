@@ -1,20 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import Question from "../../components/UI/Questions/question";
 import Answer from "../../components/UI/Questions/answer";
 import Sidebar from "../../components/UI/Questions/sideBar";
-import Qmodal from "../../components/UI/Questions/qmodal";
-import Rmodal from "../../components/UI/Questions/replyModal";
+import Qmodal from "../Questions/qmodal";
+import Rmodal from "../Questions/replyModal";
+import { Questiondata } from "../../components/UI/Questions/dummyData";
 
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Box, Button, Grid, makeStyles } from "@material-ui/core";
 import { addAlert } from "../../../src/store/actions/index";
 import { auth } from "../../../src/store/actions/index";
 
@@ -101,52 +95,70 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function QuestionAnswer(props) {
-  const colors = ["#BCBF50", "#F2EDD0", "#D9B64E", "#D9C589", "#F2F2F2"];
   const classes = useStyles();
   const { isAuthenticated } = props;
-  const [open, setOpen] = React.useState(false);
+  const [openReply, setOpenReply] = React.useState(false);
+  const [openQuestion, setOpenQuestion] = React.useState(false);
+  const [Authority,setAuthority]=React.useState(Questiondata.Wild_care_Ministry);
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handleOpenReply = () => {
+    setOpenReply(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseReply = () => {
+    setOpenReply(false);
+  };
+  const handleOpenQuestion = () => {
+    setOpenQuestion(true);
+  };
+
+  const handleCloseQuestion = () => {
+    setOpenQuestion(false);
+  };
+
+  const handleDelete = () => {
+    console.log("delete");
   };
 
   return (
     <Box width="100%">
       <Grid container direction="row">
         <Grid item xs={12} sm={3}>
-          {" "}
-          <Sidebar />
+          <Sidebar  setAuthority={setAuthority} D={Questiondata}/>
         </Grid>
 
         <Grid item xs={12} sm={9} align="left">
-          <Button
-            variant="contained"
-            className={classes.button}
-            onClick={handleOpen}
-            hidden={!isAuthenticated}
-          >
-            <b>Ask Question</b>
-          </Button>
-          <Box m="15px" bgcolor="#F2F39F" borderRadius="20px" pb="1px">
-            <Question />
+          {!isAuthenticated ? (
             <Button
               variant="contained"
-              className={classes.buttonreply}
-              onClick={handleOpen}
-              hidden={!isAuthenticated}
+              className={classes.button}
+              onClick={handleOpenQuestion}
             >
-              <b>Add Reply</b>
+              <b>Ask Question</b> 
             </Button>
+          ) : null}
 
-            <Answer />
-          </Box>
+          {Authority.map((D) => (
+            <Box m="15px" bgcolor="#F2F39F" borderRadius="20px" pb="1px">
+              <Question details={D} handleDelete={handleDelete} />
+
+              {!isAuthenticated ? (
+                <Button
+                  variant="contained"
+                  className={classes.buttonreply}
+                  onClick={handleOpenReply}
+                >
+                  <b>Add Reply</b>
+                </Button>
+              ) : null}
+
+              <Answer details={D}/>
+            </Box>
+          ))}
         </Grid>
-        <Qmodal open={open} handleClose={handleClose} />
-        <Rmodal open={open} handleClose={handleClose} />
+
+        <Qmodal open={openQuestion} handleClose={handleCloseQuestion} />
+        <Rmodal open={openReply} handleClose={handleCloseReply} />
       </Grid>
     </Box>
   );

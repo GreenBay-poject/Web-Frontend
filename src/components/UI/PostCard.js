@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -17,6 +18,8 @@ import ImageIcon from '@material-ui/icons/Image';
 import Grid from '@material-ui/core/Grid';
 
 import defaultimages from '../Images/defaultimage.png';
+import { deletePost } from "../../api/feed";
+import { addAlert } from '../../store/actions/index';
 
 const useStyles = makeStyles({
   root: {
@@ -32,12 +35,22 @@ const useStyles = makeStyles({
   }
 });
 
-export default function PostCard(props) {
+function PostCard(props) {
     const classes = useStyles();
-    const { key, title, image, description, dateposted, ministry} = props;
+    const { keyid, title, image, description, dateposted, ministry, email} = props;
 
-    const handleDelete = () => {
-        console.log(key)
+    const handleDelete = (keyid) => {
+        let data = {
+            "email": email,
+            "post_id": keyid
+        } 
+        console.log(data)
+        deletePost(data)
+        .then((response) => {
+            if (!response.error) {
+                console.log(response.data)
+            }
+        })
     };
 
       
@@ -75,10 +88,27 @@ export default function PostCard(props) {
             </Grid>
         </CardActionArea>
         <CardActions>
-            <Button size="small" color="secondary" onclick={handleDelete}>
+            <Button size="small" color="secondary" onClick={() => handleDelete(keyid)}>
                 Delete
             </Button>
         </CardActions>
         </Card>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.auth.token != null,
+        isAuthorized: state.auth.IsAuthorized != null,
+        error: state.auth.error,
+        email: state.auth.email
+    }
+  }
+  
+  const mapDispatchToProps = (dispatch) => {
+    return {
+        addAlert: (alert) => dispatch(addAlert(alert))
+    }
+  };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(PostCard);

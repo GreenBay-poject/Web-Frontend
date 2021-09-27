@@ -4,3 +4,6 @@ export const SIGNIN = '/signin';
 export const SIGNUP = '/signup';
 export const USER_PROFILE = '/userprofile';
 export const FEED = '/feedpage';
+export const NOTES = '/notespage';
+export const LANDREPORT = '/landreport';
+export const CHANGE_PASSWORD = '/changepassword';

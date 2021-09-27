@@ -1,4 +1,4 @@
-import React, { useState, useCallback }  from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import ImageSlider from "../../components/UI/LandingPage/slider/imageSlider";
@@ -15,12 +15,9 @@ import { auth } from '../../../src/store/actions/index';
 
 import {
   Box,
-  Button,
-  Container,
   Grid,
   makeStyles,
   Typography,
-  Paper,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
