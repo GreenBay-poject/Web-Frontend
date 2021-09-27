@@ -14,6 +14,7 @@ import 'react-quill/dist/quill.snow.css';
 import { checkValidity } from '../../shared/validate';
 import { updateObject } from '../../shared/utility';
 import { addAlert } from '../../store/actions/index';
+import { addPost  } from '../../api/feed';
 
 const inputDefinitions = {
     title: {
@@ -64,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
 
 function FeedPage(props) {
   const classes = useStyles();
-  const { open, handleClose } = props;
+  const { open, handleClose, email, isAuthorized, isAuthenticated } = props;
   const [quillVal, setQuillVal] = React.useState(false); 
   const [imageUrl,setimageUrl] =useState("");
   const [file, setFile] = React.useState('');
@@ -91,25 +92,24 @@ function FeedPage(props) {
   }, [stateObj, inputIsValid]);
 
   const onSubmitHandler = useCallback((event) => {
-      console.log("hiii")
-    // const data ={
-    //     "email": email,
-    //     "title": stateObj.title,
-    //     "description": quillVal,
-    //     "image_url": imageUrl
-    // }
-    // if (isAuthenticated){
-    //     addPost(data)
-    //     .then((response) => {
-    //         if (!response.error) {
-    //             console.log("successfull")
-    //         } else {
-    //             console.log(response)  
-    //         }
-    //     })
-    // }
-//   }, [email, imageUrl, quillVal, stateObj.title, isAuthenticated]);
-    }, []);
+    const data ={
+        "email": email,
+        "title": stateObj.title,
+        "description": quillVal,
+        "image_url": imageUrl
+    }
+    console.log(data)
+    if (isAuthenticated && isAuthorized){
+        addPost(data)
+        .then((response) => {
+            if (!response.error) {
+                console.log("successfull")
+            } else {
+                console.log(response)  
+            }
+        })
+    }
+  }, [email, imageUrl, quillVal, stateObj.title, isAuthenticated, isAuthorized]);
 
   const onChange = (value) => {
     console.log(typeof(value))
@@ -192,7 +192,7 @@ function FeedPage(props) {
                     variant="contained"
                     color="primary"
                     fullWidth
-                    onClick={onSubmitHandler()}
+                    onClick={() => onSubmitHandler()}
                     disabled={!inputIsValid}
                     className={classes.postbutton}
                 >
@@ -208,6 +208,7 @@ function FeedPage(props) {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.token != null,
+        isAuthorized: state.auth.IsAuthorized != null,
         error: state.auth.error,
         email: state.auth.email
     }

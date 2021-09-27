@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 
 import InputFile from '../Notes/inputs';
 import { addAlert } from '../../store/actions/index';
-import { deletePost } from "../../api/notes";
+import { deleteNote } from "../../api/notes";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,7 +47,7 @@ function MyComponent(props) {
 
   const DeleteNote = (note) => {
     alert("Do you want to delete "+ String(note) +" note")
-    deletePost({email:email,note_id:note})
+    deleteNote({email:email,note_id:note})
         .then((response) => {
           console.log(response)
           if (!response.error) {

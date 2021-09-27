@@ -9,6 +9,7 @@ import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import 'react-quill/dist/quill.snow.css';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {
     ThemeProvider,
     createTheme,
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
-        width: 400,
+        width: 800,
         display: 'flex',
         flexWrap: 'wrap',
         // '& > *': {
@@ -80,7 +81,7 @@ function FeedPage(props) {
       console.log("hiii")
     }, []);
 
-    console.log(reportdetails)
+ console.log(reportdetails)
 
   return (
       <React.Fragment>        
@@ -97,7 +98,7 @@ function FeedPage(props) {
             }}
         >
             <Fade in={open}>
-                <Grid container spacing={3} className={classes.modelpaper}>
+                <Grid container spacing={1} className={classes.modelpaper}>
                     <Grid item xs={12} sm={12}>
                         <h2 id="transition-modal-title" className={classes.inputitems}>Land Report</h2>
                     </Grid>
@@ -119,9 +120,9 @@ function FeedPage(props) {
                     {/* <Grid item xs={12} sm={6}>
                         <img alt="pp" className={classes.large} src={image}/>
                     </Grid> */}
-                    {/* <Grid item xs={12} sm={12}>
-                        <PieChart reportdetails={reportdetails}/>
-                    </Grid> */}
+                    <Grid item xs={12} sm={12}>
+                        {reportdetails ? <PieChart reportdetails={reportdetails}/> : <CircularProgress/>}
+                    </Grid>
                     <Grid item xs={12} sm={12}>
                         <Button
                             variant="contained"

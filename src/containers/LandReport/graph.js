@@ -4,13 +4,13 @@ import { Pie } from 'react-chartjs-2';
 
 function PieChart(props) {
     const { reportdetails } = props;
-    console.log(reportdetails)
+    console.log("reportdetails",reportdetails.Report[0])
     const data = {
       labels: ['Cultivation', 'Habitation', 'Agriculture', 'Road', 'Water', 'Forest_Coverage'],
       datasets: [
         {
           label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          data: [reportdetails.Report[0].cultivation, reportdetails.Report[0].habitation, reportdetails.Report[0].agriculture, reportdetails.Report[0].road, reportdetails.Report[0].water, reportdetails.Report[0].forest_coverage],
           backgroundColor: [
             'rgb(192, 202, 51)',
             'rgb(255, 236, 179)',

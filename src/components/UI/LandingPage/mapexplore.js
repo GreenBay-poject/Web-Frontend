@@ -1,5 +1,12 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
+
 import { Box, Button, Grid, makeStyles, Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
+
+import * as routez from '../../../shared/routes';
+import { addAlert, authLogout } from '../../../store/actions/index';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -55,8 +62,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MapExplore(props) {
-  const { isAuthenticated } = props;
+  const { isAuthenticated, onAuthLogout } = props;
   const classes = useStyles();
+  let history = useHistory();
 
   return (
     <Box pt="20px" pl="60px" pr="5px">
@@ -93,18 +101,14 @@ function MapExplore(props) {
           </Box>
           <Grid container direction="row" spacing={3} align="left">
             <Grid item xs={12} sm={6}>
-              <Link to="/landreport">
-                <Button variant="contained" className={classes.button}>
+                <Button variant="contained" className={classes.button} onClick={() => history.push(routez.LANDREPORT)}>
                   <b>Explore Map</b>
                 </Button>
-              </Link>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Link to="/signin">
-                <Button variant="contained" className={classes.button}>
+                <Button variant="contained" className={classes.button} onClick={() => {isAuthenticated ? onAuthLogout() : history.push(routez.SIGNIN)}}>
                   <b>{isAuthenticated ? "Logout" : "Sign In"}</b>
                 </Button>
-              </Link>
             </Grid>
           </Grid>
         </Grid>
@@ -117,4 +121,19 @@ function MapExplore(props) {
   );
 }
 
-export default MapExplore;
+const mapStateToProps = (state) => {
+  return {
+      isAuthenticated: state.auth.token != null,
+      error: state.auth.error,
+      email: state.auth.email
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      onAuthLogout: () => dispatch(authLogout()),
+      addAlert: (alert) => dispatch(addAlert(alert))
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapExplore);

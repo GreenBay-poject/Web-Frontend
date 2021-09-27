@@ -157,7 +157,7 @@ function FeedPage(props) {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.token != null,
-        isAuthorized: state.auth.IsAuthorized != null,
+        isAuthorized: state.auth.IsAuthorized,
         error: state.auth.error,
         email: state.auth.email
     }
