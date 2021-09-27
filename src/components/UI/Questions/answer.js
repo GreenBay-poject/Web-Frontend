@@ -87,6 +87,12 @@ const useStyles = makeStyles((theme) => ({
 function Answer(props) {
   const classes = useStyles();
   const { isAuthorized, details,handleOpenReply ,q_id} = props;
+  if (details){
+    const index = details[0].DatePosted.indexOf("T"); 
+    var Qdate = details[0].DatePosted.substr(0,index);  
+
+  }
+
 
   return (
     <Box>
@@ -105,16 +111,13 @@ function Answer(props) {
               <ReplyIcon />
             </Box>
             <Box item xs pl="2px" pt="5px">
-              {" "}
               <img src="/reply.png" width="25px" alt="user logo" />
             </Box>
             <Box item xs pl="5px" pt="5px">
-              {" "}
               {details[0].AuthorsID}
             </Box>
             <Box item xs pl="5px" pt="5px" className={classes.paper2}>
-              {" "}
-              {details[0].DatePosted}
+              {Qdate} 
             </Box>
           </Grid>
 

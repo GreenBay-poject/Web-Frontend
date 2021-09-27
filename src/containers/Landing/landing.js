@@ -134,7 +134,7 @@ function Landing(props) {
 
 const mapStateToProps = (state) => {
   return {
-      isAuthenticated: state.auth.token != null,
+      isAuthenticated: state.auth.token != null, 
       error: state.auth.error,
   }
 }

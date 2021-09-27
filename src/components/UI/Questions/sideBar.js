@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Sidebar(props) {
   const classes = useStyles();
-  const {setAuthority,D}=props;
+  const {setAuthority,setAuthorityString,D}=props;
   return (
     <Box align="left"  mt="30px">
       <Typography
@@ -34,23 +34,26 @@ function Sidebar(props) {
       >
         <b>Authorities</b>
       </Typography>
-      <Box mt="40px" className={classes.Box1} p="20px" pl="50px" button onClick={()=>setAuthority(D.Wild_care_Ministry)}>
+      <Box mt="40px" className={classes.Box1} p="20px" pl="50px" button onClick={()=>{setAuthorityString("Wild_care_Ministry"); setAuthority(D.Wild_care_Ministry)}}>
         Wild care Ministry{" "}
       </Box>
-      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>setAuthority(D.Pollute_managing_Unit)}>
+      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>{setAuthorityString("Pollute_managing_Unit") ;setAuthority(D.Pollute_managing_Unit)}}>
         Pollute managing Unit{" "}
       </Box>
-      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>setAuthority(D.Emergency_Wildfire_Unit)}>
+      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>{setAuthorityString("Emergency_Wildfire_Unit"); setAuthority(D.Emergency_Wildfire_Unit)}}>
         Endemic Tree Unit
       </Box>
-      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>setAuthority(D.Land_Soil_Ministry)}>
+      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>{setAuthorityString("Land_Soil_Ministry"); setAuthority(D.Land_Soil_Ministry)}}>
         Emergency Wildfire Unit
       </Box>
-      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>setAuthority(D.Endemic_Tree_Unit)}>
+      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>{setAuthorityString("Endemic_Tree_Unit") ;setAuthority(D.Endemic_Tree_Unit)}}>
         Land & Soil Ministry
       </Box>
-      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>setAuthority(D.Geographical_Unit)}>
+      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>{setAuthorityString("Geographical_Unit"); setAuthority(D.Geographical_Unit)}}>
         Geographical Unit
+      </Box>
+      <Box className={classes.Box1} p="20px" pl="50px" button onClick={()=>{setAuthorityString("Others"); setAuthority(D.Others)}}>
+        Other Units
       </Box>
 
     </Box>

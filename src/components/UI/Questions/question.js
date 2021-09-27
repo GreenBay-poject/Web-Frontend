@@ -95,9 +95,14 @@ import {
   
   function Question(props) {
     const {handleDelete,isAuthorized}=props;
-    const{ q_id,questionPerson,questionTitle,questionDescription,questionDate}=props.details;
-    const classes = useStyles();
-  
+    const{ q_id,questionPerson,questionTitle,questionDescription,questionDate}=props;
+    const classes = useStyles(); 
+    var index1 = questionTitle.indexOf("@"); 
+    var Qtitle = questionTitle.substr(index1 + 1);
+    var index2 = questionDate.indexOf("T"); 
+    var Qdate = questionDate.substr(0,index2);
+  console.log(q_id)
+  console.log(isAuthorized) 
     return (
       <Box>
             <Box pl="30px" pt="10px">
@@ -107,7 +112,7 @@ import {
                   <Grid container className={classes.paper} direction="row">
                     <Box item xs> <img src="/question.png" width="30px" alt="userlogo" /></Box>
                     <Box item xs pl="10px" pt="5px"> {questionPerson}</Box>
-                    <Box item xs pl="5px" pt="5px" className={classes.paper2}> {questionDate}</Box>
+                    <Box item xs pl="5px" pt="5px" className={classes.paper2}> {Qdate}</Box>
                   </Grid>
 
                 </Grid>
@@ -118,7 +123,7 @@ import {
               </Grid>
             </Box>
             <text className={classes.font2}>
-              <u>{questionTitle}</u>
+              <u>{Qtitle}</u>
             </text>
             <br />
             <Box className={classes.font3}>

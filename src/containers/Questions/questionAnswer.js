@@ -97,16 +97,17 @@ const useStyles = makeStyles((theme) => ({
 
 function QuestionAnswer(props) {
   const classes = useStyles();
-  const { isAuthenticated, isAuthorized } = props;
+  const { isAuthenticated, isAuthorized, email } = props;
   const [openReply, setOpenReply] = React.useState(false);
   const [openQuestion, setOpenQuestion] = React.useState(false);
-  const [Authority, setAuthority] = React.useState([]);
+  const [Authority, setAuthority] = React.useState();
   const [isLoading, setIsLoading] = useState(true);
   const [questionList, setQuestionList] = useState([]);
-  const [q_idForReply, SetQ_idForReply] = useState();
+  const [q_idForReply, setQ_idForReply] = useState();
+  const [AuthorityString, setAuthorityString] = useState("Wild_care_Ministry"); 
 
   const handleOpenReply = (q_id) => {
-    SetQ_idForReply(q_id);
+    setQ_idForReply(q_id);
     setOpenReply(true);
   };
 
@@ -122,45 +123,46 @@ function QuestionAnswer(props) {
   };
 
   useEffect(() => {
-    if (isLoading) {
-      viewQuestions()
+    if (isLoading && email) {
+      const data = {
+        email: email,
+      };
+      viewQuestions(data)
         .then((response) => {
           if (!response.error) {
             setQuestionList(response.data.ALL_QUESTIONS);
-            setAuthority(response.data.ALL_QUESTIONS.Wild_care_Ministry)
-            console.log(response.data.ALL_QUESTIONS)
-            console.log("rahal me")
+            setAuthority(response.data.ALL_QUESTIONS.Wild_care_Ministry);
           }
         })
-        .finally(() => setIsLoading(false)); 
+        .finally(() => setIsLoading(false));
     }
-  }, [isLoading]);
+  }, [isLoading, email]);
 
   const handleDelete = (Qid) => {
     const data = {
-      q_id: Qid,
+      "q_id": Qid,
+      "email":email
+
     };
     if (isAuthenticated) {
       deleteQuestion(data).then((response) => {
         if (!response.error) {
-          console.log("successfull");
         } else {
           console.log(response);
         }
       });
     }
-    console.log("delete");
   };
-
+  console.log(isAuthorized,"Rahal",isAuthenticated)
   return (
     <Box width="100%">
       <Grid container direction="row">
         <Grid item xs={12} sm={3}>
-          <Sidebar setAuthority={setAuthority} D={questionList} />
+          <Sidebar setAuthorityString={setAuthorityString} setAuthority={setAuthority} D={questionList} />
         </Grid>
 
         <Grid item xs={12} sm={9} align="left">
-          {!isAuthorized ? (
+          {isAuthorized ? (
             <Button
               variant="contained"
               className={classes.button}
@@ -169,41 +171,47 @@ function QuestionAnswer(props) {
               <b>Ask Question</b>
             </Button>
           ) : null}
+          {Authority
+            ? Authority.map((D) => (
+                <Box m="15px" bgcolor="#F2F39F" borderRadius="20px" pb="1px">
+                  <Question
+                    isAuthorized={isAuthorized}
+                    q_id={D.q_id}
+                    questionPerson={D.uname}
+                    questionTitle={D.title}
+                    questionDescription={D.question}
+                    questionDate={D.dateposted}
+                    handleDelete={handleDelete}
+                  />
 
-          {Authority.map((D) => (
-            <Box m="15px" bgcolor="#F2F39F" borderRadius="20px" pb="1px">
-              <Question
-                isAuthorized={isAuthorized}
-                q_id={D.q_id}
-                questionPerson={D.uname}
-                questionTitle={D.title}
-                questionDescription={D.question}
-                questionDate={D.dateposted}
-                handleDelete={handleDelete}
-              />
-
-              <Answer
-                q_id={D.q_id}
-                handleOpenReply={handleOpenReply}
-                isAuthorized={isAuthorized}
-                details={D.answer}
-              />
-            </Box>
-          ))}
+                  <Answer
+                    q_id={D.q_id}
+                    handleOpenReply={handleOpenReply}
+                    isAuthorized={isAuthorized}
+                    details={D.answer}
+                  />
+                </Box>
+              ))
+            : null}
         </Grid>
-
-        <Qmodal
-          open={openQuestion}
-          Authority={Authority.Authority}
-          handleClose={handleCloseQuestion}
-          isAuthenticated={isAuthenticated}
-        />
-        <Rmodal
-          isAuthenticated={isAuthenticated} 
-          q_idForReply={q_idForReply}
-          open={openReply}
-          handleClose={handleCloseReply}
-        />
+        {Authority &&AuthorityString? (
+          <>
+            <Qmodal
+              email={email}
+              open={openQuestion}
+              Authority={AuthorityString}
+              handleClose={handleCloseQuestion}
+              isAuthenticated={isAuthenticated}
+            />
+            <Rmodal
+              email={email}
+              isAuthenticated={isAuthenticated}
+              q_idForReply={q_idForReply}
+              open={openReply}
+              handleClose={handleCloseReply}
+            />
+          </>
+        ) : null}
       </Grid>
     </Box>
   );
@@ -212,7 +220,9 @@ function QuestionAnswer(props) {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token != null,
+    isAuthorized: state.auth.IsAuthorized != null,
     error: state.auth.error,
+    email: state.auth.email,
   };
 };
 

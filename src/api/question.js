@@ -2,7 +2,7 @@ import { postRequest } from "./utils";
 
 const BASE_URL = "questions";
 
-export const viewQuestions = () => postRequest(`${BASE_URL}/view_questions`);
+export const viewQuestions = (data) => postRequest(`${BASE_URL}/view_questions`,data);
 
 export const addQuestion = (data) => postRequest(`${BASE_URL}/add_question`, data);
 

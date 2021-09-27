@@ -82,7 +82,7 @@ export default function TransitionsModal(props) {
     const data ={
         "email": email,
         "description": stateObj.description,
-        "q_id":q_idForReply
+        "question_id":q_idForReply
     }
     if (isAuthenticated){
       answerQuestion(data)
