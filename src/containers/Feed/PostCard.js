@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Pagination from '@material-ui/lab/Pagination';
 import Typography from '@material-ui/core/Typography';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import 'react-quill/dist/quill.snow.css';
 import Skeleton from '@material-ui/lab/Skeleton';
 
 import PostCard from '../../components/UI/PostCard';
@@ -40,8 +41,7 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: 'column',
     },
     button: {
-        backgroundColor: "rgb(0, 121, 107)",
-        color: "white"
+        margin: theme.spacing(8),
     },
     buttonalign: {
         alignItems: 'right',
@@ -57,14 +57,11 @@ const useStyles = makeStyles((theme) => ({
 
 function FeedPage(props) {
   const classes = useStyles();
-  const { isAuthorized } = props;
+  const { isAuthenticated } = props;
   const [page, setPage] = React.useState(1);
   const [open, setOpen] = React.useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [postslist, setPosts] =useState([]);
-  const moment = require('moment')
-
-  console.log(isAuthorized)
 
   const handleOpen = () => {
     setOpen(true);
@@ -82,6 +79,7 @@ function FeedPage(props) {
     if (isLoading ) {
         getPosts()
         .then((response) => {
+            //console.log(response.data.ALL_POSTS)
           if (!response.error) {
             setPosts(response.data.ALL_POSTS)
           }
@@ -95,12 +93,14 @@ function FeedPage(props) {
           <div className={classes.root}>
             <Grid container spacing={3} className={classes.container}>
                 <Grid container spacing={3} className={classes.buttonalign}>
-                    <Grid item xs hidden={!isAuthorized}>
+                    <Grid item xs>
                         <Button
                             variant="contained"
+                            color="primary"
                             className={classes.button}
                             startIcon={<CloudUploadIcon />}
                             onClick={handleOpen}
+                            hidden={!isAuthenticated}
                         >
                             Upload New Post
                         </Button>
@@ -111,11 +111,11 @@ function FeedPage(props) {
                         postslist.map((author) => 
                           author.posts.map((post) => 
                             <PostCard
-                                keyid={post.post_id}
+                                key={post.post_id}
                                 title={post.Title}
                                 image={post.Image}
                                 description={post.Description}
-                                dateposted={moment(post.DatePosted).format('MMMM Do YYYY, h:mm:ss a')}
+                                dateposted={post.DatePosted}
                                 ministry={author.ministry_name}
                             />
                           )
@@ -156,7 +156,6 @@ function FeedPage(props) {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.token != null,
-        isAuthorized: state.auth.IsAuthorized,
         error: state.auth.error,
         email: state.auth.email
     }
