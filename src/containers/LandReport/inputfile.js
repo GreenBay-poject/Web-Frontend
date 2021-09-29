@@ -47,7 +47,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   buttonclr: {
-    backgroundColor: "rgb(197, 225, 165)"
+    backgroundColor: "rgb(0, 121, 107)",
+        color: "white",
+    "&:hover": {
+      backgroundColor: "#05574F",
+      transform: "scale(1.01)",
+    },
   }
 }));
 

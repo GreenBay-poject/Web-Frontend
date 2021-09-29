@@ -22,6 +22,13 @@ const useStyles = makeStyles((theme) => ({
       align: "center",
     },
   },
+  Box2: {
+    fontWeight: 500,
+    fontSize:"25px",
+    margin: "30px",
+    align:"middle",
+    color:"#00796B"
+  },
   paper: {
     textAlign: "left",
     fontWeight: 600,
@@ -61,12 +68,12 @@ const useStyles = makeStyles((theme) => ({
     margin: "20px",
     borderRadius: "30px",
     color: "#ffffff",
-    background: "#80bf50",
+    background: "#00796B",
     width: "200px",
     height: "60px",
     align: "center",
     "&:hover": {
-      backgroundColor: "#439922",
+      backgroundColor: "#05574F",
       transform: "scale(1.01)",
     },
   },
@@ -104,7 +111,8 @@ function QuestionAnswer(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [questionList, setQuestionList] = useState([]);
   const [q_idForReply, setQ_idForReply] = useState();
-  const [AuthorityString, setAuthorityString] = useState("Wild_care_Ministry"); 
+  const [AuthorityString, setAuthorityString] = useState("Wild_care_Ministry");
+  const [AuthorityWord,setAuthorityWord]=useState("Wild care Ministry");
 
   const handleOpenReply = (q_id) => {
     setQ_idForReply(q_id);
@@ -140,36 +148,45 @@ function QuestionAnswer(props) {
 
   const handleDelete = (Qid) => {
     const data = {
-      "q_id": Qid,
-      "email":email
-
+      question_id: Qid,
+      email: email,
     };
     if (isAuthenticated) {
       deleteQuestion(data).then((response) => {
         if (!response.error) {
+          console.log(response)
         } else {
-          console.log(response);
+          console.log("unsesdsdf",response)
         }
       });
     }
   };
-  console.log(isAuthorized,"Rahal",isAuthenticated)
+
   return (
     <Box width="100%">
       <Grid container direction="row">
         <Grid item xs={12} sm={3}>
-          <Sidebar setAuthorityString={setAuthorityString} setAuthority={setAuthority} D={questionList} />
+          <Sidebar
+            setAuthorityString={setAuthorityString}
+            setAuthority={setAuthority}
+            setAuthorityWord={setAuthorityWord}
+            D={questionList}
+          />
         </Grid>
 
         <Grid item xs={12} sm={9} align="left">
+          {console.log(456, typeof isAuthorized)}
           {isAuthorized ? (
-            <Button
-              variant="contained"
-              className={classes.button}
-              onClick={handleOpenQuestion}
-            >
-              <b>Ask Question</b>
-            </Button>
+            <Grid container direction="row">
+              <Button
+                variant="contained"
+                className={classes.button}
+                onClick={handleOpenQuestion}
+              >
+                <b>Ask Question</b>
+              </Button>
+              <Box className={classes.Box2}>{AuthorityWord}</Box>
+            </Grid>
           ) : null}
           {Authority
             ? Authority.map((D) => (
@@ -194,23 +211,23 @@ function QuestionAnswer(props) {
               ))
             : null}
         </Grid>
-        {Authority &&AuthorityString? (
-          <>
-            <Qmodal
-              email={email}
-              open={openQuestion}
-              Authority={AuthorityString}
-              handleClose={handleCloseQuestion}
-              isAuthenticated={isAuthenticated}
-            />
-            <Rmodal
-              email={email}
-              isAuthenticated={isAuthenticated}
-              q_idForReply={q_idForReply}
-              open={openReply}
-              handleClose={handleCloseReply}
-            />
-          </>
+        {AuthorityString ? (
+          <Qmodal
+            email={email}
+            open={openQuestion}
+            Authority={AuthorityString}
+            handleClose={handleCloseQuestion}
+            isAuthenticated={isAuthenticated}
+          />
+        ) : null}
+        {q_idForReply ? (
+          <Rmodal
+            email={email}
+            isAuthenticated={isAuthenticated}
+            q_idForReply={q_idForReply}
+            open={openReply}
+            handleClose={handleCloseReply}
+          />
         ) : null}
       </Grid>
     </Box>

@@ -41,7 +41,15 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
+  submit: {
+    backgroundColor: "rgb(0, 121, 107)",
+    color: "white",
+    "&:hover": {
+        backgroundColor: "#05574F",
+        transform: "scale(1.01)",
+      },
+},
 }));
 
 const theme = createTheme({
@@ -111,7 +119,7 @@ function InputFile(props) {
                 </Grid>
                 <Grid item xs={12} sm={12} className={classes.button}>
                     <ButtonGroup color="primary" aria-label="outlined primary button group" onClick={onSubmitHandler}>
-                        <Button>Add Note</Button>
+                        <Button className={classes.submit}>Add Note</Button>
                     </ButtonGroup>
                 </Grid>
             </Grid>

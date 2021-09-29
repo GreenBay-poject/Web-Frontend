@@ -13,7 +13,6 @@ import { updateObject } from '../../shared/utility';
 import { answerQuestion } from "../../api/question";
 
 const inputDefinitions = {
-
   description: {
       validations: {
           // required: false,
@@ -49,9 +48,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: "5px",
-    backgroundColor:"#80bf50",
+    backgroundColor:"#00796B",
     "&:hover": {
-      backgroundColor: "#439922",
+      backgroundColor: "#05574F",
       transform: "scale(1.01)",
 }
 }
@@ -59,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TransitionsModal(props) {
   const classes = useStyles();
-  const { email, open, handleClose,q_idForReply,isAuthenticated } = props;
+  const { email, open, handleClose,q_idForReply,isAuthenticated} = props;
   //const [quillVal, setQuillVal] = React.useState(false); 
 
 
@@ -70,7 +69,7 @@ export default function TransitionsModal(props) {
   const [stateObj, setStateObj] = useState({
     description: '',
   });
-
+  console.log("11111111111111111",q_idForReply)  
   const inputChangeHandler = useCallback((event, inputId) => {
     let validationConst = inputDefinitions[inputId].validations;
     let isValid = checkValidity(validationConst, event.target.value);
@@ -81,20 +80,22 @@ export default function TransitionsModal(props) {
   const onSubmitHandler = useCallback((event) => {
     const data ={
         "email": email,
-        "description": stateObj.description,
+        "answer": stateObj.description,
         "question_id":q_idForReply
     }
     if (isAuthenticated){
+      console.log("Hiiiiiiiiiii",data)
       answerQuestion(data)
       .then((response) => {
           if (!response.error) {
               console.log("successfull")
           } else {
+            console.log("unsuccessfull")
               console.log(response)  
           }
       })
   }
-  }, [email, stateObj.description,q_idForReply]);
+  }, [email, stateObj.description,isAuthenticated]);
 
  /* const onChange = (value) => {
     console.log(typeof(value))

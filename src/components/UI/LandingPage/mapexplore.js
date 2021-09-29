@@ -50,12 +50,12 @@ const useStyles = makeStyles((theme) => ({
   button: {
     borderRadius: "30px",
     color: "#ffffff",
-    background: "#80bf50",
-    width: "200px",
+    background: "#00796B",
+    width: "170px",
     height: "60px",
     align: "center",
     "&:hover": {
-      backgroundColor: "#439922",
+      backgroundColor: "#05574F",
       transform: "scale(1.01)",
     },
   },
@@ -100,12 +100,17 @@ function MapExplore(props) {
             </p>
           </Box>
           <Grid container direction="row" spacing={3} align="left">
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={4}>
                 <Button variant="contained" className={classes.button} onClick={() => history.push(routez.LANDREPORT)}>
-                  <b>Explore Map</b>
+                  <b>Land Report</b>
                 </Button>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={4}>
+                <Button variant="contained" className={classes.button} onClick={() => history.push(routez.LANDREPORT)}>
+                  <b>Land Compare</b>
+                </Button>
+            </Grid>
+            <Grid item xs={12} sm={4}>
                 <Button variant="contained" className={classes.button} onClick={() => {isAuthenticated ? history.push(routez.USER_PROFILE) : history.push(routez.SIGNIN)}}>
                   <b>{isAuthenticated ? "My Profile" : "Sign In"}</b>
                 </Button>

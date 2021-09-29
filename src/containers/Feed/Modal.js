@@ -56,10 +56,15 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(0, 0, 2),
     },
     postbutton: {
+        backgroundColor: "rgb(0, 121, 107)",
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: "5px"
+        marginTop: "5px",
+        "&:hover": {
+            backgroundColor: "#05574F",
+            transform: "scale(1.01)",
+          },
     }
 }));
 

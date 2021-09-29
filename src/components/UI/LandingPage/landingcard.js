@@ -17,6 +17,10 @@ const useStyles = makeStyles({
   linkstyle: {
     textDecoration: "none",
   },
+  button1: {
+    color:"#00796B"
+  },
+ 
 });
 
 export default function ImgMediaCard(props) {
@@ -53,7 +57,7 @@ export default function ImgMediaCard(props) {
               : "/feedpage"
           }
         >
-          <Button size="small" color="primary">
+          <Button size="small" className={classes.button1}>
             Explore {props.Details.Name}
           </Button>
         </Link>

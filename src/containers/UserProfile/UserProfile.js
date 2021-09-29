@@ -66,6 +66,11 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     backgroundColor: "rgb(0, 121, 107)",
     color: "white"
+  },
+  button:{
+    "&:hover": {
+      backgroundColor: "#05574F",
+    },
   }
 }));
 
@@ -110,17 +115,17 @@ function UserProfile(props) {
               </Paper>
               <Paper className={classes.paper} elevation={3}>
                   <List component="nav" aria-label="main mailbox folders">
-                    <ListItem button onClick={() => history.push(routez.USER_PROFILE)}>
+                    <ListItem button className={classes.button} onClick={() => history.push(routez.USER_PROFILE)}>
                       <ListItemIcon>
                         <InboxIcon />
                       </ListItemIcon>
-                      <ListItemText primary="My Profile" />
+                      <ListItemText  primary="My Profile" />
                     </ListItem>
-                    <ListItem button onClick={() => history.push(routez.CHANGE_PASSWORD)}>
+                    <ListItem button className={classes.button} onClick={() => history.push(routez.CHANGE_PASSWORD)}>
                       <ListItemIcon>
                         <DraftsIcon />
                       </ListItemIcon>
-                      <ListItemText primary="Change Passowrd" />
+                      <ListItemText  primary="Change Passowrd" />
                     </ListItem>
                   </List>
               </Paper>

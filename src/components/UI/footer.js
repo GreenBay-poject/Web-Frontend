@@ -54,7 +54,7 @@ function ColoredBar() {
   const classes = useStyles();
 
   return (
-    <Box mt="40px" bgcolor="#40863E" color="white">
+    <Box mt="40px" bgcolor="#00796B" color="white">
       <Grid container direction="row">
         <Grid item xs={12} sm={6} align="center">
           <Box pb="10px">
@@ -76,7 +76,7 @@ function ColoredBar() {
           </Box>
         </Grid>
         <Grid item xs={12} sm={6} align="center" pt="50px">
-          <Box pt="10px" bgcolor="#42923f">
+          <Box pt="10px" bgcolor="#05574F">
             <Box className={classes.font10}>
               <b>Socialize with Social</b>
             </Box>

@@ -4,6 +4,8 @@ import {
     makeStyles,
   } from "@material-ui/core";
   import DeleteIcon from "@material-ui/icons/Delete";
+
+  import DeleteModel from "../../../containers/Questions/";
   
   const useStyles = makeStyles((theme) => ({
     Box1: {
@@ -101,8 +103,7 @@ import {
     var Qtitle = questionTitle.substr(index1 + 1);
     var index2 = questionDate.indexOf("T"); 
     var Qdate = questionDate.substr(0,index2);
-  console.log(q_id)
-  console.log(isAuthorized) 
+
     return (
       <Box>
             <Box pl="30px" pt="10px">

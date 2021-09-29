@@ -1,6 +1,7 @@
 import { Button,Box, Grid, makeStyles } from "@material-ui/core";
 
 import ReplyIcon from "@material-ui/icons/Reply";
+
 const useStyles = makeStyles((theme) => ({
   Box1: {
     fontWeight: 100,
@@ -92,7 +93,7 @@ function Answer(props) {
     var Qdate = details[0].DatePosted.substr(0,index);  
 
   }
-
+console.log(q_id) 
 
   return (
     <Box>
@@ -100,7 +101,7 @@ function Answer(props) {
         <Button
           variant="contained"
           className={classes.buttonreply}
-          onClick={(q_id)=>{handleOpenReply(q_id)}}
+          onClick={()=>handleOpenReply(q_id)}
         >
           <b>Add Reply</b>
         </Button>

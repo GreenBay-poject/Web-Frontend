@@ -59,9 +59,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     marginTop: "5px",
-    backgroundColor: "#80bf50",
+    backgroundColor: "#00796B",
     "&:hover": {
-      backgroundColor: "#439922",
+      backgroundColor: "#05574F",
       transform: "scale(1.01)",
     },
   },
@@ -95,21 +95,17 @@ export default function TransitionsModal(props) {
 
   const onSubmitHandler = useCallback(
     (event) => {
-      stateObj.title = Authority + "@"+ stateObj.title; 
+      const QTitle = Authority + "@" + stateObj.title;
       const data = {
         email: email,
-        title: stateObj.title,
+        title: QTitle,
         question: stateObj.description,
       };
-      console.log(stateObj.title)
-      console.log(stateObj.description)
       if (isAuthenticated) {
-
-        console.log("this is testing data",data)
-
         addQuestion(data).then((response) => {
           if (!response.error) {
             console.log("successfull q modal");
+            handleClose()
           } else {
             console.log("unsuccessfull q modal");
             console.log(response);
@@ -133,7 +129,7 @@ export default function TransitionsModal(props) {
         className={classes.modal}
         open={open}
         onClose={handleClose}
-        closeAfterTransition
+       //closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
