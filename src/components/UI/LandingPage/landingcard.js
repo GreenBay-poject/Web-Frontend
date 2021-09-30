@@ -53,7 +53,7 @@ export default function ImgMediaCard(props) {
               ? "/notespage"
               : props.Details.Name === "Q&A" && isAuthenticated
               ? "/questions"
-              : props.Details.Name === "Q&A" && isAuthenticated
+              : props.Details.Name === "Q&A" && !isAuthenticated
               ? "/signin"
               : "/feedpage"
           }

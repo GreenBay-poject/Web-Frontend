@@ -208,19 +208,19 @@ function QuestionAnswer(props) {
         </Grid>
 
         <Grid item xs={12} sm={9} align="left">
-          {console.log(456, typeof isAuthorized)}
-          {isAuthorized ? (
+          {console.log(456,isAuthorized)}
+          
             <Grid container direction="row">
-              <Button
+            {!isAuthorized ? ( <Button
                 variant="contained"
                 className={classes.button}
                 onClick={handleOpenQuestion}
               >
                 <b>Ask Question</b>
-              </Button>
+              </Button>) : null}
               <Box className={classes.Box2}>{AuthorityWord}</Box>
             </Grid>
-          ) : null}
+          
           {Authority
             ? Authority.map((D) => (
                 <Box m="15px" bgcolor="#F2F39F" borderRadius="20px" pb="1px">
@@ -279,7 +279,7 @@ function QuestionAnswer(props) {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token != null,
-    isAuthorized: state.auth.IsAuthorized != null,
+    isAuthorized: state.auth.IsAuthorized,
     error: state.auth.error,
     email: state.auth.email,
   };
