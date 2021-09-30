@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
           transform: "scale(1.01)",
         },
     },
+    buttonhide: {
+      display: "none"
+  },
     buttonalign: {
         alignItems: 'right',
     },
@@ -89,6 +92,7 @@ function FeedPage(props) {
         getPosts()
         .then((response) => {
           if (!response.error) {
+            console.log(response)
             setPosts(response.data.ALL_POSTS)
           }
         })
@@ -107,9 +111,10 @@ function FeedPage(props) {
                     <Grid item xs hidden={isAuthenticated && !isAuthorized}>
                         <Button
                             variant="contained"
-                            className={classes.button}
+                            className={isAuthorized==true ? classes.button : classes.buttonhide}
                             startIcon={<CloudUploadIcon />}
                             onClick={handleOpen}
+                            title="addpostbtn"
                         >
                             Upload New Post
                         </Button>

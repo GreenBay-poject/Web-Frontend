@@ -140,12 +140,12 @@ function InputFile(props) {
                 </Grid>
                 <Grid item xs={12} sm={12}>
                    <ThemeProvider theme={theme}>
-                        <TextField variant="outlined" id="mui-theme-provider-outlined-input" label="Note" onChange={(event) => inputTextChangeHandler(event)}/>
+                        <TextField variant="outlined" id="mui-theme-provider-outlined-input" class={"textinput"} label="Note" onChange={(event) => inputTextChangeHandler(event)}/>
                     </ThemeProvider>
                 </Grid>
                 <Grid item xs={12} sm={12} className={classes.button}>
                     <ButtonGroup aria-label="outlined button group" onClick={onSubmitHandler}>
-                        <Button className={classes.buttonclr}>Add Note</Button>
+                        <Button class="addnotebtn" className={classes.buttonclr}>Add Note</Button>
                     </ButtonGroup>
                 </Grid>
             </Grid>

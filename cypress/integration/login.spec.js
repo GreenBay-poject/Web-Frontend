@@ -10,6 +10,7 @@ describe('Login', function(){
         cy.contains('Home').click()
         cy.url().should('match', basicUrlMatcher);
         cy.visit('http://localhost:3000/signin')
+        cy.get('button[title="menubutton"]').should('be.visible').click()
         cy.get('button[title="menuclosebtn"]').should('be.visible').click()
         cy.get('.MuiLink-root').contains("Don't have").should('be.visible').click()
         cy.url().should('match', registerUrlMatcher);
@@ -31,8 +32,8 @@ describe('Login', function(){
 
     it('Sign in', function(){
         cy.visit('http://localhost:3000/signin')
-        cy.get('input[type="text"]').type('mashkarharis3@gmail.com')
-        cy.get('input[type="password"]').type('ABCD1234')
+        cy.get('input[type="text"]').type('thilakarathnadilshan1024@gmail.com')
+        cy.get('input[type="password"]').type('ABC123456')
         cy.get('.MuiButton-label').contains('Sign In').should('be.visible').click()
         cy.contains('GreenBay', {timeout:5000}).should('be.visible')
         // expect(localStorage.getItem('UserEmail')).to.eq('mashkarharis3@gmail.com')
@@ -42,6 +43,7 @@ describe('Login', function(){
         cy.get('button[title="menubutton"]').should('be.visible').click()
         cy.contains('My Profile').click()
         cy.url().should('match', baseUrlMatcherProfile);
+        cy.get('button[title="menubutton"]').should('be.visible').click()
         cy.get('button[title="menuclosebtn"]').should('be.visible').click()
         cy.url().should('match', baseUrlMatcherProfile);
         cy.get('button[title="iconbtn"]').should('be.visible').click()
