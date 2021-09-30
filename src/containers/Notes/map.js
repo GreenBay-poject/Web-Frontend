@@ -94,8 +94,6 @@ function MyComponent(props) {
         }).finally(() => setIsLoading(false));
   };
 
-  console.log(alert)
-
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -123,7 +121,6 @@ function MyComponent(props) {
               {privateNotes ? 
                   privateNotes.map((note) => 
                       <Marker
-                          fillColor= {"yellow"}
                           position={{"lat": note.lat, "lng": note.lon}}
                           title={note.text}
                           onDblClick={(e) => handleOpenDeleteModal(note.note_id)}
