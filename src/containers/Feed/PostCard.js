@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import 'react-quill/dist/quill.snow.css';
 import Skeleton from '@material-ui/lab/Skeleton';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import PostCard from '../../components/UI/PostCard';
 import Modal from "../Feed/Modal";
@@ -95,7 +96,10 @@ function FeedPage(props) {
     }
 }, [isLoading]);
 
-  return (
+  if (isLoading){
+    return (<CircularProgress/>)
+  } else {
+    return (
       <React.Fragment>
           <div className={classes.root}>
             <Grid container spacing={3} className={classes.container}>
@@ -122,6 +126,7 @@ function FeedPage(props) {
                                 description={post.Description}
                                 dateposted={moment(post.DatePosted).format('MMMM Do YYYY, h:mm:ss a')}
                                 ministry={author.ministry_name}
+                                setIsLoading={setIsLoading}
                             />
                           )
                         )
@@ -152,10 +157,12 @@ function FeedPage(props) {
         <Modal
           open={open}
           handleClose={handleClose}
+          setIsLoading={setIsLoading}
         />
 
       </React.Fragment>
-  );
+    )
+  }
 }
 
 const mapStateToProps = (state) => {

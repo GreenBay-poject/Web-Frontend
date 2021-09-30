@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 
 function FeedPage(props) {
   const classes = useStyles();
-  const { open, handleClose, email, isAuthorized, isAuthenticated } = props;
+  const { open, handleClose, email, isAuthorized, isAuthenticated, setIsLoading } = props;
   const [quillVal, setQuillVal] = React.useState(false); 
   const [imageUrl,setimageUrl] =useState("");
   const [file, setFile] = React.useState('');
@@ -98,6 +98,7 @@ function FeedPage(props) {
   }, [stateObj, inputIsValid]);
 
   const onSubmitHandler = useCallback((event) => {
+    setIsLoading(true)
     const data ={
         "email": email,
         "title": stateObj.title,
@@ -127,11 +128,11 @@ function FeedPage(props) {
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                    });
+                    }).finally(() => setIsLoading(false));
             }
         })
     }
-  }, [email, imageUrl, quillVal, stateObj.title, isAuthenticated, isAuthorized]);
+  }, [email, imageUrl, quillVal, stateObj.title, isAuthenticated, isAuthorized, setIsLoading]);
 
   const onChange = (value) => {
     console.log(typeof(value))

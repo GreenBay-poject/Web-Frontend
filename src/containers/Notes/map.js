@@ -41,7 +41,7 @@ const center = {
 
 function MyComponent(props) {
   const classes = useStyles();
-  const { publicNotes, privateNotes, email, setPrivateNotes, setPublicNotes } = props;
+  const { publicNotes, privateNotes, email, setPrivateNotes, setPublicNotes, setIsLoading } = props;
   const [latitude, setLatitude] = useState(7.2842);
   const [longitude, setLongitude] = useState(80.6372);
   const [openDelete, setOpenDelete] = React.useState(false);
@@ -66,6 +66,7 @@ function MyComponent(props) {
   };
 
   const DeleteNote = (note) => {
+    setIsLoading(true)
     deleteNote({email:email,note_id:note})
         .then((response) => {
           console.log(response)
@@ -90,7 +91,7 @@ function MyComponent(props) {
               progress: undefined,
               });
           }
-        })
+        }).finally(() => setIsLoading(false));
   };
 
   console.log(alert)
@@ -140,11 +141,11 @@ function MyComponent(props) {
           </LoadScript>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <InputFile latitude={latitude} longitude={longitude} setLatitude={setLatitude} setLongitude={setLongitude} setPrivateNotes={setPrivateNotes} setPublicNotes={setPublicNotes}/>
+          <InputFile setIsLoading={setIsLoading} latitude={latitude} longitude={longitude} setLatitude={setLatitude} setLongitude={setLongitude} setPrivateNotes={setPrivateNotes} setPublicNotes={setPublicNotes}/>
         </Grid>
         { privateNotes && (privateNotes.length)>0 ? 
           <Grid item xs={12} sm={12}>
-              <Typography>Public Notes</Typography>
+              <Typography>Private Notes</Typography>
               <PrivateNotes privateNotes={privateNotes} handleOpenDeleteModal={handleOpenDeleteModal}/>
           </Grid> : null
         }

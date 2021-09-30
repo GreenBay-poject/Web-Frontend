@@ -65,7 +65,7 @@ const theme = createTheme({
 
 function InputFile(props) {
   const classes = useStyles();
-  const { email, latitude, longitude, setLatitude, setLongitude, isAuthorized, setPrivateNotes, setPublicNotes, isAuthenticated } = props;
+  const { email, latitude, longitude, setLatitude, setLongitude, isAuthorized, setPrivateNotes, setPublicNotes, isAuthenticated, setIsLoading } = props;
   const [textval, setTextVal] = useState();
   let history = useHistory();
 
@@ -86,6 +86,7 @@ function InputFile(props) {
     if (!isAuthenticated){
       history.push(routez.SIGNIN)
     }
+    setIsLoading(true)
     const data ={
         "email": email,
         "lat": latitude,
@@ -121,7 +122,7 @@ function InputFile(props) {
               progress: undefined,
               });
           }
-        })
+        }).finally(() => setIsLoading(false));
   }, [email, latitude, longitude, textval, setPublicNotes, setPrivateNotes, isAuthorized, isAuthenticated, history]);
 
   return (

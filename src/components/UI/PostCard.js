@@ -16,6 +16,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import ImageIcon from '@material-ui/icons/Image';
 import Grid from '@material-ui/core/Grid';
+import { toast } from 'react-toastify';
 
 import defaultimages from '../Images/defaultimage.png';
 import { deletePost } from "../../api/feed";
@@ -38,7 +39,7 @@ const useStyles = makeStyles({
 
 function PostCard(props) {
     const classes = useStyles();
-    const { keyid, title, image, description, dateposted, ministry, email} = props;
+    const { keyid, title, image, description, dateposted, ministry, email, setIsLoading} = props;
     const [openDelete, setOpenDelete] = React.useState(false);
     const [selectDelete, setSelectDelete] = React.useState(false);
 
@@ -57,6 +58,7 @@ function PostCard(props) {
       };
 
     const handleDelete = (keyid) => {
+        setIsLoading(true)
         let data = {
             "email": email,
             "post_id": keyid
@@ -65,9 +67,27 @@ function PostCard(props) {
         deletePost(data)
         .then((response) => {
             if (!response.error) {
-                console.log(response.data)
+                toast.success('Post Deleted Successfully!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+            } else {
+                toast.error('Error Occured!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
             }
-        })
+        }).finally(() => setIsLoading(false))
     };
 
       
