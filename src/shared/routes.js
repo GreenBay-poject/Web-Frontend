@@ -7,3 +7,4 @@ export const FEED = '/feedpage';
 export const NOTES = '/notespage';
 export const LANDREPORT = '/landreport';
 export const CHANGE_PASSWORD = '/changepassword';
+export const FORGET_PASSWORD = '/forgetpassword';

@@ -59,7 +59,8 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: "5px"
+        marginTop: "5px",
+        backgroundColor: "rgb(0, 121, 107)",
     }
 }));
 
@@ -95,7 +96,7 @@ function FeedPage(props) {
     const data ={
         "email": email,
         "title": stateObj.title,
-        "description": quillVal,
+        "description": quillVal.substring(3,quillVal.length-4),
         "image_url": imageUrl
     }
     console.log(data)
@@ -190,7 +191,6 @@ function FeedPage(props) {
                 <ReactQuill value={quillVal} onChange={onChange}/>
                 <Button
                     variant="contained"
-                    color="primary"
                     fullWidth
                     onClick={() => onSubmitHandler()}
                     disabled={!inputIsValid}
@@ -208,7 +208,7 @@ function FeedPage(props) {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.token != null,
-        isAuthorized: state.auth.IsAuthorized != null,
+        isAuthorized: state.auth.IsAuthorized,
         error: state.auth.error,
         email: state.auth.email
     }

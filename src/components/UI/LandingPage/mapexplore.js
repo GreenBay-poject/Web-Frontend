@@ -101,12 +101,12 @@ function MapExplore(props) {
           </Box>
           <Grid container direction="row" spacing={3} align="left">
             <Grid item xs={12} sm={6}>
-                <Button variant="contained" className={classes.button} onClick={() => history.push(routez.LANDREPORT)}>
+                <Button variant="contained" title={"ExploreMap"} className={classes.button} onClick={() => history.push(routez.LANDREPORT)}>
                   <b>Explore Map</b>
                 </Button>
             </Grid>
             <Grid item xs={12} sm={6}>
-                <Button variant="contained" className={classes.button} onClick={() => {isAuthenticated ? history.push(routez.USER_PROFILE) : history.push(routez.SIGNIN)}}>
+                <Button variant="contained" title="profilebtn" className={classes.button} onClick={() => {isAuthenticated ? history.push(routez.USER_PROFILE) : history.push(routez.SIGNIN)}}>
                   <b>{isAuthenticated ? "My Profile" : "Sign In"}</b>
                 </Button>
             </Grid>

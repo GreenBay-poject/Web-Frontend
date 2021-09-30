@@ -1,38 +1,30 @@
 import React, { useState, useCallback }  from 'react';
+import { Redirect } from "react-router";
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 import { Button, FormLabel } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Link from '@material-ui/core/Link';
 
 import { checkValidity } from '../../shared/validate';
 import { updateObject } from '../../shared/utility';
 import { buildTextFields } from '../../helpers/uiHelpers';
-import { auth } from '../../store/actions/index';
+import { forgetPassword } from "../../api/auth"
 import { addAlert } from '../../store/actions/index';
-import {changepassword} from "../../api/auth"
+import * as routez from '../../shared/routes';
 
 
 const inputDefinitions = {
-    newpassword: {
-        label: 'New Password*',
-        type: 'newpassword',
+    gmail: {
+        label: 'Email*',
+        type: "email",
         validations: {
             required: true,
-            minLength: 2,
-            maxLength: 40,
-            validationErrStr: 'Use between 6 and 40 characters for your password',
-        }
-    },
-    confirmpassword: {
-        label: 'Confirm Password*',
-        type: 'confirmpassword',
-        validations: {
-            required: true,
-            minLength: 2,
-            maxLength: 40,
-            validationErrStr: 'Use between 6 and 40 characters for your password',
+            isEmail: true,
+            validationErrStr: 'Enter a valid email',
         }
     }
 };
@@ -74,27 +66,25 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Changepassword(props) {
+function ForgetPassword(props) {
     const classes = useStyles();
-    const { error, email} = props;
+    const { isAuthenticated, error } = props;
+    let history = useHistory();
+
+    const redirectUrl = "";
 
     const [inputIsValid, setInputIsValid] = useState({
-        newpassword: true,
-        confirmpassword: true
+        gmail: true
     });
 
     const [authObj, setAuthObj] = useState({
-        newpassword: '',
-        confirmpassword: ''
+        gmail: ''
     });
 
     const inputProperties = {
-        newpassword: {
+        gmail: {
             styleClass: classes.loginInput
         },
-        confirmpassword: {
-            styleClass: classes.loginInput
-        }
     };
 
     const checkInputValidity = useCallback((inputId, newValue) => {
@@ -118,25 +108,23 @@ function Changepassword(props) {
         event.preventDefault()
 
         let localInputIsValid = { ...inputIsValid };
-        localInputIsValid['newpassword'] = checkInputValidity('newpassword');
-        localInputIsValid['confirmpassword'] = checkInputValidity('confirmpassword');
+        localInputIsValid['gmail'] = checkInputValidity('gmail');
         setInputIsValid(localInputIsValid);
 
-        if (authObj.newpassword === authObj.confirmpassword) {
-            changepassword({email:email, password:authObj.newpassword})
+        if (localInputIsValid['gmail']) {
+            forgetPassword({email: authObj.email})
                 .then((response) => {
                     if (!response.error) {
-                        console.log("password changed")
-                        addAlert("Passwords Changed!")
+                        addAlert("Email Sent!")
                     } else{
                         addAlert("Error Occured!")
                     }
                 })
         } else {
             console.log("eroor hh")
-            addAlert("Passwords Mismatch!")
+            addAlert("Invalid Email!")
         }
-    }, [authObj, checkInputValidity, inputIsValid, email]);
+    }, [authObj, checkInputValidity, inputIsValid]);
 
     let formErrorLabel = null;
     if (error) {
@@ -149,11 +137,17 @@ function Changepassword(props) {
         );
     }
 
+    if (isAuthenticated) {
+		if (redirectUrl === "") return <Redirect to={routez.LANDING} />;
+		return <Redirect to={redirectUrl} />;
+    }
+
   return (
     <div className={classes.root}>
         <div>
+            <img src="/Logo96.png" alt="logo"/>
             <Typography component="h1" variant="h5">
-                Change Password
+                Forget Password
             </Typography>
             <form noValidate autoComplete="off" className={classes.form} onSubmit={onSubmitHandler}>
                 {formErrorLabel}
@@ -161,11 +155,17 @@ function Changepassword(props) {
                 <Button
                     type="submit"
                     variant="contained"
-                    titile="changepasswordbtn"
                     className={classes.submit}
                 >
-                    Change Password
+                    Verify Email
                 </Button>
+                <Grid container>
+                <Grid item xs={12}>
+                    <Link onClick={ ()=> history.push(routez.SIGNIN)} variant="body2" title="change-to-register" className={classes.links}>
+                    {"Have an account? Sign In"}
+                    </Link>
+                </Grid>
+                </Grid>
             </form>
         </div>
     </div>
@@ -182,9 +182,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAuth: (gmail, password) => dispatch(auth(gmail, password)),
         addAlert: (alert) => dispatch(addAlert(alert))
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Changepassword);
+export default connect(mapStateToProps, mapDispatchToProps)(ForgetPassword);

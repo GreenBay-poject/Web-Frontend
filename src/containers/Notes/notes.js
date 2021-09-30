@@ -33,7 +33,7 @@ function NotesPage(props) {
         })
         .finally(() => setIsLoading(false));
     }
-}, [isLoading, email]);
+}, [isLoading, email, publicNotes, privateNotes]);
 
 return (
     <React.Fragment>

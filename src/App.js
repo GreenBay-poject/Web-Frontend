@@ -3,6 +3,8 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 import { useLocation } from "react-router-dom";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Questions from '../src/containers/Questions/questionAnswer';
 import Landing from '../src/containers/Landing/landing';
@@ -11,7 +13,8 @@ import SignUp from '../src/containers/Auth/SignUp';
 import UserProfile from '../src/containers/UserProfile/UserProfile';
 import FeedPage from '../src/containers/Feed/PostCard';
 import Notespage from '../src/containers/Notes/notes';
-import LandReport from "../src/containers/LandReport/landreport"
+import LandReport from "../src/containers/LandReport/landreport";
+import ForgetPassword from './containers/Auth/ForgetPassword';
 
 import * as routez from './shared/routes';
 import * as actions from "./store/actions/index";
@@ -46,6 +49,7 @@ function App(props) {
         <Route exact path={routez.FEED} component={FeedPage}/>
         <Route exact path={routez.NOTES} component={Notespage}/>
         <Route exact path={routez.LANDREPORT} component={LandReport}/>
+        <Route exact path={routez.FORGET_PASSWORD} component={ForgetPassword}/>
         <Redirect path="/" to={routez.SIGNIN} />
      </Switch>
     </Suspense>
@@ -55,6 +59,17 @@ function App(props) {
   return (
     <div className="App">     
       {hideAppBar ? '' : <Layout/>}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       {routes}
     </div>
   );

@@ -12,6 +12,7 @@ import {
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
 import { green } from '@material-ui/core/colors';
+import { toast } from 'react-toastify';
 
 import { addNote } from "../../api/notes";
 import { addAlert } from '../../store/actions/index';
@@ -41,6 +42,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    color: "white"
+  },
+  buttonclr: {
+    backgroundColor: "rgb(197, 225, 165)"
   }
 }));
 
@@ -82,18 +87,35 @@ function InputFile(props) {
           if (!response.error) {
             if (isAuthorized){
               setPublicNotes(response.data.ALL_NOTES)
+              toast.success('Post Added Successfully!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
             }else{
               setPrivateNotes(response.data.All_Notes_user)
             }
           } else {
-              addAlert("Error on loading Private Notes")
+            toast.error('Error on loading Private Notes!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              });
           }
         })
   }, [email, latitude, longitude, textval, setPublicNotes, setPrivateNotes, isAuthorized]);
 
   return (
     <div className={classes.root}>
-            <Grid container spacing={3}>
+            <Grid container spacing={1}>
                 <Grid item xs={12} sm={12}>
                   <ThemeProvider theme={theme}>
                       <TextField variant="outlined" id="mui-theme-provider-outlined-input" value={latitude} onChange={(event) => inputLatitudeChangeHandler(event)}/>
@@ -110,8 +132,8 @@ function InputFile(props) {
                     </ThemeProvider>
                 </Grid>
                 <Grid item xs={12} sm={12} className={classes.button}>
-                    <ButtonGroup color="primary" aria-label="outlined primary button group" onClick={onSubmitHandler}>
-                        <Button>Add Note</Button>
+                    <ButtonGroup aria-label="outlined button group" onClick={onSubmitHandler}>
+                        <Button className={classes.buttonclr}>Add Note</Button>
                     </ButtonGroup>
                 </Grid>
             </Grid>

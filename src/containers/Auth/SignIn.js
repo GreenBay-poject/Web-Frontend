@@ -169,12 +169,12 @@ function SignIn(props) {
                 </Button>
                 <Grid container>
                 <Grid item xs={12}>
-                    <Link href="#" variant="body2" className={classes.links}>
+                    <Link onClick={ ()=> history.push(routez.FORGET_PASSWORD)} variant="body2" label="forget-password" className={classes.links}>
                     Forgot password?
                     </Link>
                 </Grid>
                 <Grid item xs={12}>
-                    <Link onClick={ ()=> history.push("/signup")} variant="body2" className={classes.links}>
+                    <Link onClick={ ()=> history.push(routez.SIGNUP)} variant="body2" title="change-to-register" className={classes.links}>
                     {"Don't have an account? Sign Up"}
                     </Link>
                 </Grid>

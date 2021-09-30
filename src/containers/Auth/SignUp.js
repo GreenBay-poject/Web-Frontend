@@ -19,6 +19,7 @@ import * as routez from '../../shared/routes';
 const inputDefinitions = {
     gmail: {
         label: 'Email*',
+        type: "email",
         validations: {
             required: true,
             isEmail: true,
@@ -27,7 +28,7 @@ const inputDefinitions = {
     },
     name: {
         label: 'Name',
-        type: 'String',
+        type: 'name',
         validations: {
             required: true,
             minLength: 2,
@@ -37,7 +38,7 @@ const inputDefinitions = {
     },
     gender: {
       label: 'Gender',
-      type: 'String',
+      type: 'gender',
       validations: {
           required: true,
           minLength: 2,
@@ -47,7 +48,7 @@ const inputDefinitions = {
     },
     postalcode: {
       label: 'Postal Code',
-      type: 'String',
+      type: 'postalcode',
       validations: {
           required: true,
           minLength: 2,
@@ -57,7 +58,7 @@ const inputDefinitions = {
     },
     age: {
         label: 'Age',
-        type: 'number',
+        type: 'age',
         validations: {
             required: true,
             validationErrStr: 'Use a number',
@@ -65,7 +66,7 @@ const inputDefinitions = {
       },
     address: {
       label: 'Address',
-      type: 'String',
+      type: 'address',
       validations: {
           required: true,
           minLength: 2,
@@ -200,7 +201,8 @@ function SignIn(props) {
                 authObj.address,
             );
         }
-    }, [authObj, checkInputValidity, inputIsValid, props]);
+        history.push(routez.SIGNIN)
+    }, [authObj, checkInputValidity, inputIsValid, props, history]);
 
     let formErrorLabel = null;
     if (error) {

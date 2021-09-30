@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 
 function FeedPage(props) {
   const classes = useStyles();
-  const { isAuthorized } = props;
+  const { isAuthorized , isAuthenticated} = props;
   const [page, setPage] = React.useState(1);
   const [open, setOpen] = React.useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -96,7 +96,7 @@ function FeedPage(props) {
           <div className={classes.root}>
             <Grid container spacing={3} className={classes.container}>
                 <Grid container spacing={3} className={classes.buttonalign}>
-                    <Grid item xs hidden={!isAuthorized}>
+                    <Grid item xs hidden={isAuthenticated && !isAuthorized}>
                         <Button
                             variant="contained"
                             className={classes.button}
@@ -121,25 +121,25 @@ function FeedPage(props) {
                             />
                           )
                         )
-                        : null
+                        : 
+                      <Grid container className={classes.skeltonbody}>
+                        <Grid item xs={12} sm={12}>
+                          <Skeleton variant="circle" width={30} height={30} />
+                          <Skeleton variant="rect" width={1000} height={50} />
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <Skeleton variant="circle" width={30} height={30} />
+                          <Skeleton variant="rect" width={1000} height={50} />
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <Skeleton variant="circle" width={30} height={30} />
+                          <Skeleton variant="rect" width={1000} height={50} />
+                        </Grid>
+                      </Grid>
                     }
                 </div>
             </Grid>
           </div>
-          <Grid container className={classes.skeltonbody}>
-            <Grid item xs={12} sm={12}>
-              <Skeleton variant="circle" width={30} height={30} />
-              <Skeleton variant="rect" width={1000} height={50} />
-            </Grid>
-            <Grid item xs={12} sm={12}>
-              <Skeleton variant="circle" width={30} height={30} />
-              <Skeleton variant="rect" width={1000} height={50} />
-            </Grid>
-            <Grid item xs={12} sm={12}>
-              <Skeleton variant="circle" width={30} height={30} />
-              <Skeleton variant="rect" width={1000} height={50} />
-            </Grid>
-          </Grid>
 
         <div className={classes.pagination}>
             <Typography>Page: {page}</Typography>

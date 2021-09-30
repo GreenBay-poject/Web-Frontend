@@ -5,10 +5,14 @@ import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import { toast } from 'react-toastify';
 
 import InputFile from '../Notes/inputs';
 import { addAlert } from '../../store/actions/index';
 import { deleteNote } from "../../api/notes";
+import PublicNotes from "../Notes/noteslist";
+import PrivateNotes from "../Notes/privatenotes";
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 const containerStyle = {
-  width: "100%",
-  height: '500px'
+  width: "95%",
+  height: '99%'
 };
 
 const center = {
@@ -39,7 +43,6 @@ function MyComponent(props) {
   const { publicNotes, privateNotes, email, setPrivateNotes, setPublicNotes } = props;
   const [latitude, setLatitude] = useState(7.2842);
   const [longitude, setLongitude] = useState(80.6372);
-  console.log(privateNotes)
   const FillPosition = (event) => {
     setLatitude(event.latLng.lat())
     setLongitude(event.latLng.lng())
@@ -51,12 +54,30 @@ function MyComponent(props) {
         .then((response) => {
           console.log(response)
           if (!response.error) {
-              addAlert("Successfull")
+            toast.success('Successfully Deleted!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
           } else {
-              addAlert("Error on loading Private Notes")
+            toast.error('Error on loading Private Notes!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              });
           }
         })
   };
+
+  console.log(alert)
 
   return (
     <div className={classes.root}>
@@ -106,6 +127,18 @@ function MyComponent(props) {
         <Grid item xs={12} sm={4}>
           <InputFile latitude={latitude} longitude={longitude} setLatitude={setLatitude} setLongitude={setLongitude} setPrivateNotes={setPrivateNotes} setPublicNotes={setPublicNotes}/>
         </Grid>
+        { privateNotes && (privateNotes.length)>0 ? 
+          <Grid item xs={12} sm={12}>
+              <Typography>Public Notes</Typography>
+              <PrivateNotes privateNotes={privateNotes} />
+          </Grid> : null
+        }
+        { publicNotes && (publicNotes.length)>0 ? 
+          <Grid item xs={12} sm={12}>
+              <Typography>Public Notes</Typography>
+              <PublicNotes publicNotes={publicNotes} />
+          </Grid> : null
+        }
       </Grid>
     </div>
   )
@@ -115,7 +148,8 @@ const mapStateToProps = (state) => {
   return {
       isAuthenticated: state.auth.token != null,
       error: state.auth.error,
-      email: state.auth.email
+      email: state.auth.email,
+      alert: state.alert
   }
 }
 

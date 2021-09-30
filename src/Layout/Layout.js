@@ -18,11 +18,20 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import Button from '@material-ui/core/Button';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import SpeakerNotesIcon from '@material-ui/icons/SpeakerNotes';
+import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+import VpnLockIcon from '@material-ui/icons/VpnLock';
 
 import { addAlert, authLogout } from '../store/actions/index';
 import * as routez from '../shared/routes';
@@ -177,6 +186,7 @@ function Layout(props) {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
+            title="menubutton"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
             <MenuIcon />
@@ -185,39 +195,46 @@ function Layout(props) {
             GreenBay
           </Typography>
           {isAuthenticated ? (
-            <div>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={modalopen}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
-              </Menu>
-            </div>
+            <PopupState variant="popover" popupId="demo-popup-menu">
+              {(popupState) => (
+                <React.Fragment>
+                  <IconButton
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleMenu}
+                    color="inherit"
+                    title="iconbtn"
+                    {...bindTrigger(popupState)}
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={modalopen}
+                    onClose={handleClose}
+                    {...bindMenu(popupState)}
+                  >
+                    <MenuItem onClick={handleProfileroute}>Profile</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </Menu>
+                </React.Fragment>
+              )}
+            </PopupState>
           ) :
             <div>
-              <Button color="inherit" onClick={loginbutton}>Login</Button>
-              <Button color="inherit" onClick={logoutbutton}>Register</Button>
+              <Button color="inherit" title="loginbtn" onClick={loginbutton}>Login</Button>
+              <Button color="inherit" title="registerbuttin" onClick={logoutbutton}>Register</Button>
             </div>
           }
         </Toolbar>
@@ -232,45 +249,51 @@ function Layout(props) {
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton title="menuclosebtn" onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
         <Divider />
         <List>
             <ListItem button key={'Home'}>
-              <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
+              <ListItemIcon>{<AccountBalanceIcon/>}</ListItemIcon>
               <ListItemText primary={'Home'} onClick={handleLandingroute}/>
             </ListItem>
-            <ListItem button key={'My Profile'} disabled={!isAuthenticated} >
-                <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
-                <ListItemText primary={'My Profile'} onClick={handleProfileroute}/>
-            </ListItem>
-            <ListItem button key={'Change Password'} disabled={!isAuthenticated} onClick={handleChangePasswordroute}>
-                <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
-                <ListItemText primary={'Change Password'} />
-            </ListItem>
+            {isAuthenticated ? (
+                <>
+                <ListItem button key={'My Profile'} >
+                    <ListItemIcon>{<SupervisedUserCircleIcon/>}</ListItemIcon>
+                    <ListItemText primary={'My Profile'} onClick={handleProfileroute}/>
+                </ListItem>
+                <ListItem button key={'Change Password'} onClick={handleChangePasswordroute}>
+                    <ListItemIcon>{<VpnLockIcon/>}</ListItemIcon>
+                    <ListItemText primary={'Change Password'} />
+                </ListItem>
+                </>) : null
+            }
         </List>
         <Divider />
         <List>
             <ListItem button key={'Land Report'} onClick={handleLandReportroute}>
-              <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
+              <ListItemIcon>{<AssessmentIcon/>}</ListItemIcon>
               <ListItemText primary={'Land Report'} />
             </ListItem>
             <ListItem button key={'Deforestation report'}>
-                <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
+                <ListItemIcon>{<MenuBookIcon/>}</ListItemIcon>
                 <ListItemText primary={'Deforestation report'} />
             </ListItem>
-            <ListItem button key={'Q&A'} disabled={!isAuthenticated}>
-                <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
-                <ListItemText primary={'Q & A'} onClick={handleQAroute}/>
-            </ListItem>
+            {isAuthenticated ? 
+                <ListItem button key={'Q&A'} disabled={!isAuthenticated}>
+                    <ListItemIcon>{<QuestionAnswerIcon/>}</ListItemIcon>
+                    <ListItemText primary={'Q & A'} onClick={handleQAroute}/>
+                </ListItem> : null        
+            }
             <ListItem button key={'Notes'}>
-                <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
+                <ListItemIcon>{<SpeakerNotesIcon/>}</ListItemIcon>
                 <ListItemText primary={'Notes'} onClick={handleNotesroute}/>
             </ListItem>
             <ListItem button key={'Feed'}>
-                <ListItemIcon>{<InboxIcon/>}</ListItemIcon>
+                <ListItemIcon>{<DynamicFeedIcon/>}</ListItemIcon>
                 <ListItemText primary={'Feed'} onClick={handleFeedroute}/>
             </ListItem>
         </List>
