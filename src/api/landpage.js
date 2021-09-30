@@ -7,3 +7,5 @@ export const getReport = (data) => postRequest(`${BASE_URL}/generate_land_report
 export const getDates = (data) => getRequest(`${BASE_URL}/get_dates?lattitude=${data.lat}&longitude=${data.lon}`);
 
 export const getImage = (data) =>  getRequest(`${BASE_URL}/get_image?lattitude=${data.lat}&longitude=${data.lon}&date=${data.date}`);
+
+export const getDeforestationReport = (data) => postRequest(`${BASE_URL}/generate_deforestation_report`, data);

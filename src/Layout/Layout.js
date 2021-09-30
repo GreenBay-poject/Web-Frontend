@@ -163,6 +163,10 @@ function Layout(props) {
     history.push(routez.LANDING) 
   };
 
+  const handleDeforestationReportroute = () => { 
+    history.push(routez.DEFORESTATIONREPORT) 
+  };
+
   const handleNotesroute = () => { 
     history.push(routez.NOTES) 
   };
@@ -278,7 +282,7 @@ function Layout(props) {
               <ListItemIcon>{<AssessmentIcon/>}</ListItemIcon>
               <ListItemText primary={'Land Report'} />
             </ListItem>
-            <ListItem button key={'Deforestation report'}>
+            <ListItem button key={'Deforestation report'} onClick={handleDeforestationReportroute}>
                 <ListItemIcon>{<MenuBookIcon/>}</ListItemIcon>
                 <ListItemText primary={'Deforestation report'} />
             </ListItem>

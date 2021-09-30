@@ -15,6 +15,7 @@ import FeedPage from '../src/containers/Feed/PostCard';
 import Notespage from '../src/containers/Notes/notes';
 import LandReport from "../src/containers/LandReport/landreport";
 import ForgetPassword from './containers/Auth/ForgetPassword';
+import DeforestationReport from "./containers/DeforestationReport/deforestaionreport"
 
 import * as routez from './shared/routes';
 import * as actions from "./store/actions/index";
@@ -49,6 +50,7 @@ function App(props) {
         <Route exact path={routez.FEED} component={FeedPage}/>
         <Route exact path={routez.NOTES} component={Notespage}/>
         <Route exact path={routez.LANDREPORT} component={LandReport}/>
+        <Route exact path={routez.DEFORESTATIONREPORT} component={DeforestationReport}/>
         <Route exact path={routez.FORGET_PASSWORD} component={ForgetPassword}/>
         <Redirect path="/" to={routez.SIGNIN} />
      </Switch>
