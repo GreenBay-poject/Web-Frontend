@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button, FormLabel } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { toast } from 'react-toastify';
 
 import { checkValidity } from '../../shared/validate';
 import { updateObject } from '../../shared/utility';
@@ -122,14 +122,33 @@ function Changepassword(props) {
         localInputIsValid['confirmpassword'] = checkInputValidity('confirmpassword');
         setInputIsValid(localInputIsValid);
 
+        let data={email:email, new_password:authObj.newpassword}
+        console.log(data)
+
         if (authObj.newpassword === authObj.confirmpassword) {
-            changepassword({email:email, password:authObj.newpassword})
+            changepassword(data)
                 .then((response) => {
                     if (!response.error) {
-                        console.log("password changed")
+                        toast.success('Passwords Changed!', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                          });
                         addAlert("Passwords Changed!")
                     } else{
-                        addAlert("Error Occured!")
+                        toast.error('Error Occured!', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            });
                     }
                 })
         } else {
