@@ -82,10 +82,10 @@ export default function DeleteModel(props) {
               <Box fontSize="20px" align="center"><b>Delete Question?</b></Box>
               <Grid container direction="row">
                 <Grid item xs>
-                  <Button className={classes.postbutton2} class="noteyesbtn" onClick={handleDelete}>Yes</Button>
+                  <Button className={classes.postbutton2}  onClick={handleDelete}>Yes</Button>
                 </Grid>
                 <Grid item xs>
-                  <Button className={classes.postbutton} class="notenobtn" onClick={handleClose}>No</Button>
+                  <Button className={classes.postbutton}  onClick={handleClose}>No</Button>
                 </Grid> 
               </Grid>
             </Box>

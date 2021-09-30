@@ -186,7 +186,6 @@ function FeedPage(props) {
                     multiline
                     fullWidth
                     variant="outlined"
-                    class="addtitleinput"
                     className={classes.inputitems}
                     onChange={(event) => inputChangeHandler(event, "title")}
                 />
@@ -211,13 +210,12 @@ function FeedPage(props) {
                     Upload
                 </Button>
                 <h4 id="transition-modal-title">Add Description</h4>
-                <ReactQuill value={quillVal} type="description" onChange={onChange} class="descriptioninput"/>
+                <ReactQuill value={quillVal} type="description" onChange={onChange} />
                 <Button
                     variant="contained"
                     fullWidth
                     onClick={() => onSubmitHandler()}
                     disabled={!inputIsValid}
-                    class="postaddingbtn"
                     className={classes.postbutton}
                 >
                     Post
