@@ -123,7 +123,7 @@ function InputFile(props) {
               });
           }
         }).finally(() => setIsLoading(false));
-  }, [email, latitude, longitude, textval, setPublicNotes, setPrivateNotes, isAuthorized, isAuthenticated, history]);
+  }, [email, latitude, longitude, textval, setPublicNotes, setPrivateNotes, isAuthorized, isAuthenticated, history, setIsLoading]);
 
   return (
     <div className={classes.root}>

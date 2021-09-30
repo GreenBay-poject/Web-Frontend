@@ -111,7 +111,7 @@ function MapExplore(props) {
                 </Button>
             </Grid>
             <Grid item xs={12} sm={4}>
-                <Button variant="contained" className={classes.button} onClick={() => {isAuthenticated ? history.push(routez.USER_PROFILE) : history.push(routez.SIGNIN)}}>
+                <Button variant="contained" title={"profilebtn"} className={classes.button} onClick={() => {isAuthenticated ? history.push(routez.USER_PROFILE) : history.push(routez.SIGNIN)}}>
                   <b>{isAuthenticated ? "My Profile" : "Sign In"}</b>
                 </Button>
             </Grid>
