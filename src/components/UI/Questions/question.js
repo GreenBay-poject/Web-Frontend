@@ -4,6 +4,8 @@ import {
     makeStyles,
   } from "@material-ui/core";
   import DeleteIcon from "@material-ui/icons/Delete";
+
+
   
   const useStyles = makeStyles((theme) => ({
     Box1: {
@@ -17,6 +19,11 @@ import {
     paper: {
       textAlign: "left",
       fontWeight: 600,
+    },
+    paper2: {
+      textAlign: "left",
+      fontWeight: 400,
+      color:"grey"
     },
     font1: {
       color: "grey",
@@ -89,10 +96,14 @@ import {
   }));
   
   function Question(props) {
-    const {handleDelete}=props;
-    const{ questionPerson,questionTitle,questionDescription}=props.details;
-    const classes = useStyles();
-  
+    const {setQ_idForDelete,isAuthorized,handleOpenDelete}=props;
+    const{ q_id,questionPerson,questionTitle,questionDescription,questionDate}=props;
+    const classes = useStyles(); 
+    var index1 = questionTitle.indexOf("@"); 
+    var Qtitle = questionTitle.substr(index1 + 1);
+    var index2 = questionDate.indexOf("T"); 
+    var Qdate = questionDate.substr(0,index2);
+
     return (
       <Box>
             <Box pl="30px" pt="10px">
@@ -102,17 +113,18 @@ import {
                   <Grid container className={classes.paper} direction="row">
                     <Box item xs> <img src="/question.png" width="30px" alt="userlogo" /></Box>
                     <Box item xs pl="10px" pt="5px"> {questionPerson}</Box>
+                    <Box item xs pl="5px" pt="5px" className={classes.paper2}> {Qdate}</Box>
                   </Grid>
 
                 </Grid>
                
                 <Grid item xs={3} sm={1} className={classes.paper} >
-                  <DeleteIcon  className={classes.delete} onClick={handleDelete}/>
+                  {isAuthorized?<DeleteIcon  className={classes.delete} onClick={()=>{setQ_idForDelete(q_id);handleOpenDelete()}}/>:null}
                 </Grid>
               </Grid>
             </Box>
             <text className={classes.font2}>
-              <u>{questionTitle}</u>
+              <u>{Qtitle}</u>
             </text>
             <br />
             <Box className={classes.font3}>

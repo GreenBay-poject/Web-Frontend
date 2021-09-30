@@ -57,7 +57,7 @@ function Landing(props) {
     {
       Name: "Notes",
       image:
-        "https://cdn1.vectorstock.com/i/1000x1000/63/30/map-location-cartoon-vector-24766330.jpg",
+        "Notes.jpg",
       Title: "Add Notes",
       Description:
         "You may have found a special places for research,In here you can add notes to your own map.These notes are only visible for you.",
@@ -65,7 +65,7 @@ function Landing(props) {
     {
       Name: "Q&A",
       image:
-        "https://41dmav17y2a239wj1k1kd0yt-wpengine.netdna-ssl.com/monitor/wp-content/uploads/sites/3/2015/12/Q-A-Forum-1.png",
+        "Q-A-Forum.png",
       Title: "Q & A section",
       Description:
         "You can ask any question related to these material and several authority members are here to answer your questions",
@@ -73,7 +73,7 @@ function Landing(props) {
     {
       Name: "Feed",
       image:
-        "https://lh3.googleusercontent.com/0MCadRFjDYg1ub6mhOHaOLbjLZugQeGZaBN0Vagkz20jOT9lnyx4NkbeSkWqtVhR",
+        "Feed.jpg",
       Title: "Feed",
       Description:
         "Valueble information and latest updates of sri lanka is here.Explore more to get an idea about what authorities posted",
@@ -137,7 +137,7 @@ function Landing(props) {
 
 const mapStateToProps = (state) => {
   return {
-      isAuthenticated: state.auth.token != null,
+      isAuthenticated: state.auth.token != null, 
       error: state.auth.error,
   }
 }

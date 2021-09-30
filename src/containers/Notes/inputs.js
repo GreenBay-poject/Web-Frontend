@@ -46,7 +46,15 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonclr: {
     backgroundColor: "rgb(197, 225, 165)"
-  }
+  },
+  submit: {
+    backgroundColor: "rgb(0, 121, 107)",
+    color: "white",
+    "&:hover": {
+        backgroundColor: "#05574F",
+        transform: "scale(1.01)",
+      },
+},
 }));
 
 const theme = createTheme({

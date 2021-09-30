@@ -63,7 +63,11 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0, 2),
         width: '60%',
         backgroundColor: "rgb(0, 121, 107)",
-        color: "white"
+        color: "white",
+        "&:hover": {
+            backgroundColor: "#05574F",
+            transform: "scale(1.01)",
+          },
     },
     loginInput: {
         width: '80%',

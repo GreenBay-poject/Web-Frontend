@@ -60,7 +60,11 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         marginTop: "5px",
         backgroundColor: "rgb(0, 121, 107)",
-        color: "white"
+        color: "white",
+        "&:hover": {
+            backgroundColor: "#05574F",
+            transform: "scale(1.01)",
+          },
     },
     large: {
         width: "200px",

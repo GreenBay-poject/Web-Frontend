@@ -1,10 +1,7 @@
-import {
-  Box,
-  Grid,
-  makeStyles,
-} from "@material-ui/core";
+import { Button,Box, Grid, makeStyles } from "@material-ui/core";
 
 import ReplyIcon from "@material-ui/icons/Reply";
+
 const useStyles = makeStyles((theme) => ({
   Box1: {
     fontWeight: 100,
@@ -17,6 +14,11 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     textAlign: "left",
     fontWeight: 600,
+  },
+  paper2: {
+    textAlign: "left",
+    fontWeight: 400,
+    color: "grey",
   },
   font1: {
     color: "grey",
@@ -81,33 +83,57 @@ const useStyles = makeStyles((theme) => ({
       color: "#ED1515",
     },
   },
- 
 }));
 
 function Answer(props) {
   const classes = useStyles();
-  const{ replyPerson,replyDescription}=props.details
+  const { isAuthorized, details,handleOpenReply ,q_id} = props;
+  if (details){
+    const index = details[0].DatePosted.indexOf("T"); 
+    var Qdate = details[0].DatePosted.substr(0,index);  
+
+  }
+console.log(q_id) 
 
   return (
-    <Box pl="30px"> 
-    <Grid container className={classes.paper} direction="row">
-      <Box item xs><ReplyIcon /></Box>
-      <Box item xs pl="2px" pt="5px"> <img src="/reply.png" width="25px" alt="user logo"/></Box>
-      <Box item xs pl="5px" pt="5px"> {replyPerson}</Box>
-    </Grid>
+    <Box>
+      {isAuthorized && details == null ? (
+        <Button
+          variant="contained"
+          className={classes.buttonreply}
+          onClick={()=>handleOpenReply(q_id)}
+        >
+          <b>Add Reply</b>
+        </Button>
+      ) : (
+        <Box pl="30px">
+          <Grid container className={classes.paper} direction="row">
+            <Box item xs>
+              <ReplyIcon />
+            </Box>
+            <Box item xs pl="2px" pt="5px">
+              <img src="/reply.png" width="25px" alt="user logo" />
+            </Box>
+            <Box item xs pl="5px" pt="5px">
+              {details[0].AuthorsID}
+            </Box>
+            <Box item xs pl="5px" pt="5px" className={classes.paper2}>
+              {Qdate} 
+            </Box>
+          </Grid>
 
-      <Box
-        bgcolor="white"
-        className={classes.font4}
-        borderRadius="15px"
-        ml="30px"
-        mr="15px"
-        mb="20px"
-      >
-        <text>
-         {replyDescription}
-        </text>
-      </Box>
+          <Box
+            bgcolor="white"
+            className={classes.font4}
+            borderRadius="15px"
+            ml="30px"
+            mr="15px"
+            mb="20px"
+          >
+            <text>{details[0].Answere}</text>
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 }

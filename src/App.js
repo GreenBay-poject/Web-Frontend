@@ -54,7 +54,7 @@ function App(props) {
         <Route exact path={routez.FORGET_PASSWORD} component={ForgetPassword}/>
         <Redirect path="/" to={routez.SIGNIN} />
      </Switch>
-    </Suspense>
+    </Suspense>   
   );
 
 

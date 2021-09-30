@@ -42,7 +42,11 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         backgroundColor: "rgb(0, 121, 107)",
-        color: "white"
+        color: "white",
+        "&:hover": {
+          backgroundColor: "#05574F",
+          transform: "scale(1.01)",
+        },
     },
     buttonalign: {
         alignItems: 'right',

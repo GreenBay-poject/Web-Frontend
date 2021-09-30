@@ -15,11 +15,16 @@ const useStyles = makeStyles({
     marginTop: "10px",
   },
   linkstyle: {
-    textDecoration : "none"
-  }
+    textDecoration: "none",
+  },
+  button1: {
+    color:"#00796B"
+  },
+ 
 });
 
 export default function ImgMediaCard(props) {
+  // const { isAuthenticated } = props;
   const classes = useStyles();
 
   return (

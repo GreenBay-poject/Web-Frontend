@@ -22,6 +22,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginRight: theme.spacing(1),
   },
+  button1: {
+    marginTop: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    backgroundColor: "rgb(0, 121, 107)",
+    "&:hover": {
+      backgroundColor: "#05574F",
+      transform: "scale(1.01)",
+    },
+  },
   actionsContainer: {
     marginBottom: theme.spacing(2),
   },
@@ -95,7 +104,7 @@ export default function VerticalLinearStepper() {
                     variant="contained"
                     color="primary"
                     onClick={handleNext}
-                    className={classes.button}
+                    className={classes.button1}
                     disabled={dates.length===0}
                   >
                     {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
