@@ -39,7 +39,7 @@ const useStyles = makeStyles({
 
 function PostCard(props) {
     const classes = useStyles();
-    const { keyid, title, image, description, dateposted, ministry, email, setIsLoading, isAuthorized, isAuthenticated} = props;
+    const { keyid, title, image, description, dateposted, ministry, email, setIsLoading, isAuthorized } = props;
     const [openDelete, setOpenDelete] = React.useState(false);
     const [selectDelete, setSelectDelete] = React.useState(false);
 
@@ -128,7 +128,7 @@ function PostCard(props) {
                     </Grid>
                 </CardActionArea>
                 <CardActions>
-                    {isAuthorized==true ? 
+                    {isAuthorized===true ? 
                         <Button size="small" color="secondary" class="dltbtn" onClick={() => handleOpenDeleteModal(keyid)}>
                             Delete
                         </Button> : null

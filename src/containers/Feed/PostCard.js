@@ -111,7 +111,7 @@ function FeedPage(props) {
                     <Grid item xs hidden={isAuthenticated && !isAuthorized}>
                         <Button
                             variant="contained"
-                            className={isAuthorized==true ? classes.button : classes.buttonhide}
+                            className={isAuthorized===true ? classes.button : classes.buttonhide}
                             startIcon={<CloudUploadIcon />}
                             onClick={handleOpen}
                             title="addpostbtn"
