@@ -116,6 +116,8 @@ function QuestionAnswer(props) {
   const [q_idForDelete, setQ_idForDelete] = useState();
   const [AuthorityString, setAuthorityString] = useState("Wild_care_Ministry");
   const [AuthorityWord,setAuthorityWord]=useState("Wild Care Ministry");
+  const [updateConst,setUpdateConst]=useState(0);
+  
 
   const handleOpenReply = (q_id) => {
     setQ_idForReply(q_id);
@@ -141,7 +143,7 @@ function QuestionAnswer(props) {
   };
 
   useEffect(() => {
-    if (isLoading && email) {
+    if (email) {
       const data = {
         email: email,
       };
@@ -154,7 +156,7 @@ function QuestionAnswer(props) {
         })
         .finally(() => setIsLoading(false));
     }
-  }, [isLoading, email]);
+  }, [updateConst, email]);
 
   const handleDelete = () => {
     const data = {
@@ -165,9 +167,9 @@ function QuestionAnswer(props) {
       deleteQuestion(data).then((response) => {
         if (!response.error) {
           console.log(response)
+          setUpdateConst(count=>count+1)
           handleCloseDelete()
         } else {
-          console.log("unsesdsdf",response)
         }
       });
     }
@@ -230,6 +232,7 @@ function QuestionAnswer(props) {
             Authority={AuthorityString}
             handleClose={handleCloseQuestion}
             isAuthenticated={isAuthenticated}
+            setUpdateConst={setUpdateConst}
           />
         ) : null}
         {q_idForReply ? (
@@ -239,6 +242,7 @@ function QuestionAnswer(props) {
             q_idForReply={q_idForReply}
             open={openReply}
             handleClose={handleCloseReply}
+            setUpdateConst={setUpdateConst}
           />
         ) : null}
 
@@ -246,6 +250,7 @@ function QuestionAnswer(props) {
             open={openDelete}
             handleClose={handleCloseDelete}
             handleDelete={handleDelete}
+            
           />
 
       </Grid>

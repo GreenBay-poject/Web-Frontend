@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TransitionsModal(props) {
   const classes = useStyles();
-  const { email, open, handleClose,q_idForReply,isAuthenticated} = props;
+  const { email, open, handleClose,q_idForReply,isAuthenticated,setUpdateConst} = props;
   //const [quillVal, setQuillVal] = React.useState(false); 
 
 
@@ -89,6 +89,7 @@ export default function TransitionsModal(props) {
       .then((response) => {
           if (!response.error) {
               console.log("successfull")
+              setUpdateConst(count=>count+1)
               handleClose()
           } else {
             console.log("unsuccessfull")
