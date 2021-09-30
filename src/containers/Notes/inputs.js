@@ -90,7 +90,7 @@ function InputFile(props) {
           if (!response.error) {
             if (isAuthorized){
               setPublicNotes(response.data.ALL_NOTES)
-              toast.success('Post Added Successfully!', {
+              toast.success('Note Added Successfully!', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,

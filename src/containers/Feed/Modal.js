@@ -10,6 +10,7 @@ import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField';
 import ReactQuill from 'react-quill'; 
 import 'react-quill/dist/quill.snow.css';
+import { toast } from 'react-toastify';
 
 import { checkValidity } from '../../shared/validate';
 import { updateObject } from '../../shared/utility';
@@ -104,9 +105,25 @@ function FeedPage(props) {
         addPost(data)
         .then((response) => {
             if (!response.error) {
-                console.log("successfull")
+                toast.success('Post Added Successfully!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
             } else {
-                console.log(response)  
+                toast.error('Error!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
             }
         })
     }
