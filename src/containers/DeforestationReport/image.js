@@ -132,6 +132,7 @@ export default function SimplePaper(props) {
               latitude={latitude}
               longitude={longitude}
               selectedDate={selectedDate}
+              selectedDate2={selectedDate2}
               image={image}
               reportdetails={reportdetails}
           />

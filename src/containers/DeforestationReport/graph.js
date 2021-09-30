@@ -2,9 +2,31 @@ import React from 'react';
 import { Pie } from 'react-chartjs-2';
 
 import Grid from '@material-ui/core/Grid';
+import {
+  ThemeProvider,
+  createTheme,
+} from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: green,
+  },
+});
+
+const useStyles = makeStyles((theme) => ({
+  diagram:{
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+}));
 
 function PieChart(props) {
-    const { reportdetails } = props;
+    const classes = useStyles();
+    const { reportdetails, selectedDate, selectedDate2 } = props;
     console.log("reportdetails",reportdetails.Report[0])
     const data = {
       labels: Object.keys(reportdetails.Report[0]),
@@ -63,10 +85,16 @@ function PieChart(props) {
     return(
         <React.Fragment>
           <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={6} className={classes.diagram}>
+                    <ThemeProvider theme={theme}>
+                        <TextField variant="outlined" id="mui-theme-provider-outlined-input" label="Date" value={selectedDate}/>
+                    </ThemeProvider>
                     <Pie data={data} />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={6} className={classes.diagram}>
+                    <ThemeProvider theme={theme}>
+                        <TextField variant="outlined" id="mui-theme-provider-outlined-input" label="Date" value={selectedDate2}/>
+                    </ThemeProvider>
                     <Pie data={data2} />
                   </Grid>
           </Grid>

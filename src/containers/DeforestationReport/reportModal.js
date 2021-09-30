@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
 
 function FeedPage(props) {
   const classes = useStyles();
-  const { selectedDate, latitude, longitude, open, handleClose, reportdetails } = props;
+  const { selectedDate, selectedDate2, latitude, longitude, open, handleClose, reportdetails } = props;
 
   const onSubmitHandler = useCallback((event) => {
       console.log("hiii")
@@ -112,16 +112,11 @@ function FeedPage(props) {
                             <TextField variant="outlined" id="mui-theme-provider-outlined-input" label="Longtitude" value={longitude}/>
                         </ThemeProvider>
                     </Grid>
-                    <Grid item xs={12} sm={12}>
-                        <ThemeProvider theme={theme}>
-                            <TextField variant="outlined" id="mui-theme-provider-outlined-input" label="Date" value={selectedDate} />
-                        </ThemeProvider>
-                    </Grid>
                     {/* <Grid item xs={12} sm={6}>
                         <img alt="pp" className={classes.large} src={image}/>
                     </Grid> */}
                     <Grid item xs={12} sm={12}>
-                        {reportdetails ? <PieChart reportdetails={reportdetails}/> : <CircularProgress/>}
+                        {reportdetails ? <PieChart selectedDate={selectedDate} selectedDate2={selectedDate2} reportdetails={reportdetails}/> : <CircularProgress/>}
                     </Grid>
                     <Grid item xs={12} sm={12}>
                         <Button

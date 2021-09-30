@@ -1,6 +1,6 @@
 import React, { useState, useCallback }from 'react';
 import { connect } from 'react-redux';
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 
 import { addNote } from "../../api/notes";
 import { addAlert } from '../../store/actions/index';
-// import * as routez from '../../shared/routes';
+import * as routez from '../../shared/routes';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,9 +57,9 @@ const theme = createTheme({
 
 function InputFile(props) {
   const classes = useStyles();
-  const { email, latitude, longitude, setLatitude, setLongitude, isAuthorized, setPrivateNotes, setPublicNotes } = props;
+  const { email, latitude, longitude, setLatitude, setLongitude, isAuthorized, setPrivateNotes, setPublicNotes, isAuthenticated } = props;
   const [textval, setTextVal] = useState();
-  // let history = useHistory();
+  let history = useHistory();
 
   const inputTextChangeHandler = useCallback((event) => {
     console.log(event.target.value)
@@ -75,6 +75,9 @@ function InputFile(props) {
   }, [setLongitude]);
 
   const onSubmitHandler = useCallback(() => {
+    if (!isAuthenticated){
+      history.push(routez.SIGNIN)
+    }
     const data ={
         "email": email,
         "lat": latitude,
@@ -111,7 +114,7 @@ function InputFile(props) {
               });
           }
         })
-  }, [email, latitude, longitude, textval, setPublicNotes, setPrivateNotes, isAuthorized]);
+  }, [email, latitude, longitude, textval, setPublicNotes, setPrivateNotes, isAuthorized, isAuthenticated, history]);
 
   return (
     <div className={classes.root}>

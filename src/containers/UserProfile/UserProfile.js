@@ -120,7 +120,7 @@ function UserProfile(props) {
                       <ListItemIcon>
                         <DraftsIcon />
                       </ListItemIcon>
-                      <ListItemText primary="Change Passowrd" />
+                      <ListItemText primary="Change Password" />
                     </ListItem>
                   </List>
               </Paper>
