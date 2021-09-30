@@ -69,7 +69,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TransitionsModal(props) {
   const classes = useStyles();
-  const { email, open, handleClose, Authority, isAuthenticated } = props;
+  const {
+    email,
+    open,
+    handleClose,
+    Authority,
+    isAuthenticated,
+    setUpdateConst,
+  } = props;
 
   //const [quillVal, setQuillVal] = React.useState(false);
 
@@ -105,22 +112,18 @@ export default function TransitionsModal(props) {
         addQuestion(data).then((response) => {
           if (!response.error) {
             console.log("successfull q modal");
-            handleClose()
+            setUpdateConst((count) => count + 1);
+            handleClose();
           } else {
             console.log("unsuccessfull q modal");
             console.log(response);
-          }
+          } 
         });
       }
     },
-    [email, stateObj.title, stateObj.description, Authority, handleClose, isAuthenticated]
+    [email, stateObj.title, stateObj.description,handleClose,Authority,isAuthenticated, setUpdateConst,]
   );
 
-  /* const onChange = (value) => {
-    console.log(typeof(value))
-    setQuillVal(value)
-  }
-*/
   return (
     <React.Fragment>
       <Modal
@@ -129,7 +132,7 @@ export default function TransitionsModal(props) {
         className={classes.modal}
         open={open}
         onClose={handleClose}
-       //closeAfterTransition
+        //closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,

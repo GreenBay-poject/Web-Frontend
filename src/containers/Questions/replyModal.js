@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TransitionsModal(props) {
   const classes = useStyles();
-  const { email, open, handleClose,q_idForReply,isAuthenticated} = props;
+  const { email, open, handleClose,q_idForReply,isAuthenticated,setUpdateConst} = props;
   //const [quillVal, setQuillVal] = React.useState(false); 
 
 
@@ -69,7 +69,6 @@ export default function TransitionsModal(props) {
   const [stateObj, setStateObj] = useState({
     description: '',
   });
-  console.log("11111111111111111",q_idForReply)  
   const inputChangeHandler = useCallback((event, inputId) => {
     let validationConst = inputDefinitions[inputId].validations;
     let isValid = checkValidity(validationConst, event.target.value);
@@ -84,11 +83,11 @@ export default function TransitionsModal(props) {
         "question_id":q_idForReply
     }
     if (isAuthenticated){
-      console.log("Hiiiiiiiiiii",data)
       answerQuestion(data)
       .then((response) => {
           if (!response.error) {
               console.log("successfull")
+              setUpdateConst(count=>count+1)
               handleClose()
           } else {
             console.log("unsuccessfull")
@@ -96,10 +95,10 @@ export default function TransitionsModal(props) {
           }
       })
   }
-  }, [email, stateObj.description,isAuthenticated, handleClose, q_idForReply]);
+  }, [email, stateObj.description,isAuthenticated,handleClose,q_idForReply,setUpdateConst]);
 
  /* const onChange = (value) => {
-    console.log(typeof(value))
+    console.log(typeof(value)) 
     setQuillVal(value)
   }*/
 

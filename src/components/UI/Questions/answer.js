@@ -105,7 +105,7 @@ console.log(q_id)
         >
           <b>Add Reply</b>
         </Button>
-      ) : (
+      ) :details !== null ?  (
         <Box pl="30px">
           <Grid container className={classes.paper} direction="row">
             <Box item xs>
@@ -133,7 +133,7 @@ console.log(q_id)
             <text>{details[0].Answere}</text>
           </Box>
         </Box>
-      )}
+      ):null}
     </Box>
   );
 }

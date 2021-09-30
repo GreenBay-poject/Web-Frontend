@@ -25,10 +25,10 @@ const useStyles = makeStyles((theme) => ({
   },
   Box2: {
     fontWeight: 500,
-    fontSize:"25px",
+    fontSize: "25px",
     margin: "30px",
-    align:"middle",
-    color:"#00796B"
+    align: "middle",
+    color: "#00796B",
   },
   paper: {
     textAlign: "left",
@@ -110,12 +110,13 @@ function QuestionAnswer(props) {
   const [openQuestion, setOpenQuestion] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
   const [Authority, setAuthority] = React.useState();
-  const [isLoading, setIsLoading] = useState(true);
+ // const [isLoading, setIsLoading] = useState(true);
   const [questionList, setQuestionList] = useState([]);
   const [q_idForReply, setQ_idForReply] = useState();
   const [q_idForDelete, setQ_idForDelete] = useState();
   const [AuthorityString, setAuthorityString] = useState("Wild_care_Ministry");
-  const [AuthorityWord,setAuthorityWord]=useState("Wild Care Ministry");
+  const [AuthorityWord, setAuthorityWord] = useState("Wild Care Ministry");
+  const [updateConst, setUpdateConst] = useState(0);
 
   const handleOpenReply = (q_id) => {
     setQ_idForReply(q_id);
@@ -141,7 +142,7 @@ function QuestionAnswer(props) {
   };
 
   useEffect(() => {
-    if (isLoading && email) {
+    if (email) {
       const data = {
         email: email,
       };
@@ -149,12 +150,33 @@ function QuestionAnswer(props) {
         .then((response) => {
           if (!response.error) {
             setQuestionList(response.data.ALL_QUESTIONS);
-            setAuthority(response.data.ALL_QUESTIONS.Wild_care_Ministry);
+            switch (AuthorityString) {
+              case "Wild_care_Ministry":
+                setAuthority(response.data.ALL_QUESTIONS.Wild_care_Ministry);
+                break;
+              case "Pollute_managing_Unit":
+                setAuthority(response.data.ALL_QUESTIONS.Pollute_managing_Unit);
+                break;
+              case "Endemic_Tree_Unit":
+                setAuthority(response.data.ALL_QUESTIONS.Endemic_Tree_Unit);
+                break;
+              case "Emergency_Wildfire_Unit":
+                setAuthority(response.data.ALL_QUESTIONS.Emergency_Wildfire_Unit);
+                break;
+              case "Land_Soil_Ministry":
+                setAuthority(response.data.ALL_QUESTIONS.Land_Soil_Ministry);
+                break;
+              case "Geographical_Unit":
+                setAuthority(response.data.ALL_QUESTIONS.Geographical_Unit);
+                break;
+              default:
+                setAuthority(response.data.ALL_QUESTIONS.Others);
+            }
           }
         })
-        .finally(() => setIsLoading(false));
+       // .finally(() => setIsLoading(false));
     }
-  }, [isLoading, email]);
+  }, [updateConst, email,AuthorityString]);
 
   const handleDelete = () => {
     const data = {
@@ -164,10 +186,10 @@ function QuestionAnswer(props) {
     if (isAuthenticated) {
       deleteQuestion(data).then((response) => {
         if (!response.error) {
-          console.log(response)
-          handleCloseDelete()
+          console.log(response);
+          setUpdateConst((count) => count + 1);
+          handleCloseDelete();
         } else {
-          console.log("unsesdsdf",response)
         }
       });
     }
@@ -186,19 +208,19 @@ function QuestionAnswer(props) {
         </Grid>
 
         <Grid item xs={12} sm={9} align="left">
-          {console.log(456, typeof isAuthorized)}
-          {isAuthorized ? (
+          {console.log(456,isAuthorized)}
+          
             <Grid container direction="row">
-              <Button
+            {!isAuthorized ? ( <Button
                 variant="contained"
                 className={classes.button}
                 onClick={handleOpenQuestion}
               >
                 <b>Ask Question</b>
-              </Button>
+              </Button>) : null}
               <Box className={classes.Box2}>{AuthorityWord}</Box>
             </Grid>
-          ) : null}
+          
           {Authority
             ? Authority.map((D) => (
                 <Box m="15px" bgcolor="#F2F39F" borderRadius="20px" pb="1px">
@@ -230,6 +252,7 @@ function QuestionAnswer(props) {
             Authority={AuthorityString}
             handleClose={handleCloseQuestion}
             isAuthenticated={isAuthenticated}
+            setUpdateConst={setUpdateConst}
           />
         ) : null}
         {q_idForReply ? (
@@ -239,15 +262,15 @@ function QuestionAnswer(props) {
             q_idForReply={q_idForReply}
             open={openReply}
             handleClose={handleCloseReply}
+            setUpdateConst={setUpdateConst}
           />
         ) : null}
 
-          <DeleteModel
-            open={openDelete}
-            handleClose={handleCloseDelete}
-            handleDelete={handleDelete}
-          />
-
+        <DeleteModel
+          open={openDelete}
+          handleClose={handleCloseDelete}
+          handleDelete={handleDelete}
+        />
       </Grid>
     </Box>
   );
@@ -256,7 +279,7 @@ function QuestionAnswer(props) {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token != null,
-    isAuthorized: state.auth.IsAuthorized != null,
+    isAuthorized: state.auth.IsAuthorized,
     error: state.auth.error,
     email: state.auth.email,
   };

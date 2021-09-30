@@ -18,9 +18,8 @@ const useStyles = makeStyles({
     textDecoration: "none",
   },
   button1: {
-    color:"#00796B"
+    color: "#00796B",
   },
- 
 });
 
 export default function ImgMediaCard(props) {
