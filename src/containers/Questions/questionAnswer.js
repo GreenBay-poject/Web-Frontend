@@ -25,10 +25,10 @@ const useStyles = makeStyles((theme) => ({
   },
   Box2: {
     fontWeight: 500,
-    fontSize:"25px",
+    fontSize: "25px",
     margin: "30px",
-    align:"middle",
-    color:"#00796B"
+    align: "middle",
+    color: "#00796B",
   },
   paper: {
     textAlign: "left",
@@ -110,14 +110,13 @@ function QuestionAnswer(props) {
   const [openQuestion, setOpenQuestion] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
   const [Authority, setAuthority] = React.useState();
-  const [isLoading, setIsLoading] = useState(true);
+ // const [isLoading, setIsLoading] = useState(true);
   const [questionList, setQuestionList] = useState([]);
   const [q_idForReply, setQ_idForReply] = useState();
   const [q_idForDelete, setQ_idForDelete] = useState();
   const [AuthorityString, setAuthorityString] = useState("Wild_care_Ministry");
-  const [AuthorityWord,setAuthorityWord]=useState("Wild Care Ministry");
-  const [updateConst,setUpdateConst]=useState(0);
-  
+  const [AuthorityWord, setAuthorityWord] = useState("Wild Care Ministry");
+  const [updateConst, setUpdateConst] = useState(0);
 
   const handleOpenReply = (q_id) => {
     setQ_idForReply(q_id);
@@ -151,12 +150,33 @@ function QuestionAnswer(props) {
         .then((response) => {
           if (!response.error) {
             setQuestionList(response.data.ALL_QUESTIONS);
-            setAuthority(response.data.ALL_QUESTIONS.Wild_care_Ministry);
+            switch (AuthorityString) {
+              case "Wild_care_Ministry":
+                setAuthority(response.data.ALL_QUESTIONS.Wild_care_Ministry);
+                break;
+              case "Pollute_managing_Unit":
+                setAuthority(response.data.ALL_QUESTIONS.Pollute_managing_Unit);
+                break;
+              case "Endemic_Tree_Unit":
+                setAuthority(response.data.ALL_QUESTIONS.Endemic_Tree_Unit);
+                break;
+              case "Emergency_Wildfire_Unit":
+                setAuthority(response.data.ALL_QUESTIONS.Emergency_Wildfire_Unit);
+                break;
+              case "Land_Soil_Ministry":
+                setAuthority(response.data.ALL_QUESTIONS.Land_Soil_Ministry);
+                break;
+              case "Geographical_Unit":
+                setAuthority(response.data.ALL_QUESTIONS.Geographical_Unit);
+                break;
+              default:
+                setAuthority(response.data.ALL_QUESTIONS.Others);
+            }
           }
         })
-        .finally(() => setIsLoading(false));
+       // .finally(() => setIsLoading(false));
     }
-  }, [updateConst, email]);
+  }, [updateConst, email,AuthorityString]);
 
   const handleDelete = () => {
     const data = {
@@ -166,9 +186,9 @@ function QuestionAnswer(props) {
     if (isAuthenticated) {
       deleteQuestion(data).then((response) => {
         if (!response.error) {
-          console.log(response)
-          setUpdateConst(count=>count+1)
-          handleCloseDelete()
+          console.log(response);
+          setUpdateConst((count) => count + 1);
+          handleCloseDelete();
         } else {
         }
       });
@@ -246,13 +266,11 @@ function QuestionAnswer(props) {
           />
         ) : null}
 
-          <DeleteModel
-            open={openDelete}
-            handleClose={handleCloseDelete}
-            handleDelete={handleDelete}
-            
-          />
-
+        <DeleteModel
+          open={openDelete}
+          handleClose={handleCloseDelete}
+          handleDelete={handleDelete}
+        />
       </Grid>
     </Box>
   );

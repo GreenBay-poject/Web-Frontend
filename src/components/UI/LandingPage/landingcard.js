@@ -18,9 +18,8 @@ const useStyles = makeStyles({
     textDecoration: "none",
   },
   button1: {
-    color:"#00796B"
+    color: "#00796B",
   },
- 
 });
 
 export default function ImgMediaCard(props) {
@@ -52,8 +51,10 @@ export default function ImgMediaCard(props) {
           to={
             props.Details.Name === "Notes"
               ? "/notespage"
-              : props.Details.Name === "Q&A"
+              : props.Details.Name === "Q&A" && isAuthenticated
               ? "/questions"
+              : props.Details.Name === "Q&A" && isAuthenticated
+              ? "/signin"
               : "/feedpage"
           }
         >

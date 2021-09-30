@@ -117,18 +117,13 @@ export default function TransitionsModal(props) {
           } else {
             console.log("unsuccessfull q modal");
             console.log(response);
-          }
+          } 
         });
       }
     },
-    [email, stateObj.title, stateObj.description]
+    [email, stateObj.title, stateObj.description,handleClose,Authority,isAuthenticated, setUpdateConst,]
   );
 
-  /* const onChange = (value) => {
-    console.log(typeof(value))
-    setQuillVal(value)
-  }
-*/
   return (
     <React.Fragment>
       <Modal
