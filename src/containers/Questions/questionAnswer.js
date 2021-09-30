@@ -6,6 +6,7 @@ import Answer from "../../components/UI/Questions/answer";
 import Sidebar from "../../components/UI/Questions/sideBar";
 import Qmodal from "../Questions/qmodal";
 import Rmodal from "../Questions/replyModal";
+import DeleteModel from "../Questions/delModal";
 
 import { Box, Button, Grid, makeStyles } from "@material-ui/core";
 
@@ -107,12 +108,14 @@ function QuestionAnswer(props) {
   const { isAuthenticated, isAuthorized, email } = props;
   const [openReply, setOpenReply] = React.useState(false);
   const [openQuestion, setOpenQuestion] = React.useState(false);
+  const [openDelete, setOpenDelete] = React.useState(false);
   const [Authority, setAuthority] = React.useState();
   const [isLoading, setIsLoading] = useState(true);
   const [questionList, setQuestionList] = useState([]);
   const [q_idForReply, setQ_idForReply] = useState();
+  const [q_idForDelete, setQ_idForDelete] = useState();
   const [AuthorityString, setAuthorityString] = useState("Wild_care_Ministry");
-  const [AuthorityWord,setAuthorityWord]=useState("Wild care Ministry");
+  const [AuthorityWord,setAuthorityWord]=useState("Wild Care Ministry");
 
   const handleOpenReply = (q_id) => {
     setQ_idForReply(q_id);
@@ -128,6 +131,13 @@ function QuestionAnswer(props) {
 
   const handleCloseQuestion = () => {
     setOpenQuestion(false);
+  };
+  const handleOpenDelete = () => {
+    setOpenDelete(true);
+  };
+
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
   };
 
   useEffect(() => {
@@ -146,15 +156,16 @@ function QuestionAnswer(props) {
     }
   }, [isLoading, email]);
 
-  const handleDelete = (Qid) => {
+  const handleDelete = () => {
     const data = {
-      question_id: Qid,
+      question_id: q_idForDelete,
       email: email,
     };
     if (isAuthenticated) {
       deleteQuestion(data).then((response) => {
         if (!response.error) {
           console.log(response)
+          handleCloseDelete()
         } else {
           console.log("unsesdsdf",response)
         }
@@ -198,7 +209,8 @@ function QuestionAnswer(props) {
                     questionTitle={D.title}
                     questionDescription={D.question}
                     questionDate={D.dateposted}
-                    handleDelete={handleDelete}
+                    setQ_idForDelete={setQ_idForDelete}
+                    handleOpenDelete={handleOpenDelete}
                   />
 
                   <Answer
@@ -229,6 +241,13 @@ function QuestionAnswer(props) {
             handleClose={handleCloseReply}
           />
         ) : null}
+
+          <DeleteModel
+            open={openDelete}
+            handleClose={handleCloseDelete}
+            handleDelete={handleDelete}
+          />
+
       </Grid>
     </Box>
   );

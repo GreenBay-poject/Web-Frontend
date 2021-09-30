@@ -5,7 +5,7 @@ import {
   } from "@material-ui/core";
   import DeleteIcon from "@material-ui/icons/Delete";
 
-  import DeleteModel from "../../../containers/Questions/";
+
   
   const useStyles = makeStyles((theme) => ({
     Box1: {
@@ -96,7 +96,7 @@ import {
   }));
   
   function Question(props) {
-    const {handleDelete,isAuthorized}=props;
+    const {setQ_idForDelete,isAuthorized,handleOpenDelete}=props;
     const{ q_id,questionPerson,questionTitle,questionDescription,questionDate}=props;
     const classes = useStyles(); 
     var index1 = questionTitle.indexOf("@"); 
@@ -119,7 +119,7 @@ import {
                 </Grid>
                
                 <Grid item xs={3} sm={1} className={classes.paper} >
-                  {isAuthorized?<DeleteIcon  className={classes.delete} onClick={()=>handleDelete(q_id)}/>:null}
+                  {isAuthorized?<DeleteIcon  className={classes.delete} onClick={()=>{setQ_idForDelete(q_id);handleOpenDelete()}}/>:null}
                 </Grid>
               </Grid>
             </Box>

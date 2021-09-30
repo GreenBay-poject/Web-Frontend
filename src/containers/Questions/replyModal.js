@@ -89,6 +89,7 @@ export default function TransitionsModal(props) {
       .then((response) => {
           if (!response.error) {
               console.log("successfull")
+              handleClose()
           } else {
             console.log("unsuccessfull")
               console.log(response)  
