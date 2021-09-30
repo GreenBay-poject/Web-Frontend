@@ -9,14 +9,19 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '95%',
     position: 'relative',
     overflow: 'auto',
-    maxHeight: 300,
-    backgroundColor: "rgb(197, 225, 165)"
+    maxHeight: 300
+  },
+  listcolor: {
+    backgroundColor: "#F2F39F",
+    margin: "10px",
+    borderRadius: "20px"
   },
   listSection: {
     backgroundColor: 'inherit',
@@ -35,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrivateNotes(props) {
   const classes = useStyles();
-  const { privateNotes } = props;
+  const { privateNotes, handleOpenDeleteModal } = props;
   console.log(privateNotes)
 
   let roundOff = (num, places) => {
@@ -48,7 +53,7 @@ export default function PrivateNotes(props) {
       {
           privateNotes.map((note) => 
             <>
-              <ListItem alignItems="flex-start">
+              <ListItem alignItems="flex-start" className={classes.listcolor}>
                 <ListItemAvatar>
                   <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                 </ListItemAvatar>
@@ -56,7 +61,7 @@ export default function PrivateNotes(props) {
                   secondary={
                     <React.Fragment>
                       <Grid container spacing={1}>
-                        <Grid item xs={12} sm={12}>
+                        <Grid item xs={11} sm={11}>
                           <Typography
                             component="span"
                             variant="body2"
@@ -65,6 +70,9 @@ export default function PrivateNotes(props) {
                           >
                             {note.text}
                           </Typography>
+                        </Grid>
+                        <Grid item xs={1} sm={1} className={classes.paper} >
+                          {<DeleteIcon onClick={() => handleOpenDeleteModal(note.note_id)}/>}
                         </Grid>
                         <Grid item xs={12} sm={3}>
                           <Chip className={classes.chip} variant="outlined"  label={roundOff(note.lat, 2)} />

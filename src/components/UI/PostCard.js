@@ -20,6 +20,7 @@ import Grid from '@material-ui/core/Grid';
 import defaultimages from '../Images/defaultimage.png';
 import { deletePost } from "../../api/feed";
 import { addAlert } from '../../store/actions/index';
+import DeleteModel from "../../containers/Feed/delModal"
 
 const useStyles = makeStyles({
   root: {
@@ -38,6 +39,22 @@ const useStyles = makeStyles({
 function PostCard(props) {
     const classes = useStyles();
     const { keyid, title, image, description, dateposted, ministry, email} = props;
+    const [openDelete, setOpenDelete] = React.useState(false);
+    const [selectDelete, setSelectDelete] = React.useState(false);
+
+    const handleOpenDelete = () => {
+        setOpenDelete(false);
+        handleDelete(selectDelete)
+      };
+    
+      const handleCloseDelete = () => {
+        setOpenDelete(false);
+      };
+    
+      const handleOpenDeleteModal = (keyid) => {
+        setSelectDelete(keyid)
+        setOpenDelete(true);
+      };
 
     const handleDelete = (keyid) => {
         let data = {
@@ -55,44 +72,51 @@ function PostCard(props) {
 
       
     return (
-        <Card className={classes.root}>
-        <CardActionArea>
-            <Grid container spacing={3} className={classes.layout}>
-                <Grid item xs={12} sm={4}>
-                    <CardMedia
-                        className={classes.media}
-                        image= {image ? image : defaultimages}
-                        title="Contemplative Reptile"
-                    />
-                    <List className={classes.root}>
-                        <ListItem>
-                            <ListItemAvatar>
-                            <Avatar>
-                                <ImageIcon />
-                            </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText primary={ministry} secondary={dateposted} />
-                        </ListItem>
-                    </List>
-                </Grid>
-                <Grid item xs={12} sm={8}>
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            {title}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p"  className={classes.description}>
-                            {description}
-                        </Typography>
-                    </CardContent>
-                </Grid>
-            </Grid>
-        </CardActionArea>
-        <CardActions>
-            <Button size="small" color="secondary" onClick={() => handleDelete(keyid)}>
-                Delete
-            </Button>
-        </CardActions>
-        </Card>
+        <React.Fragment>
+            <Card className={classes.root}>
+                <CardActionArea>
+                    <Grid container spacing={3} className={classes.layout}>
+                        <Grid item xs={12} sm={4}>
+                            <CardMedia
+                                className={classes.media}
+                                image= {image ? image : defaultimages}
+                                title="Contemplative Reptile"
+                            />
+                            <List className={classes.root}>
+                                <ListItem>
+                                    <ListItemAvatar>
+                                    <Avatar>
+                                        <ImageIcon />
+                                    </Avatar>
+                                    </ListItemAvatar>
+                                    <ListItemText primary={ministry} secondary={dateposted} />
+                                </ListItem>
+                            </List>
+                        </Grid>
+                        <Grid item xs={12} sm={8}>
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                    {title}
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p"  className={classes.description}>
+                                    {description}
+                                </Typography>
+                            </CardContent>
+                        </Grid>
+                    </Grid>
+                </CardActionArea>
+                <CardActions>
+                    <Button size="small" color="secondary" onClick={() => handleOpenDeleteModal(keyid)}>
+                        Delete
+                    </Button>
+                </CardActions>
+                </Card>
+                <DeleteModel
+                    open={openDelete}
+                    handleClose={handleCloseDelete}
+                    handleDelete={handleOpenDelete}
+                />
+        </React.Fragment>
     );
 }
 

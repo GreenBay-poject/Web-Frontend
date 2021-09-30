@@ -15,8 +15,12 @@ const useStyles = makeStyles((theme) => ({
     width: '95%',
     position: 'relative',
     overflow: 'auto',
-    maxHeight: 300,
-    backgroundColor: "rgb(197, 225, 165)"
+    maxHeight: 300
+  },
+  listcolor: {
+    backgroundColor: "#F2F39F",
+    margin: "10px",
+    borderRadius: "20px"
   },
   listSection: {
     backgroundColor: 'inherit',
@@ -48,7 +52,7 @@ export default function PublicNotes(props) {
           publicNotes.map((author) => 
             author.notes.map((note) => 
             <>
-              <ListItem alignItems="flex-start">
+              <ListItem alignItems="flex-start" className={classes.listcolor}>
                 <ListItemAvatar>
                   <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                 </ListItemAvatar>

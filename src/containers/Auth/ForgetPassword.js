@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
+import { toast } from 'react-toastify';
 
 import { checkValidity } from '../../shared/validate';
 import { updateObject } from '../../shared/utility';
@@ -117,11 +118,28 @@ function ForgetPassword(props) {
                     if (!response.error) {
                         addAlert("Email Sent!")
                     } else{
+                        toast.error('Error Occured!', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            });
                         addAlert("Error Occured!")
                     }
                 })
         } else {
-            console.log("eroor hh")
+            toast.error('Invalid Email!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
             addAlert("Invalid Email!")
         }
     }, [authObj, checkInputValidity, inputIsValid]);

@@ -13,6 +13,7 @@ import { deleteNote } from "../../api/notes";
 import PublicNotes from "../Notes/noteslist";
 import PrivateNotes from "../Notes/privatenotes";
 import { Typography } from '@material-ui/core';
+import DeleteModel from '../Notes/delModal'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,13 +44,28 @@ function MyComponent(props) {
   const { publicNotes, privateNotes, email, setPrivateNotes, setPublicNotes } = props;
   const [latitude, setLatitude] = useState(7.2842);
   const [longitude, setLongitude] = useState(80.6372);
+  const [openDelete, setOpenDelete] = React.useState(false);
+  const [selectDelete, setSelectDelete] = React.useState(false);
   const FillPosition = (event) => {
     setLatitude(event.latLng.lat())
     setLongitude(event.latLng.lng())
   };
 
+  const handleOpenDelete = () => {
+    setOpenDelete(false);
+    DeleteNote(selectDelete)
+  };
+
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+  };
+
+  const handleOpenDeleteModal = (note) => {
+    setSelectDelete(note)
+    setOpenDelete(true);
+  };
+
   const DeleteNote = (note) => {
-    alert("Do you want to delete "+ String(note) +" note")
     deleteNote({email:email,note_id:note})
         .then((response) => {
           console.log(response)
@@ -98,7 +114,6 @@ function MyComponent(props) {
                           position={{"lat": note.lat, "lng": note.lon}}
                           title={note.text}
                           icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
-                          onDblClick={(e) => DeleteNote(note.note_id)}
                       />
                     )
                   )
@@ -110,7 +125,7 @@ function MyComponent(props) {
                           fillColor= {"yellow"}
                           position={{"lat": note.lat, "lng": note.lon}}
                           title={note.text}
-                          onDblClick={(e) => DeleteNote(note.note_id)}
+                          onDblClick={(e) => handleOpenDeleteModal(note.note_id)}
                       />
                     )
                   : null
@@ -130,7 +145,7 @@ function MyComponent(props) {
         { privateNotes && (privateNotes.length)>0 ? 
           <Grid item xs={12} sm={12}>
               <Typography>Public Notes</Typography>
-              <PrivateNotes privateNotes={privateNotes} />
+              <PrivateNotes privateNotes={privateNotes} handleOpenDeleteModal={handleOpenDeleteModal}/>
           </Grid> : null
         }
         { publicNotes && (publicNotes.length)>0 ? 
@@ -140,6 +155,11 @@ function MyComponent(props) {
           </Grid> : null
         }
       </Grid>
+      <DeleteModel
+            open={openDelete}
+            handleClose={handleCloseDelete}
+            handleDelete={handleOpenDelete}
+          />
     </div>
   )
 }
