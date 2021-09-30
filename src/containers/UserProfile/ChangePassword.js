@@ -152,7 +152,15 @@ function Changepassword(props) {
                     }
                 })
         } else {
-            console.log("eroor hh")
+            toast.error('Passwords Mismatch!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
             addAlert("Passwords Mismatch!")
         }
     }, [authObj, checkInputValidity, inputIsValid, email]);
