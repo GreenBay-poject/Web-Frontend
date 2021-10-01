@@ -16,7 +16,7 @@ describe('Login', function(){
     it('Myprofile page', function(){
         cy.contains('thilakarathnadilshan1024@gmail.com', {timeout:10000});
         cy.contains('Thilakarathna', {timeout:100000}).should('be.visible');
-        cy.get('.changepaswdbtn').should('be.visible').click()
+        cy.get('#changepaswdbtn').should('be.visible').click()
         cy.url().should('match', registerUrlMatcherChangepswd);
     })
     

@@ -217,7 +217,7 @@ function FeedPage(props) {
                     fullWidth
                     onClick={() => onSubmitHandler()}
                     disabled={!inputIsValid}
-                    class="postaddingbtn"
+                    id="postaddingbtn"
                     className={classes.postbutton}
                 >
                     Post
