@@ -11,7 +11,7 @@ describe('Access Control', function(){
     it('Landing Page - Explore Map button', function(){
         cy.visit('http://localhost:3000/notespage')
         cy.get('.textinput').should('be.visible').type('Save the forest')
-        cy.get('.addnotebtn').should('be.visible').click()
+        cy.get('#addnotebtn').should('be.visible').click()
         cy.url().should('match', baseUrlMatcherAuth);
         cy.get('input[type="text"]').type('thilakarathnadilshan1024@gmail.com')
         cy.get('input[type="password"]').type('ABC123456')
@@ -21,7 +21,7 @@ describe('Access Control', function(){
     it('Landing Page - Explore Notes button', function(){
         cy.get('button[title="Notes"]').should('be.visible').click()
         cy.get('.textinput').should('be.visible').type('Save the forest Testing111')
-        cy.get('.addnotebtn').should('be.visible').click()
+        cy.get('#addnotebtn').should('be.visible').click()
     })
 
     it('Check new Note', function(){
@@ -36,10 +36,10 @@ describe('Access Control', function(){
 
     it('DeletePrivateNote', function(){
         cy.get('.dltbtn').should('be.visible').click()
-        cy.get('.noteyesbtn').should('be.visible').click()
+        cy.get('#noteyesbtn').should('be.visible').click()
         cy.contains('Testing111', {timeout:5000}).should('be.visible')
         cy.get('.dltbtn', {timeout:5000}).should('be.visible').click()
-        cy.get('.notenobtn').should('be.visible').click()
+        cy.get('#notenobtn').should('be.visible').click()
         cy.contains('Testing111', {timeout:5000}).should('not.be.disabled')
     })
 })

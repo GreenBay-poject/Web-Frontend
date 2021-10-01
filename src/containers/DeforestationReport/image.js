@@ -122,7 +122,7 @@ export default function SimplePaper(props) {
                   </Grid>
                   <Grid item xs={12} sm={12} className={classes.button}>
                       <ButtonGroup color="primary" aria-label="outlined primary button group" onClick={onSubmitHandler}>
-                          <Button>Get the Report</Button>
+                          <Button id="getthereportbtn">Get the Report</Button>
                       </ButtonGroup>
                   </Grid>
           </Grid>

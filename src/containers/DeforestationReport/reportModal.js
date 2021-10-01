@@ -100,7 +100,7 @@ function FeedPage(props) {
             <Fade in={open}>
                 <Grid container spacing={1} className={classes.modelpaper}>
                     <Grid item xs={12} sm={12}>
-                        <h2 id="transition-modal-title" className={classes.inputitems}>Land Report</h2>
+                        <h2 id="transition-modal-title" className={classes.inputitems}>Deforestation Report</h2>
                     </Grid>
                     <Grid item xs={12} sm={12}>
                         <ThemeProvider theme={theme}>

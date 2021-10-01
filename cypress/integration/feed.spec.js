@@ -48,11 +48,11 @@ describe('Landing page', function(){
 
     it('Delete New Post', function(){
         cy.get('.TestingEmail').should('be.visible').click()
-        cy.get('.postyesbtn').should('be.visible').click()
+        cy.get('#postyesbtn').should('be.visible').click()
         cy.contains('Testing Email', {timeout:5000}).should('be.visible')
         cy.contains('Testing description', {timeout:5000}).should('be.visible')
         cy.get('.TestingEmail', {timeout:5000}).should('be.visible').click()
-        cy.get('.postnobtn').should('be.visible').click()
+        cy.get('#postnobtn').should('be.visible').click()
         cy.contains('Testing Email', {timeout:5000}).should('not.be.disabled')
         cy.contains('Testing description', {timeout:5000}).should('not.be.disabled')
     })
