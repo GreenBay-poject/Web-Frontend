@@ -92,6 +92,7 @@ export default function ControlledOpenSelect(props) {
                     labelId="demo-controlled-open-select-label"
                     id="demo-controlled-open-select"
                     open={open2}
+                    class="selectenddate"
                     onClose={handleClose2}
                     onOpen={handleOpen2}
                     value={date2}

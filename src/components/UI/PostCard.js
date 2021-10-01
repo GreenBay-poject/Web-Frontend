@@ -129,7 +129,7 @@ function PostCard(props) {
                 </CardActionArea>
                 <CardActions>
                     {isAuthorized===true ? 
-                        <Button size="small" color="secondary" onClick={() => handleOpenDeleteModal(keyid)}>
+                        <Button size="small" color="secondary" id="dltbtn" onClick={() => handleOpenDeleteModal(keyid)}>
                             Delete
                         </Button> : null
                     }

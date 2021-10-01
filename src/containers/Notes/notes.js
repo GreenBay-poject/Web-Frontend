@@ -40,6 +40,7 @@ function NotesPage(props) {
             //   progress: undefined,
             //   })
             //   addAlert("Error on loading Private Notes")
+              addAlert("Error on loading Private Notes")
           }
         })
         .finally(() => setIsLoading(false));

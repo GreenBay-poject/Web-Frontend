@@ -103,7 +103,7 @@ export default function SimplePaper(props) {
               aria-label="outlined primary button group"
               onClick={onSubmitHandler}
             >
-              <Button className={classes.button1}>Get the Report</Button>
+              <Button id="getthereportbtn" className={classes.button1}>Get the Report</Button>
             </ButtonGroup>
           </Grid>
         </Grid>
