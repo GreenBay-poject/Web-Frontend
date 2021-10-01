@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import { toast } from 'react-toastify';
 //import Axios from 'axios';
 //import { connect } from 'react-redux';
 
@@ -111,10 +112,28 @@ export default function TransitionsModal(props) {
       if (isAuthenticated) {
         addQuestion(data).then((response) => {
           if (!response.error) {
+            toast.success('Question Added!', {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              })
             console.log("successfull q modal");
             setUpdateConst((count) => count + 1);
             handleClose();
           } else {
+            toast.error('Error Occured!', {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              })
             console.log("unsuccessfull q modal");
             console.log(response);
           } 

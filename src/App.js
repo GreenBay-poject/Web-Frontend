@@ -16,6 +16,7 @@ import Notespage from '../src/containers/Notes/notes';
 import LandReport from "../src/containers/LandReport/landreport";
 import ForgetPassword from './containers/Auth/ForgetPassword';
 import DeforestationReport from "./containers/DeforestationReport/deforestaionreport"
+import AboutUs from "./containers/About Us/AboutUs"
 
 import * as routez from './shared/routes';
 import * as actions from "./store/actions/index";
@@ -52,6 +53,7 @@ function App(props) {
         <Route exact path={routez.LANDREPORT} component={LandReport}/>
         <Route exact path={routez.DEFORESTATIONREPORT} component={DeforestationReport}/>
         <Route exact path={routez.FORGET_PASSWORD} component={ForgetPassword}/>
+        <Route exact path={routez.ABOUTUS} component={AboutUs}/>
         <Redirect path="/" to={routez.SIGNIN} />
      </Switch>
     </Suspense>   

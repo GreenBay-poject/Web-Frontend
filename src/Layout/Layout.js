@@ -38,9 +38,9 @@ import * as routez from '../shared/routes';
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({ 
   root: {
-    display: 'flex',
+    display: 'flex',  
     flexGrow: 1,
   },
   appBar: {

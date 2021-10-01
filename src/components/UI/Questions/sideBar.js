@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 function Sidebar(props) {
   const classes = useStyles();
   const { setAuthority, setAuthorityString, setAuthorityWord, D } = props;
-  const [Barnumber,setBarnumber]=useState();
+  const [Barnumber,setBarnumber]=useState(1);
 
   return (
     <Box align="left" mt="30px">

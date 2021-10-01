@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { toast } from 'react-toastify';
 
 import Question from "../../components/UI/Questions/question";
 import Answer from "../../components/UI/Questions/answer";
@@ -13,13 +14,14 @@ import { Box, Button, Grid, makeStyles } from "@material-ui/core";
 import { addAlert } from "../../../src/store/actions/index";
 import { auth } from "../../../src/store/actions/index";
 import { viewQuestions, deleteQuestion } from "../../api/question";
+//import SkeletonLoader from "./Skeleton";
 
 const useStyles = makeStyles((theme) => ({
   Box1: {
     fontWeight: 100,
     "&:hover": {
       backgroundColor: "#C4C4C4",
-      transform: "scale(1.01)",
+      transform: "scale(1.01)", 
       align: "center",
     },
   },
@@ -186,10 +188,28 @@ function QuestionAnswer(props) {
     if (isAuthenticated) {
       deleteQuestion(data).then((response) => {
         if (!response.error) {
+          toast.success('Question Deleted!', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            })
           console.log(response);
           setUpdateConst((count) => count + 1);
           handleCloseDelete();
         } else {
+          toast.error('Question Not Deleted!', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            })
         }
       });
     }
