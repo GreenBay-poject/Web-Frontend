@@ -121,7 +121,7 @@ function UserProfile(props) {
                       </ListItemIcon>
                       <ListItemText  primary="My Profile" />
                     </ListItem>
-                    <ListItem button id="changepaswdbtn" onClick={() => history.push(routez.CHANGE_PASSWORD)} title="changepassword">
+                    <ListItem button className={classes.button} id="changepaswdbtn" onClick={() => history.push(routez.CHANGE_PASSWORD)} title="changepassword">
                       <ListItemIcon>
                         <DraftsIcon />
                       </ListItemIcon>
