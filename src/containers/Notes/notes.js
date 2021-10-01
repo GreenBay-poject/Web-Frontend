@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getPublicNotes, getPrivateNotes } from "../../api/notes";
 import { addAlert } from '../../store/actions/index';
 import Map from "../Notes/map";
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 function NotesPage(props) {
   const { email } = props;
@@ -29,15 +29,17 @@ function NotesPage(props) {
           if (!response.error) {
             setPrivateNotes(response.data.All_Notes_user)
           } else {
-            toast.error('Error Occured. Try Again!', {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              })
+            console.log(response)
+            // toast.error('Error Occured. Try Again!', {
+            //   position: "top-right",
+            //   autoClose: 5000,
+            //   hideProgressBar: false,
+            //   closeOnClick: true,
+            //   pauseOnHover: true,
+            //   draggable: true,
+            //   progress: undefined,
+            //   })
+            //   addAlert("Error on loading Private Notes")
               addAlert("Error on loading Private Notes")
           }
         })

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useSpring, animated } from 'react-spring'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -26,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginRight: theme.spacing(1),
     backgroundColor: "rgb(0, 121, 107)",
+    color: "white",
     "&:hover": {
       backgroundColor: "#05574F",
       transform: "scale(1.01)",
@@ -75,14 +75,14 @@ export default function VerticalLinearStepper() {
 
   return (
     <div className={classes.root}>
-      <animated.div style={useSpring({
+      {/* <animated.div style={useSpring({
           loop: true,
           to: [
             { opacity: 1, color: '#7CB342' },
             { opacity: 0, color: 'rgb(197, 225, 165)' },
           ],
           from: { opacity: 0, color: 'red' },
-        })} className={classes.animatedHeader}>You Are Ready to Get the Report</animated.div>
+        })} className={classes.animatedHeader}>You Are Ready to Get the Report</animated.div> */}
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((label, index) => (
           <Step key={label}>
@@ -102,7 +102,6 @@ export default function VerticalLinearStepper() {
                   </Button>
                   <Button
                     variant="contained"
-                    color="primary"
                     onClick={handleNext}
                     className={classes.button1}
                     disabled={dates.length===0}

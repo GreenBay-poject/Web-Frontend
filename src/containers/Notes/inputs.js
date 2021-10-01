@@ -145,7 +145,7 @@ function InputFile(props) {
                 </Grid>
                 <Grid item xs={12} sm={12} className={classes.button}>
                     <ButtonGroup aria-label="outlined button group" onClick={onSubmitHandler}>
-                        <Button className={classes.submit}>Add Note</Button>
+                        <Button id="addnotebtn" className={classes.buttonclr}>Add Note</Button>
                     </ButtonGroup>
                 </Grid>
             </Grid>

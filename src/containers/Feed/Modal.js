@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     },
     postbutton: {
         backgroundColor: "rgb(0, 121, 107)",
+        color: "white",
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -210,12 +211,13 @@ function FeedPage(props) {
                     Upload
                 </Button>
                 <h4 id="transition-modal-title">Add Description</h4>
-                <ReactQuill value={quillVal} onChange={onChange}/>
+                <ReactQuill value={quillVal} type="description" onChange={onChange} />
                 <Button
                     variant="contained"
                     fullWidth
                     onClick={() => onSubmitHandler()}
                     disabled={!inputIsValid}
+                    // id="postaddingbtn"
                     className={classes.postbutton}
                 >
                     Post

@@ -101,12 +101,12 @@ function MapExplore(props) {
           </Box>
           <Grid container direction="row" spacing={3} align="left">
             <Grid item xs={12} sm={4}>
-                <Button variant="contained" className={classes.button} onClick={() => history.push(routez.LANDREPORT)}>
+                <Button variant="contained" title={"LandReport"} className={classes.button} onClick={() => history.push(routez.LANDREPORT)}>
                   <b>Land Report</b>
                 </Button>
             </Grid>
             <Grid item xs={12} sm={4}>
-                <Button variant="contained" className={classes.button} onClick={() => history.push(routez.LANDREPORT)}>
+                <Button variant="contained" title={"DeforestationReport"} className={classes.button} onClick={() => history.push(routez.DEFORESTATIONREPORT)}>
                   <b>Land Compare</b>
                 </Button>
             </Grid>

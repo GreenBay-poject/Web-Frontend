@@ -39,7 +39,7 @@ const useStyles = makeStyles({
 
 function PostCard(props) {
     const classes = useStyles();
-    const { keyid, title, image, description, dateposted, ministry, email, setIsLoading} = props;
+    const { keyid, title, image, description, dateposted, ministry, email, setIsLoading, isAuthorized } = props;
     const [openDelete, setOpenDelete] = React.useState(false);
     const [selectDelete, setSelectDelete] = React.useState(false);
 
@@ -48,14 +48,16 @@ function PostCard(props) {
         handleDelete(selectDelete)
       };
     
-      const handleCloseDelete = () => {
+    const handleCloseDelete = () => {
         setOpenDelete(false);
-      };
-    
-      const handleOpenDeleteModal = (keyid) => {
+    };
+
+    const handleOpenDeleteModal = (keyid) => {
         setSelectDelete(keyid)
         setOpenDelete(true);
-      };
+    };
+
+    console.log(isAuthorized)
 
     const handleDelete = (keyid) => {
         setIsLoading(true)
@@ -126,9 +128,11 @@ function PostCard(props) {
                     </Grid>
                 </CardActionArea>
                 <CardActions>
-                    <Button size="small" color="secondary" onClick={() => handleOpenDeleteModal(keyid)}>
-                        Delete
-                    </Button>
+                    {isAuthorized===true ? 
+                        <Button size="small" color="secondary" id="dltbtn" onClick={() => handleOpenDeleteModal(keyid)}>
+                            Delete
+                        </Button> : null
+                    }
                 </CardActions>
                 </Card>
                 <DeleteModel
@@ -143,7 +147,7 @@ function PostCard(props) {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.token != null,
-        isAuthorized: state.auth.IsAuthorized != null,
+        isAuthorized: state.auth.IsAuthorized,
         error: state.auth.error,
         email: state.auth.email
     }
