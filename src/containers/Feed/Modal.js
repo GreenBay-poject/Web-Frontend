@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     },
     postbutton: {
         backgroundColor: "rgb(0, 121, 107)",
+        color: "white",
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -217,7 +218,7 @@ function FeedPage(props) {
                     fullWidth
                     onClick={() => onSubmitHandler()}
                     disabled={!inputIsValid}
-                    id="postaddingbtn"
+                    // id="postaddingbtn"
                     className={classes.postbutton}
                 >
                     Post
