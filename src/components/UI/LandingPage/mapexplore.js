@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
+import { Parallax } from 'react-scroll-parallax';
+
 
 import { Box, Button, Grid, makeStyles, Typography } from "@material-ui/core";
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ImageSlider from "../../components/UI/LandingPage/slider/imageSlider";
-import {SliderData} from "../../components/UI/LandingPage/slider/sliderData";
+import Slider from "../../components/UI/LandingPage/slider/Slider";
 import ImgMediaCard from "../../components/UI/LandingPage/landingcard";
 import ColoredBar from "../../components/UI/LandingPage/coloredbar";
 import MapExplore from "../../components/UI/LandingPage/mapexplore";
@@ -83,7 +82,7 @@ function Landing(props) {
   return (
     <Box>
       <LandingHeader />
-
+      <Slider />
       <MapExplore  isAuthenticated={isAuthenticated}/>
 
       <Box mt="30px" pl="60px">
@@ -123,13 +122,7 @@ function Landing(props) {
         <Box>
           <SingleLineImageList/>
         </Box>
-        <Box>
-          <ImageSlider slides={SliderData} />
-        </Box>
       </Box>
-
-      <hr color={colors[1]} />
-
       <Footer />
     </Box>
   );

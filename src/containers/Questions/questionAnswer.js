@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 import Question from "../../components/UI/Questions/question";
 import Answer from "../../components/UI/Questions/answer";
@@ -8,6 +8,7 @@ import Sidebar from "../../components/UI/Questions/sideBar";
 import Qmodal from "../Questions/qmodal";
 import Rmodal from "../Questions/replyModal";
 import DeleteModel from "../Questions/delModal";
+import SkeletonArticle from "../../components/UI/Skeletons/SkeletonArticle";
 
 import { Box, Button, Grid, makeStyles } from "@material-ui/core";
 
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 100,
     "&:hover": {
       backgroundColor: "#C4C4C4",
-      transform: "scale(1.01)", 
+      transform: "scale(1.01)",
       align: "center",
     },
   },
@@ -112,7 +113,7 @@ function QuestionAnswer(props) {
   const [openQuestion, setOpenQuestion] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
   const [Authority, setAuthority] = React.useState();
- // const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const [questionList, setQuestionList] = useState([]);
   const [q_idForReply, setQ_idForReply] = useState();
   const [q_idForDelete, setQ_idForDelete] = useState();
@@ -148,37 +149,36 @@ function QuestionAnswer(props) {
       const data = {
         email: email,
       };
-      viewQuestions(data)
-        .then((response) => {
-          if (!response.error) {
-            setQuestionList(response.data.ALL_QUESTIONS);
-            switch (AuthorityString) {
-              case "Wild_care_Ministry":
-                setAuthority(response.data.ALL_QUESTIONS.Wild_care_Ministry);
-                break;
-              case "Pollute_managing_Unit":
-                setAuthority(response.data.ALL_QUESTIONS.Pollute_managing_Unit);
-                break;
-              case "Endemic_Tree_Unit":
-                setAuthority(response.data.ALL_QUESTIONS.Endemic_Tree_Unit);
-                break;
-              case "Emergency_Wildfire_Unit":
-                setAuthority(response.data.ALL_QUESTIONS.Emergency_Wildfire_Unit);
-                break;
-              case "Land_Soil_Ministry":
-                setAuthority(response.data.ALL_QUESTIONS.Land_Soil_Ministry);
-                break;
-              case "Geographical_Unit":
-                setAuthority(response.data.ALL_QUESTIONS.Geographical_Unit);
-                break;
-              default:
-                setAuthority(response.data.ALL_QUESTIONS.Others);
-            }
+      viewQuestions(data).then((response) => {
+        if (!response.error) {
+          setQuestionList(response.data.ALL_QUESTIONS);
+          switch (AuthorityString) {
+            case "Wild_care_Ministry":
+              setAuthority(response.data.ALL_QUESTIONS.Wild_care_Ministry);
+              break;
+            case "Pollute_managing_Unit":
+              setAuthority(response.data.ALL_QUESTIONS.Pollute_managing_Unit);
+              break;
+            case "Endemic_Tree_Unit":
+              setAuthority(response.data.ALL_QUESTIONS.Endemic_Tree_Unit);
+              break;
+            case "Emergency_Wildfire_Unit":
+              setAuthority(response.data.ALL_QUESTIONS.Emergency_Wildfire_Unit);
+              break;
+            case "Land_Soil_Ministry":
+              setAuthority(response.data.ALL_QUESTIONS.Land_Soil_Ministry);
+              break;
+            case "Geographical_Unit":
+              setAuthority(response.data.ALL_QUESTIONS.Geographical_Unit);
+              break;
+            default:
+              setAuthority(response.data.ALL_QUESTIONS.Others);
           }
-        })
-       // .finally(() => setIsLoading(false));
+        }
+      });
+      // .finally(() => setIsLoading(false));
     }
-  }, [updateConst, email,AuthorityString]);
+  }, [updateConst, email, AuthorityString]);
 
   const handleDelete = () => {
     const data = {
@@ -188,7 +188,7 @@ function QuestionAnswer(props) {
     if (isAuthenticated) {
       deleteQuestion(data).then((response) => {
         if (!response.error) {
-          toast.success('Question Deleted!', {
+          toast.success("Question Deleted!", {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -196,12 +196,12 @@ function QuestionAnswer(props) {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            })
+          });
           console.log(response);
           setUpdateConst((count) => count + 1);
           handleCloseDelete();
         } else {
-          toast.error('Question Not Deleted!', {
+          toast.error("Question Not Deleted!", {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -209,7 +209,7 @@ function QuestionAnswer(props) {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            })
+          });
         }
       });
     }
@@ -217,81 +217,87 @@ function QuestionAnswer(props) {
 
   return (
     <Box width="100%">
-      <Grid container direction="row">
-        <Grid item xs={12} sm={3}>
-          <Sidebar
-            setAuthorityString={setAuthorityString}
-            setAuthority={setAuthority}
-            setAuthorityWord={setAuthorityWord}
-            D={questionList}
-          />
-        </Grid>
 
-        <Grid item xs={12} sm={9} align="left">
-          {console.log(456,isAuthorized)}
-          
+        <Grid container direction="row">
+          <Grid item xs={12} sm={3}>
+            <Sidebar
+              setAuthorityString={setAuthorityString}
+              setAuthority={setAuthority}
+              setAuthorityWord={setAuthorityWord}
+              D={questionList}
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={9} align="left">
+            {console.log(456, isAuthorized)}
+
             <Grid container direction="row">
-            {!isAuthorized ? ( <Button
-                variant="contained"
-                className={classes.button}
-                onClick={handleOpenQuestion}
-              >
-                <b>Ask Question</b>
-              </Button>) : null}
+              {!isAuthorized ? (
+                <Button
+                  variant="contained"
+                  className={classes.button}
+                  onClick={handleOpenQuestion}
+                >
+                  <b>Ask Question</b>
+                </Button>
+              ) : null}
               <Box className={classes.Box2}>{AuthorityWord}</Box>
             </Grid>
-          
-          {Authority
-            ? Authority.map((D) => (
-                <Box m="15px" bgcolor="#F2F39F" borderRadius="20px" pb="1px">
-                  <Question
-                    isAuthorized={isAuthorized}
-                    q_id={D.q_id}
-                    questionPerson={D.uname}
-                    questionTitle={D.title}
-                    questionDescription={D.question}
-                    questionDate={D.dateposted}
-                    setQ_idForDelete={setQ_idForDelete}
-                    handleOpenDelete={handleOpenDelete}
-                  />
 
-                  <Answer
-                    q_id={D.q_id}
-                    handleOpenReply={handleOpenReply}
-                    isAuthorized={isAuthorized}
-                    details={D.answer}
-                  />
-                </Box>
-              ))
-            : null}
+            {Authority
+              ? Authority.map((D) => (
+                  <Box m="15px" bgcolor="#F2F39F" borderRadius="20px" pb="1px">
+                    <Question
+                      isAuthorized={isAuthorized}
+                      q_id={D.q_id}
+                      questionPerson={D.uname}
+                      questionTitle={D.title}
+                      questionDescription={D.question}
+                      questionDate={D.dateposted}
+                      setQ_idForDelete={setQ_idForDelete}
+                      handleOpenDelete={handleOpenDelete}
+                    />
+
+                    <Answer
+                      q_id={D.q_id}
+                      handleOpenReply={handleOpenReply}
+                      isAuthorized={isAuthorized}
+                      details={D.answer}
+                    />
+                  </Box>
+                ))
+              : <Box pl="15px">{[1, 2, 3, 4, 5].map((n) => <SkeletonArticle key={n} theme="light" />)}</Box>}
+          </Grid>
+          {AuthorityString ? (
+            <Qmodal
+              email={email}
+              open={openQuestion}
+              Authority={AuthorityString}
+              handleClose={handleCloseQuestion}
+              isAuthenticated={isAuthenticated}
+              setUpdateConst={setUpdateConst}
+            />
+          ) : null}
+          {q_idForReply ? (
+            <Rmodal
+              email={email}
+              isAuthenticated={isAuthenticated}
+              q_idForReply={q_idForReply}
+              open={openReply}
+              handleClose={handleCloseReply}
+              setUpdateConst={setUpdateConst}
+            />
+          ) : null}
+
+          <DeleteModel
+            open={openDelete}
+            handleClose={handleCloseDelete}
+            handleDelete={handleDelete}
+          />
         </Grid>
-        {AuthorityString ? (
-          <Qmodal
-            email={email}
-            open={openQuestion}
-            Authority={AuthorityString}
-            handleClose={handleCloseQuestion}
-            isAuthenticated={isAuthenticated}
-            setUpdateConst={setUpdateConst}
-          />
-        ) : null}
-        {q_idForReply ? (
-          <Rmodal
-            email={email}
-            isAuthenticated={isAuthenticated}
-            q_idForReply={q_idForReply}
-            open={openReply}
-            handleClose={handleCloseReply}
-            setUpdateConst={setUpdateConst}
-          />
-        ) : null}
-
-        <DeleteModel
-          open={openDelete}
-          handleClose={handleCloseDelete}
-          handleDelete={handleDelete}
-        />
-      </Grid>
+      
+        
+      
     </Box>
   );
 }

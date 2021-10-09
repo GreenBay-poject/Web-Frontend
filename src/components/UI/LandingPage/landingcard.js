@@ -8,6 +8,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import { Button } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
+import { Parallax } from 'react-scroll-parallax';
+
 
 const useStyles = makeStyles({
   root: {

@@ -3,6 +3,9 @@ import EcoIcon from "@material-ui/icons/Eco";
 import ExploreIcon from "@material-ui/icons/Explore";
 import DataUsageIcon from "@material-ui/icons/DataUsage";
 import AssessmentIcon from "@material-ui/icons/Assessment";
+import { Parallax } from 'react-scroll-parallax';
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,

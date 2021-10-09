@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Parallax } from 'react-scroll-parallax';
 
 import { makeStyles } from '@material-ui/core/styles';
 import ImageList from '@material-ui/core/ImageList';
