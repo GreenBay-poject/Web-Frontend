@@ -8,7 +8,6 @@ import CardMedia from "@material-ui/core/CardMedia";
 import { Button } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
-import { Parallax } from 'react-scroll-parallax';
 
 
 const useStyles = makeStyles({
@@ -60,7 +59,7 @@ export default function ImgMediaCard(props) {
               : "/signin"
           }
         >
-          <Button size="small" color="primary" title={props.Details.Name}>
+          <Button size="small" className={classes.button1} title={props.Details.Name}>
             Explore {props.Details.Name}
           </Button>
         </Link>

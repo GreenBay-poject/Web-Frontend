@@ -3,7 +3,6 @@ import EcoIcon from "@material-ui/icons/Eco";
 import ExploreIcon from "@material-ui/icons/Explore";
 import DataUsageIcon from "@material-ui/icons/DataUsage";
 import AssessmentIcon from "@material-ui/icons/Assessment";
-import { Parallax } from 'react-scroll-parallax';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -60,7 +59,7 @@ function ColoredBar() {
   const classes = useStyles();
 
   return (
-    <Box width="100%" mt="40px" bgcolor={colors[2]} color="white" pt="20px" pb="20px">
+    <Box width="100%" mt="50px" bgcolor={colors[2]} color="white" pt="20px" pb="20px">
       <Typography
         color="white"
         variant="h4"

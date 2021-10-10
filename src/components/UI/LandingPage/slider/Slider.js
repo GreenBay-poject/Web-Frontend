@@ -1,5 +1,4 @@
 import SimpleImageSlider from "react-simple-image-slider";
-import { Parallax, ParallaxProvider } from "react-scroll-parallax";
 
 const images = [
   { url: "Slideimg/R1.jpg" },
@@ -15,8 +14,7 @@ const images = [
 
 const Slider = () => {
   return (
-    <ParallaxProvider>
-      <Parallax className="custom-class" y={[-20, 20]} tagOuter="figure">
+
         <div>
           <SimpleImageSlider
             width={"100%"}
@@ -26,8 +24,7 @@ const Slider = () => {
             showNavs={true}
           />
         </div>
-      </Parallax>
-    </ParallaxProvider>
+
   );
 };
 export default Slider;
