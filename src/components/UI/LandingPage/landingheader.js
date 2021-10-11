@@ -11,22 +11,22 @@ function LandingHeader() {
         <Grid item xs={4} sm={1} align="left" >
           <img src="/Logo96.png" alt="logo"/>
         </Grid>
-        <Grid item xs={8} sm={3} color={colors[0]} pt="25px">
+        <Grid item xs={4} sm={3} color={colors[0]} pt="25px">
           <Typography variant="h4" gutterBottom align="left">
            <Box color="#00796B"> <b>GreenBay</b></Box>
           </Typography>
         </Grid>
         <Grid item xs={4} sm={2} align="left" >
-          <img width="150px" src="/Slideimg/3.png" alt="logo"/>
+          <img width="120px" src="/Slideimg/3.png" alt="logo"/>
         </Grid>
         <Grid item xs={4} sm={2} align="left" >
-          <img width="150px" src="/Slideimg/3.png" alt="logo"/>
+          <img width="120px" src="/Slideimg/3.png" alt="logo"/>
         </Grid>
         <Grid item xs={4} sm={2} align="left" >
-          <img width="150px" src="/Slideimg/3.png" alt="logo"/>
+          <img width="120px" src="/Slideimg/3.png" alt="logo"/>
         </Grid>
         <Grid item xs={4} sm={2} align="left" >
-          <img width="150px" src="/Slideimg/3.png" alt="logo"/>
+          <img width="120px" src="/Slideimg/3.png" alt="logo"/>
         </Grid>
       </Grid>
     </Box>
