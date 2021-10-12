@@ -174,6 +174,10 @@ function Layout(props) {
   const handleLandReportroute = () => { 
     history.push(routez.LANDREPORT) 
   };
+  
+  const handleAboutingroute = () => { 
+    history.push(routez.ABOUTUS) 
+  };
 
   return (
     <div className={classes.root}>
@@ -262,6 +266,10 @@ function Layout(props) {
             <ListItem button key={'Home'}>
               <ListItemIcon>{<AccountBalanceIcon/>}</ListItemIcon>
               <ListItemText primary={'Home'} onClick={handleLandingroute}/>
+            </ListItem>
+            <ListItem button key={'About Us'}>
+              <ListItemIcon>{<AccountBalanceIcon/>}</ListItemIcon>
+              <ListItemText primary={'About us'} onClick={handleAboutingroute}/>
             </ListItem>
             {isAuthenticated ? (
                 <>
