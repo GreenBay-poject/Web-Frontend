@@ -9,6 +9,7 @@ import { Button } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 375,
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
 });
 
 export default function ImgMediaCard(props) {
-  // const { isAuthenticated } = props;
+  const { isAuthenticated } = props;
   const classes = useStyles();
 
   return (
@@ -46,8 +47,19 @@ export default function ImgMediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Link className={classes.linkstyle} to={props.Details.Name==="Notes"? "/notespage": props.Details.Name==="Q&A"? "/questions":"/feedpage" }>
-          <Button size="small" color="primary" title={props.Details.Name}>
+        <Link
+          className={classes.linkstyle}
+          to={
+            props.Details.Name === "Notes"
+              ? "/notespage"
+              : props.Details.Name === "Feed"
+              ? "/feedpage"
+              : props.Details.Name === "Q&A" && isAuthenticated
+              ? "/questions"
+              : "/signin"
+          }
+        >
+          <Button size="small" className={classes.button1} title={props.Details.Name}>
             Explore {props.Details.Name}
           </Button>
         </Link>
