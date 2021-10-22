@@ -9,4 +9,3 @@ export const LANDREPORT = '/landreport';
 export const DEFORESTATIONREPORT = '/deforestationreport';
 export const CHANGE_PASSWORD = '/changepassword';
 export const FORGET_PASSWORD = '/forgetpassword';
-export const ABOUTUS = '/aboutus_contactus';
