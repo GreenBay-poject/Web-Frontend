@@ -164,7 +164,7 @@ export default function TransitionsModal(props) {
             </h2>
             <h4 id="transition-modal-title">Question Title</h4>
             <TextField
-              id="outlined-textarea"
+              id="outlined-title"
               label="Title"
               placeholder="Enter the question title"
               multiline
@@ -182,7 +182,7 @@ export default function TransitionsModal(props) {
 
             <h4 id="transition-modal-title">Add Description</h4>
             <TextField
-              id="outlined-textarea"
+              id="outlined-description"
               label="Description"
               rows="10"
               placeholder="Enter the question description"
@@ -196,6 +196,7 @@ export default function TransitionsModal(props) {
             <Button
               variant="contained"
               color="primary"
+              id="testid"
               fullWidth
               onClick={onSubmitHandler}
               disabled={!inputIsValid.title}

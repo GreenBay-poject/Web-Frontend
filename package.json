@@ -11,12 +11,13 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "chart.js": "^3.5.1",
     "cloudinary-react": "^1.7.0",
     "cypress": "^8.4.1",
     "material-ui-popup-state": "^1.9.3",
     "moment": "^2.29.1",
+    "npm-install-peers": "^1.2.2",
     "react": "^17.0.1",
     "react-chartjs-2": "^3.0.5",
     "react-dom": "^17.0.1",
@@ -59,6 +60,8 @@
     ]
   },
   "devDependencies": {
-    "@cypress/code-coverage": "^3.9.11"
+    "@cypress/code-coverage": "^3.9.11",
+    "install-peers": "^1.0.3",
+    "xxxxx": "^1.0.3"
   }
 }

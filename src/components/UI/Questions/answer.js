@@ -99,6 +99,7 @@ console.log(q_id)
     <Box>
       {isAuthorized && details == null ? (
         <Button
+          id="new"
           variant="contained"
           className={classes.buttonreply}
           onClick={()=>handleOpenReply(q_id)}

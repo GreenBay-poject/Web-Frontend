@@ -119,7 +119,7 @@ import {
                 </Grid>
                
                 <Grid item xs={3} sm={1} className={classes.paper} >
-                  {isAuthorized?<DeleteIcon  className={classes.delete} onClick={()=>{setQ_idForDelete(q_id);handleOpenDelete()}}/>:null}
+                  {isAuthorized?<DeleteIcon id="deletebutton" className={classes.delete} onClick={()=>{setQ_idForDelete(q_id);handleOpenDelete()}}/>:null}
                 </Grid>
               </Grid>
             </Box>
