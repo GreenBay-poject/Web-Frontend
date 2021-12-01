@@ -3,7 +3,7 @@ import { Redirect } from "react-router";
 import { connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
 
-import { Button, FormLabel } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SignIn(props) {
     const classes = useStyles();
-    const { isAuthenticated, error} = props;
+    const { isAuthenticated} = props;
     let history = useHistory();
 
     const redirectUrl = "";
@@ -138,16 +138,6 @@ function SignIn(props) {
         }
     }, [authObj, checkInputValidity, inputIsValid, props]);
 
-    let formErrorLabel = null;
-    if (error) {
-        formErrorLabel = (
-            <div>
-                <FormLabel error={true}>
-                    {(error)}
-                </FormLabel>
-            </div>
-        );
-    }
 
     if (isAuthenticated) {
 		if (redirectUrl === "") return <Redirect to={routez.LANDING} />;
@@ -162,7 +152,6 @@ function SignIn(props) {
                 Sign In
             </Typography>
             <form noValidate autoComplete="off" className={classes.form} onSubmit={onSubmitHandler}>
-                {formErrorLabel}
                 {inputFields}
                 <Button
                     type="submit"

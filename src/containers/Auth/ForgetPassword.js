@@ -113,7 +113,8 @@ function ForgetPassword(props) {
         setInputIsValid(localInputIsValid);
 
         if (localInputIsValid['gmail']) {
-            forgetPassword({email: authObj.email})
+            console.log(authObj.gmail)
+            forgetPassword({email: authObj.gmail})
                 .then((response) => {
                     if (!response.error) {
                         addAlert("Email Sent!")
