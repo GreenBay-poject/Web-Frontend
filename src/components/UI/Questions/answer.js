@@ -115,10 +115,10 @@ console.log(q_id)
             <Box item xs pl="2px" pt="5px">
               <img src="/reply.png" width="25px" alt="user logo" />
             </Box>
-            <Box item xs pl="5px" pt="5px">
+            <Box item xs pl="5px" pt="5px" id="Ansp">
               {details[0].AuthorsID}
             </Box>
-            <Box item xs pl="5px" pt="5px" className={classes.paper2}>
+            <Box item xs pl="5px" pt="5px" className={classes.paper2} id="Ansd">
               {Qdate} 
             </Box>
           </Grid>
@@ -130,6 +130,7 @@ console.log(q_id)
             ml="30px"
             mr="15px"
             mb="20px"
+            id="Ans"
           >
             <text>{details[0].Answere}</text>
           </Box>

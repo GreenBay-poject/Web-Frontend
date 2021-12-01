@@ -79,7 +79,7 @@ export default function DeleteModel(props) {
         <Fade in={open}>
           <div className={classes.modelpaper}>
             <Box>
-              <Box fontSize="20px" align="center"><b>Delete Question?</b></Box>
+              <Box fontSize="20px" align="center"><b>Delete Note?</b></Box>
               <Grid container direction="row">
                 <Grid item xs>
                   <Button className={classes.postbutton2} id="noteyesbtn" onClick={handleDelete}>Yes</Button>

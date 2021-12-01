@@ -112,8 +112,8 @@ import {
                   
                   <Grid container className={classes.paper} direction="row">
                     <Box item xs> <img src="/question.png" width="30px" alt="userlogo" /></Box>
-                    <Box item xs pl="10px" pt="5px"> {questionPerson}</Box>
-                    <Box item xs pl="5px" pt="5px" className={classes.paper2}> {Qdate}</Box>
+                    <Box item xs pl="10px" pt="5px" id="Qp"> {questionPerson}</Box>
+                    <Box item xs pl="5px" pt="5px" className={classes.paper2} id="Qdate"> {Qdate}</Box>
                   </Grid>
 
                 </Grid>
@@ -123,11 +123,11 @@ import {
                 </Grid>
               </Grid>
             </Box>
-            <text className={classes.font2}>
+            <text className={classes.font2} id="Qt">
               <u>{Qtitle}</u>
             </text>
             <br />
-            <Box className={classes.font3}>
+            <Box className={classes.font3} id="Qd">
               <text>
               {questionDescription}
               </text>

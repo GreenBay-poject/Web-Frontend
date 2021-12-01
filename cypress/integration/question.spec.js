@@ -15,7 +15,7 @@ describe("Landing page", function () {
     cy.get('input[type="password"]').type("ABC123456");
     cy.get(".MuiButton-label").contains("Sign In").should("be.visible").click();
     cy.contains("GreenBay", { timeout: 5000 }).should("be.visible");
-    cy.get('button[title="Q&A"]', { timeout: 100000 })
+    cy.get('button[title="Q&A"]', { timeout: 10000 })
       .should("be.visible")
       .click();
     cy.url().should("match", baseUrlMatcherQuestions);

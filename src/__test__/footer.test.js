@@ -7,6 +7,3 @@ it("renders without crashing",()=>{
     const div=document.createElement("div");
     ReactDOM.render(<Footer></Footer>,div)
 })
-it("renders without crashing",()=>{
-    render(<Footer></Footer>)
-})
