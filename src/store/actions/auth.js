@@ -3,6 +3,8 @@ import * as actionTypes from './actionTypes';
 import { authRequestTimeoutSec } from '../../shared/consts';
 import { login, register } from "../../api/auth";
 
+import { toast } from 'react-toastify';
+
 let authRequestInterceptor;
 
 const authStart = () => {
@@ -25,12 +27,12 @@ const authSuccess = (token, email, IsAuthorized) => {
     };
 };
 
-const authFail = (error) => {
-    return {
-        type: actionTypes.AUTH_FAIL,
-        error: error
-    };
-};
+// const authFail = (error) => {
+//     return {
+//         type: actionTypes.AUTH_FAIL,
+//         error: error
+//     };
+// };
 
 export const authLogout = () => {
     localStorage.removeItem('token');
@@ -49,15 +51,15 @@ const checkAuthTimeout = (expirationTime) => (dispatch) => {
     }, expirationTime * 1000)
 };
 
-export const authReg = (gmail, name, gender,age, postalcode, address) => (dispatch) => {
+export const authReg = (gmail, name) => (dispatch) => {
     dispatch(authStart());
     let authData = {
         email: gmail,
         name: name,
-        gender: gender,
-        age: age,
-        postalcode: postalcode,
-        address: address,
+        gender: "Male",
+        age: 23,
+        postalcode: "81400",
+        address: "Thotupola road, Hiththatiya, Matara",
     }
     console.log(authData)
     register(authData)
@@ -65,18 +67,31 @@ export const authReg = (gmail, name, gender,age, postalcode, address) => (dispat
             console.log(response)
             console.log(response.data)
             if (response.data) {
-                const expirationDate = new Date(new Date().getTime() + authRequestTimeoutSec * 1000);
-                localStorage.setItem('email', response.data.UserEmail);
-                localStorage.setItem('token', response.data.Token.value);
-                localStorage.setItem('expirationDate', expirationDate);
-                localStorage.setItem('IsAuthorized', response.data.IsAuthorized);
-                dispatch(authSuccess(response.data.token, response.data.UserEmail,response.data.IsAuthorized));
-                dispatch(checkAuthTimeout(authRequestTimeoutSec));
+                // const expirationDate = new Date(new Date().getTime() + authRequestTimeoutSec * 1000);
+                // localStorage.setItem('email', response.data.UserEmail);
+                // localStorage.setItem('token', response.data.Token.value);
+                // localStorage.setItem('expirationDate', expirationDate);
+                // localStorage.setItem('IsAuthorized', response.data.IsAuthorized);
+                // dispatch(authSuccess(response.data.token, response.data.UserEmail,response.data.IsAuthorized));
+                // dispatch(checkAuthTimeout(authRequestTimeoutSec));
+                    toast.success('Password Sent to email', {
+                        position: "top-right",
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
             } else {
-                dispatch(authFail('Invalid Entry'));
-            }
-            if (response.error){
-                dispatch(authFail('Invalid Entry'));
+                toast.error(response.error.response.data.Message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
             }
         });
 }
@@ -100,10 +115,15 @@ export const auth = (email, password) => (dispatch) => {
                 dispatch(authSuccess(response.data.Token.value, response.data.UserEmail, response.data.IsAuthorized));
                 dispatch(checkAuthTimeout(authRequestTimeoutSec));
             } else {
-                dispatch(authFail('Invalid Username or Password'));
-            }
-            if (response.error){
-                dispatch(authFail('Invalid Username or Password'));
+                toast.error(response.error.response.data.Message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
             }
         });
 }

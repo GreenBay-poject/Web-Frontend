@@ -1,9 +1,9 @@
-import React, { useState, useCallback}  from 'react';
+import React, { useState, useCallback }  from 'react';
 import { Redirect } from "react-router";
 import { connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
 
-import { Button, FormLabel } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -33,47 +33,47 @@ const inputDefinitions = {
             required: true,
             minLength: 2,
             maxLength: 40,
-            validationErrStr: 'Use between 6 and 40 characters for your password',
+            validationErrStr: 'Use between 6 and 40 characters for your Name',
         }
     },
-    gender: {
-      label: 'Gender',
-      type: 'gender',
-      validations: {
-          required: true,
-          minLength: 2,
-          maxLength: 40,
-          validationErrStr: 'Use between 6 and 40 characters for your password',
-      }
-    },
-    postalcode: {
-      label: 'Postal Code',
-      type: 'postalcode',
-      validations: {
-          required: true,
-          minLength: 2,
-          maxLength: 40,
-          validationErrStr: 'Use between 6 and 40 characters for your password',
-      }
-    },
-    age: {
-        label: 'Age',
-        type: 'age',
-        validations: {
-            required: true,
-            validationErrStr: 'Use a number',
-        }
-      },
-    address: {
-      label: 'Address',
-      type: 'address',
-      validations: {
-          required: true,
-          minLength: 2,
-          maxLength: 150,
-          validationErrStr: 'Use between 6 and 40 characters for your password',
-      }
-  }
+    // gender: {
+    //   label: 'Gender',
+    //   type: 'gender',
+    //   validations: {
+    //       required: true,
+    //       minLength: 2,
+    //       maxLength: 40,
+    //       validationErrStr: 'Use between 6 and 40 characters for your password',
+    //   }
+    // },
+    // postalcode: {
+    //   label: 'Postal Code',
+    //   type: 'postalcode',
+    //   validations: {
+    //       required: true,
+    //       minLength: 2,
+    //       maxLength: 40,
+    //       validationErrStr: 'Use between 6 and 40 characters for your password',
+    //   }
+    // },
+    // age: {
+    //     label: 'Age',
+    //     type: 'age',
+    //     validations: {
+    //         required: true,
+    //         validationErrStr: 'Use a number',
+    //     }
+    //   },
+    // address: {
+    //   label: 'Address',
+    //   type: 'address',
+    //   validations: {
+    //       required: true,
+    //       minLength: 2,
+    //       maxLength: 150,
+    //       validationErrStr: 'Use between 6 and 40 characters for your password',
+    //   }
+  //}
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -122,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SignIn(props) {
     const classes = useStyles();
-    const { isAuthenticated, error } = props;
+    const { isAuthenticated } = props;
     let history = useHistory();
 
     const redirectUrl = "";
@@ -189,35 +189,19 @@ function SignIn(props) {
         let localInputIsValid = { ...inputIsValid };
         localInputIsValid['gmail'] = checkInputValidity('gmail');
         localInputIsValid['name'] = checkInputValidity('name');
-        localInputIsValid['gender'] = checkInputValidity('gender');
-        localInputIsValid['age'] = checkInputValidity('age');
-        localInputIsValid['postalcode'] = checkInputValidity('postalcode');
-        localInputIsValid['address'] = checkInputValidity('address');
+        // localInputIsValid['gender'] = checkInputValidity('gender');
+        // localInputIsValid['age'] = checkInputValidity('age');
+        // localInputIsValid['postalcode'] = checkInputValidity('postalcode');
+        // localInputIsValid['address'] = checkInputValidity('address');
         setInputIsValid(localInputIsValid);
         console.log(authObj)
         if (localInputIsValid['gmail'] && localInputIsValid['name']) {
             props.onAuth(
                 authObj.gmail,
                 authObj.name,
-                authObj.gender,
-                authObj.age,
-                authObj.postalcode,
-                authObj.address,
             );
         }
-        history.push(routez.SIGNIN)
-    }, [authObj, checkInputValidity, inputIsValid, props, history]);
-
-    let formErrorLabel = null;
-    if (error) {
-        formErrorLabel = (
-            <div>
-                <FormLabel error={true}>
-                    {(error)}
-                </FormLabel>
-            </div>
-        );
-    }
+    }, [authObj, checkInputValidity, inputIsValid, props]);
 
     if (isAuthenticated) {
 		if (redirectUrl === "") return <Redirect to={routez.LANDING} />;
@@ -232,7 +216,6 @@ function SignIn(props) {
                 Sign Up
             </Typography>
             <form noValidate autoComplete="off" className={classes.form} onSubmit={onSubmitHandler}>
-                {formErrorLabel}
                 {inputFields}
                 <Button
                     type="submit"
@@ -263,7 +246,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAuth: (gmail, name, gender, age, postalcode, address) => dispatch(authReg(gmail, name, gender, age, postalcode, address)),
+        onAuth: (gmail, name) => dispatch(authReg(gmail, name)),
         addAlert: (alert) => dispatch(addAlert(alert))
     }
 };
